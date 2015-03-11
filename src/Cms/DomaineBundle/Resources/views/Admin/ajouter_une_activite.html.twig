@@ -1,0 +1,15 @@
+
+{% form_theme form 'DomaineBundle:Form:fields.html.twig' %}
+
+<h1>Créer une nouvelle activité :</h1>
+<div class="well">
+  <form action="{{path('domaine_admin_ajouter_une_activite')}} " method="post" {{ form_enctype(form) }}>
+  	<table class="table responsive">
+  		<tbody>
+  			{{ form(form) }}
+  		</tbody>
+  	</table>
+   
+    <input type="submit" class="btn btn-success" />
+  </form>
+</div>

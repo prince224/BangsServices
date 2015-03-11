@@ -1,0 +1,58 @@
+body{
+	background-color: rgb(220,220,220);
+}
+#titre h1
+{
+  text-align: center;
+}
+
+#gestion_activites{
+	position: inline-block;
+  	background-color:rgb(90,90,90);
+  	color: white;
+}
+
+#activites strong{
+	text-transform: uppercase;
+}
+
+a{
+	color: white;
+	text-decoration: none;
+}
+
+.active a{
+	padding: 3%;
+	border-radius: 10px;
+	background-color: green;
+}
+
+
+/*========================= Gestion Ball Trap ==================================*/
+#menu_balltrap div a {
+	color: black;
+	font-weight: bold;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.en_cour{
+	border-top: 3px solid blue;
+	border-radius: 10px;
+	padding-top: 4px;
+}
+
+
+
+/*==========================Fin Gestion Bal trap ================================*/
+#section{
+	
+	position: inline-block;
+	float: right;
+}
+
+#footer{
+  border-top: 4px solid blue;
+  margin-top:25px;
+  padding-top: 25px;
+}

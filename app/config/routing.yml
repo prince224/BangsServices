@@ -1,0 +1,19 @@
+article:
+    resource: "@ArticleBundle/Resources/config/routing.yml"
+    prefix:   /
+
+page:
+    resource: "@PageBundle/Resources/config/routing.yml"
+    prefix:   /
+
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+domaine:
+    resource: "@DomaineBundle/Resources/config/routing.yml"
+    prefix:   /
+
+domaine_administration:
+    resource: "@DomaineBundle/Resources/config/routing_admin.yml"
+    prefix:   /gestion

@@ -1,0 +1,3 @@
+domaine_homepage:
+    pattern:  /
+    defaults: { _controller: DomaineBundle:Default:index }
