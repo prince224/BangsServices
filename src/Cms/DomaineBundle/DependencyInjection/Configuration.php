@@ -1,6 +1,6 @@
 <?php
 
-namespace Rabot\DomaineBundle\DependencyInjection;
+namespace Cms\DomaineBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

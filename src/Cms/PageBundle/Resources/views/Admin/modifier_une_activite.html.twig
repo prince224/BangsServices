@@ -1,0 +1,7 @@
+
+<div class="well">
+  <form action="{{path('domaine_admin_modifier_une_activite', {'idActivite' : categorie.id })}} " method="post" {{ form_enctype(form) }}>
+  		{{ form(form) }}
+    <input type="submit" class="btn btn-success" />
+  </form>
+</div>

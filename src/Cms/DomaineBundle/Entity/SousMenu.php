@@ -23,10 +23,10 @@ class SousMenu
 
     /**
     *
-    * @ORM\ManyToOne(targetEntity="Cms\DomaineBundle\Entity\Categorie", inversedBy="sousmenus")
+    * @ORM\ManyToOne(targetEntity="Cms\DomaineBundle\Entity\Page", inversedBy="sousmenus")
     *
     */
-    private $categorie;
+    private $page;
 
     /**
     *
@@ -77,26 +77,26 @@ class SousMenu
     }
 
     /**
-     * Set categorie
+     * Set Page
      *
-     * @param \Cms\DomaineBundle\Entity\Categorie $categorie
+     * @param \Cms\DomaineBundle\Entity\Page $Page
      * @return SousMenu
      */
-    public function setCategorie(\Cms\DomaineBundle\Entity\Categorie $categorie = null)
+    public function setPage(\Cms\DomaineBundle\Entity\Page $Page = null)
     {
-        $this->categorie = $categorie;
+        $this->Page = $Page;
 
         return $this;
     }
 
     /**
-     * Get categorie
+     * Get Page
      *
-     * @return \Cms\DomaineBundle\Entity\Categorie 
+     * @return \Cms\DomaineBundle\Entity\Page 
      */
-    public function getCategorie()
+    public function getPage()
     {
-        return $this->categorie;
+        return $this->Page;
     }
     /**
      * Constructor

@@ -18,12 +18,10 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             
 
-            //new Cms\DomaineBundle\DomaineBundle(),
+            new Cms\DomaineBundle\DomaineBundle(),
             new Cms\UserBundle\UserBundle(),
             new Cms\PageBundle\PageBundle(),
-            
             new FOS\UserBundle\FOSUserBundle(),
-,
             new Cms\ArticleBundle\ArticleBundle(),
         );
 

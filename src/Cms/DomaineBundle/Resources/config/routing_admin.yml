@@ -2,67 +2,6 @@ domaine_admin_homepage:
     pattern:  /
     defaults: { _controller: DomaineBundle:Admin:index }
 
-domaine_admin_ajouter_une_activite:
-    pattern: /ajouter_une_activite
-    defaults: { _controller: DomaineBundle:Admin:ajouter_une_activite}
-
-domaine_admin_modifier_une_activite:
-    pattern: /modifier_une_activite/{idActivite}
-    defaults: { _controller: DomaineBundle:Admin:modifier_une_activite}
-
-domaine_admin_supprimer_une_activite:
-    pattern: /supprimer_une_activite/{idActivite}
-    defaults: { _controller: DomaineBundle:Admin:supprimer_une_activite}
-
-domaine_admin_ajouter_image_activite:
-    pattern: /ajouter_image_activite/{idActivite}
-    defaults: { _controller: DomaineBundle:Admin:ajouter_image_activite}
-
-domaine_admin_modifier_image_activite:
-    pattern: /modifier_image_activite/{idActivite}
-    defaults: { _controller: DomaineBundle:Admin:modifier_image_activite}
-
-domaine_admin_supprimer_image_activite:
-    pattern: /supprimer_image_activite/{idPhoto}
-    defaults: { _controller: DomaineBundle:Admin:supprimer_image_activite}
-
-
-
-domaine_admin_voir_activite:
-    pattern: /accueil-activite/{idActivite}
-    defaults: { _controller: DomaineBundle:Admin:index_activite}
-
-domaine_admin_ajouter_bandeau_activite:
-    pattern: /ajouter-bandeau-activite/{idActivite}
-    defaults: { _controller: DomaineBundle:Admin:ajouter_bandeau_activite}
-
-domaine_admin_modifier_bandeau_activite:
-    pattern: /modifier-bandeau-activite/{idActivite}
-    defaults: { _controller: DomaineBundle:Admin:modifier_bandeau_activite}
-
-domaine_admin_supprimer_bandeau_activite:
-    pattern: /supprimer-bandeau-activite/{idActivite}/{idPhoto}
-    defaults: { _controller: DomaineBundle:Admin:supprimer_bandeau_activite}
-
-
-
-
-
-domaine_admin_ajouter_menu_activite:
-    pattern: /ajouter-menu_activite/{idActivite}
-    defaults: { _controller: DomaineBundle:Admin:ajouter_menu_activite}
-
-domaine_admin_ajouter_photo_menu_activite:
-    pattern: /ajouter-photo-menu-activite/{idActivite}
-    defaults: { _controller: DomaineBundle:Admin:ajouter_photo_activite}
-
-domaine_admin_modifier_photo_menu_activite:
-    pattern: /modifier-photo-menu-activite/{idActivite}
-    defaults: { _controller: DomaineBundle:Admin:modifier_photo_activite}
-
-domaine_admin_supprimer_photo_menu_activite:
-    pattern: /supprimer-photo-menu-activite/{idActivite}/{idPhoto}
-    defaults: { _controller: DomaineBundle:Admin:supprimer_photo_activite}
 
 
 

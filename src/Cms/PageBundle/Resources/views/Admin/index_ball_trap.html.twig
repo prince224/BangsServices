@@ -1,0 +1,91 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+<h1>Gestion de la page {{ categorie.nom }} : </h1> <hr> <hr>
+<div id="menu_balltrap" class="col-md-12">
+	<div class="col-lg-12">
+		<a href="#" id="accueil"><strong>Accueil</strong></a>
+	</div>
+
+    {% if sousmenus is defined %}
+    {% if sousmenus is not empty %}
+
+        {% for sous_menu in sousmenus %}
+            <div class="col-md-2">
+                <a href="#"><strong> {{ sous_menu.nom }} </strong></a>
+            </div>
+        {% endfor %}
+    
+    {% endif %}
+    {% endif %}
+
+	<a href="{{path('domaine_admin_ajouter_menu_activite', {'idActivite' : categorie.id } )}} " class="btn btn-primary">
+        Ajouter un menu 
+    <a>
+    <!--
+	<div class="col-md-2">
+		<a href="#" >Evénements</a>
+	</div>
+	<div class="col-md-2">
+		<a href="#" >Club House</a>
+	</div> -->
+</div>
+
+<div class="col-md-12">
+    <hr><hr>
+    <h2 style="color : black">Photos de la page d'accueil : </h2>
+    {% if categorie is not empty %}
+
+        {% if photos_bandeau is empty %}
+            <a href="{{path('domaine_admin_ajouter_bandeau_activite', {'idActivite' : categorie.id } )}} " class='btn btn-primary'>Ajouter photo</a>
+            <a href="{{path('domaine_admin_ajouter_bandeau_activite', {'idActivite' : categorie.id } )}} " class='btn btn-primary'>Ajouter photo</a>
+            <a href="{{path('domaine_admin_ajouter_bandeau_activite', {'idActivite' : categorie.id } )}} " class='btn btn-primary'>Ajouter photo</a>
+            <a href="{{path('domaine_admin_ajouter_bandeau_activite', {'idActivite' : categorie.id } )}} " class='btn btn-primary'>Ajouter photo</a>
+        {% endif %}
+
+        {% if photos_bandeau|length == 1 %}
+            <a href="{{path('domaine_admin_ajouter_bandeau_activite', {'idActivite' : categorie.id } )}} " class='btn btn-primary'>Ajouter photo</a>
+            <a href="{{path('domaine_admin_ajouter_bandeau_activite', {'idActivite' : categorie.id } )}} " class='btn btn-primary'>Ajouter photo</a>
+            <a href="{{path('domaine_admin_ajouter_bandeau_activite', {'idActivite' : categorie.id } )}} " class='btn btn-primary'>Ajouter photo</a>
+        {% endif %}
+
+        {% if photos_bandeau|length == 2 %}
+            <a href="{{path('domaine_admin_ajouter_bandeau_activite', {'idActivite' : categorie.id } )}} " class='btn btn-primary'>Ajouter photo</a>
+            <a href="{{path('domaine_admin_ajouter_bandeau_activite', {'idActivite' : categorie.id } )}} " class='btn btn-primary'>Ajouter photo</a>
+        {% endif %}
+
+        {% if photos_bandeau|length == 3 %}
+            <a href="{{path('domaine_admin_ajouter_bandeau_activite', {'idActivite' : categorie.id } )}} " class='btn btn-primary'>Ajouter photo</a>
+        {% endif %}
+
+        <hr><hr>
+
+        {% for i in categorie.photos %}
+            {% if i.numero == 1 and i.onglet == 0 %}
+                <div class="col-lg-12">
+                    <img class="col-lg-10" src="{{asset(i.webPath)}} ">
+                    <a href="{{path('domaine_admin_modifier_bandeau_activite', {'idActivite' : categorie.id , 'idPhoto' : i.id })}} " class="btn btn-success">Modifier</a>
+                    <a href="{{path('domaine_admin_supprimer_bandeau_activite', {'idActivite' : categorie.id , 'idPhoto' : i.id })}} " class="btn btn-danger">Supprimer</a>
+                </div>
+            {% endif %}
+        {% endfor %}
+            <hr><hr>
+
+    {% endif %}
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
+{% endblock %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Rabot\DomaineBundle\DependencyInjection;
+namespace Cms\DomaineBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

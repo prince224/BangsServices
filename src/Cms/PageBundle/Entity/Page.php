@@ -23,14 +23,14 @@ class Page
 
     /**
     *
-    * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\Photo", mappedBy="Page", cascade={"persist", "remove"})
+    * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\Photo", mappedBy="page", cascade={"persist", "remove"})
     *
     */
     private $photos;
 
     /**
     *
-    * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\SousMenu", mappedBy="Page", cascade={"persist", "remove"})
+    * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\SousMenu", mappedBy="page", cascade={"persist", "remove"})
     *
     */
     private $sousmenus;

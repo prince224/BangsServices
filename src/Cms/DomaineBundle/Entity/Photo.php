@@ -27,10 +27,10 @@ class Photo
 
     /**
     *
-    * @ORM\ManyToOne(targetEntity="Cms\DomaineBundle\Entity\Categorie", inversedBy="photos")
+    * @ORM\ManyToOne(targetEntity="Cms\DomaineBundle\Entity\Page", inversedBy="photos")
     *
     */
-    private $categorie;
+    private $page;
 
     /**
     *
@@ -39,27 +39,13 @@ class Photo
     */
     private $sousmenu;
 
-    /**
-    *
-    * @ORM\ManyToOne(targetEntity="Cms\DomaineBundle\Entity\Evenement", inversedBy="photos")
-    *
-    */
-    private $evenement;
-
+    
     /**
      * @var integer
      *
      * @ORM\Column(name="numero", type="integer")
      */
     private $numero;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="onglet", type="integer", nullable = true)
-     */
-    private $onglet;
-
     
     /**
      * @var string
@@ -74,6 +60,13 @@ class Photo
      * @ORM\Column(name="alt", type="string", length=255, nullable=true)
      */
     private $alt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     */
+    private $title;
 
     /**
     * @Assert\File(maxSize="6000000")
@@ -254,141 +247,5 @@ class Photo
         return $this->alt;
     }
 
-    /**
-     * Set categorie
-     *
-     * @param \Cms\DomaineBundle\Entity\Categorie $categorie
-     * @return Photo
-     */
-    public function setCategorie(\Cms\DomaineBundle\Entity\Categorie $categorie = null)
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
-
-    /**
-     * Get categorie
-     *
-     * @return \Cms\DomaineBundle\Entity\Categorie 
-     */
-    public function getCategorie()
-    {
-        return $this->categorie;
-    }
-
-    /**
-     * Set evenement
-     *
-     * @param \Cms\DomaineBundle\Entity\Evenement $evenement
-     * @return Photo
-     */
-    public function setEvenement(\Cms\DomaineBundle\Entity\Evenement $evenement = null)
-    {
-        $this->evenement = $evenement;
-
-        return $this;
-    }
-
-    /**
-     * Get evenement
-     *
-     * @return \Cms\DomaineBundle\Entity\Evenement 
-     */
-    public function getEvenement()
-    {
-        return $this->evenement;
-    }
-
-    /**
-     * Set section
-     *
-     * @param \Cms\DomaineBundle\Entity\Section $section
-     * @return Photo
-     */
-    public function setSection(\Cms\DomaineBundle\Entity\Section $section = null)
-    {
-        $this->section = $section;
-
-        return $this;
-    }
-
-    /**
-     * Get section
-     *
-     * @return \Cms\DomaineBundle\Entity\Section 
-     */
-    public function getSection()
-    {
-        return $this->section;
-    }
-
-    /**
-     * Set numero
-     *
-     * @param integer $numero
-     * @return Photo
-     */
-    public function setNumero($numero)
-    {
-        $this->numero = $numero;
-
-        return $this;
-    }
-
-    /**
-     * Get numero
-     *
-     * @return integer 
-     */
-    public function getNumero()
-    {
-        return $this->numero;
-    }
-
-    /**
-     * Set onglet
-     *
-     * @param integer $onglet
-     * @return Photo
-     */
-    public function setOnglet($onglet)
-    {
-        $this->onglet = $onglet;
-
-        return $this;
-    }
-
-    /**
-     * Get onglet
-     *
-     * @return integer 
-     */
-    public function getOnglet()
-    {
-        return $this->onglet;
-    }
-
-    /**
-     * Set sousmenu
-     *
-     * @param \Cms\DomaineBundle\Entity\SousMenu $sousmenu
-     * @return Photo
-     */
-    public function setSousmenu(\Cms\DomaineBundle\Entity\SousMenu $sousmenu = null)
-    {
-        $this->sousmenu = $sousmenu;
-
-        return $this;
-    }
-
-    /**
-     * Get sousmenu
-     *
-     * @return \Cms\DomaineBundle\Entity\SousMenu 
-     */
-    public function getSousmenu()
-    {
-        return $this->sousmenu;
-    }
+    
 }

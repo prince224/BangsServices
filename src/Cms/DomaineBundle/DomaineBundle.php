@@ -1,6 +1,6 @@
 <?php
 
-namespace Cmss\DomaineBundle;
+namespace Cms\DomaineBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
