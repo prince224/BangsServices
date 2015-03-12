@@ -68,6 +68,8 @@ class AdminController extends Controller
                     {
                         $menu->addPage($page);
                         $menu->setNom('BS_menu');
+                        $menu->setPosition(0);
+                        
                         $em->persist($menu);
                     }
                 }//end for

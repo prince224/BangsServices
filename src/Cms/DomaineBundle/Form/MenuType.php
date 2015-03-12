@@ -16,7 +16,7 @@ class MenuType extends AbstractType
     {
         $builder
             ->add('nom')
-            //->add('pages')
+            ->add('position')
         ;
     }
     

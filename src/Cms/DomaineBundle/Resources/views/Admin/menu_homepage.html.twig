@@ -35,7 +35,7 @@
             <div class="alert alert-success">
                 {% for menu in menus %}
                     <div class="col-md-12"> 
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                            <p><strong>Nom</strong></p>
                          {{ menu.nom }} 
                             <a href="{{path('domaine_admin_modifier_nom_menu', {'idmenu' : menu.id })}} "> 
@@ -43,7 +43,25 @@
                             </a>
                             
                         </div>
-                        
+                        <div class="col-md-2">
+                           <p><strong>Position</strong></p>
+                            {% if menu.position == 0 %}
+                                En haut
+                            {% endif %}
+                            {% if menu.position == 1 %}
+                                En Bas
+                            {% endif %}
+                            {% if menu.position == 2 %}
+                                A gauche
+                            {% endif %}
+                            {% if menu.position == 3 %}
+                                A droite
+                            {% endif %} 
+                            <a href="{{path('domaine_admin_modifier_nom_menu', {'idmenu' : menu.id })}} "> 
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            
+                        </div>
                         <div class="col-md-7">
                             <p><strong>Contenu</strong></p>
                             {% if menu.pages is not empty %}
