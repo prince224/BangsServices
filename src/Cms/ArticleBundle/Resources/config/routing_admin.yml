@@ -26,3 +26,7 @@ article_admin_ajouter_photo_contenu:
     pattern:  /ajouter_photo_contenu/{idcontenu}
     defaults: { _controller: ArticleBundle:Admin:ajouter_photo_contenu }
 
+article_admin_modifier_photo_contenu:
+    pattern:  /modifier_photo_contenu/{idphoto}
+    defaults: { _controller: ArticleBundle:Admin:modifier_photo_contenu }
+

@@ -319,5 +319,39 @@ class AdminController extends Controller
     }
     /*===================== Fin ajouter_photo_contenu ==========================================*/
 
+    /*===================== modifier_photo_contenu ==========================================*/
+    public function modifier_photo_contenuAction($idphoto)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $idcontenu = $request->query->get('contenu');
+        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+
+        $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
+
+        $form = $this->createForm(new PhotoType, $photo);
+
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $photo = $form->getData();
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
+                    'idcontenu' => $contenu->getId(),
+                    )));
+            }
+        }
+        return $this->render('ArticleBundle:Admin:modifier_photo_contenu.html.twig', array(
+            'form' => $form->createView(),
+            'contenu' => $contenu,
+            ));
+    }
+    /*===================== Fin modifier_photo_contenu ==========================================*/
+
 
 }
