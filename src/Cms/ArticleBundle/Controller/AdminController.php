@@ -60,6 +60,26 @@ class AdminController extends Controller
     }
     /*===========Fin choix_categorie ==========================*/
 
+
+    /*=========== voir_un_contenu ==========================*/
+    public function voir_un_contenuAction($idcontenu)
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	$request = $this->getRequest();
+
+    	$contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+
+    	if($contenu != null)
+    	{
+    		return $this->render('ArticleBundle:Admin:voir_un_contenu.html.twig',array(
+        	'contenu' => $contenu,
+        	));
+    	}
+        return $this->redirect($this->generateUrl('article_admin_homepage'));
+    }
+
+    /*===========Fin  voir_un_contenu ==========================*/
+
     /*===========ajouter_un_contenu ==========================*/
     public function ajouter_un_contenuAction()
     {
@@ -130,7 +150,7 @@ class AdminController extends Controller
     	{
     		$form->bind($request);
     		if ($form->isValid()) {
-    			
+
     			$contenu = $form->getData();
     			$contenu->setDateCreation(new \Datetime());
 

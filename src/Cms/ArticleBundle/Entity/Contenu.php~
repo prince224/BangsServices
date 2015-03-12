@@ -35,7 +35,14 @@ class Contenu
     */
     private $categorie;
 
-     /**
+    /**
+    *
+    * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\Photo", mappedBy="contenu", cascade={"persist", "remove"})
+    *
+    */
+    private $photos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255, nullable=true)

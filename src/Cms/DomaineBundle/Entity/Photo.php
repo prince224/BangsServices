@@ -34,6 +34,13 @@ class Photo
 
     /**
     *
+    * @ORM\ManyToOne(targetEntity="Cms\ArticleBundle\Entity\Contenu", inversedBy="photos")
+    *
+    */
+    private $contenu;
+
+    /**
+    *
     * @ORM\ManyToOne(targetEntity="Cms\DomaineBundle\Entity\SousMenu", inversedBy="photos")
     *
     */
@@ -339,5 +346,28 @@ class Photo
     public function getSousmenu()
     {
         return $this->sousmenu;
+    }
+
+    /**
+     * Set contenu
+     *
+     * @param \Cms\ArticleBundle\Entity\Contenu $contenu
+     * @return Photo
+     */
+    public function setContenu(\Cms\ArticleBundle\Entity\Contenu $contenu = null)
+    {
+        $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    /**
+     * Get contenu
+     *
+     * @return \Cms\ArticleBundle\Entity\Contenu 
+     */
+    public function getContenu()
+    {
+        return $this->contenu;
     }
 }

@@ -35,7 +35,14 @@ class Contenu
     */
     private $categorie;
 
-     /**
+    /**
+    *
+    * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\Photo", mappedBy="contenu", cascade={"persist", "remove"})
+    *
+    */
+    private $photos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255, nullable=true)
@@ -313,5 +320,45 @@ class Contenu
     public function getPrix()
     {
         return $this->prix;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Cms\DomaineBundle\Entity\Photo $photos
+     * @return Contenu
+     */
+    public function addPhoto(\Cms\DomaineBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Cms\DomaineBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\Cms\DomaineBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }
