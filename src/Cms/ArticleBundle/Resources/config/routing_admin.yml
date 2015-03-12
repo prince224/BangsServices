@@ -2,6 +2,10 @@ article_admin_homepage:
     pattern:  /contenu_homepage
     defaults: { _controller: ArticleBundle:Admin:contenu_homepage }
 
-article_admin_ajouter_contenu:
-    pattern:  /ajouter_contenu
-    defaults: { _controller: ArticleBundle:Admin:ajouter_contenu }
+article_admin_choix_categorie:
+    pattern:  /choix_categorie
+    defaults: { _controller: ArticleBundle:Admin:choix_categorie }
+
+article_admin_ajouter_un_contenu:
+    pattern:  /ajouter_un_contenu
+    defaults: { _controller: ArticleBundle:Admin:ajouter_un_contenu }

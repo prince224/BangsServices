@@ -28,20 +28,73 @@ class AdminController extends Controller
     	$request = $this->getRequest();
 
     	$contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
+    	$categories = $em->getRepository('ArticleBundle:Categorie')->findAll();
 
         return $this->render('ArticleBundle:Admin:contenu_homepage.html.twig',array(
-        	'contenus' => $contenus));
+        	'contenus' => $contenus,
+        	'categories' => $categories
+        	));
     }
 
     /*===========Fin contenu homepage ==========================*/
 
-
-    /*===========ajouter contenu ==========================*/
-    public function ajouter_contenuAction()
+    /*===========choix_categorie ==========================*/
+    public function choix_categorieAction()
     {
+    	$em = $this->getDoctrine()->getManager();
+    	$request = $this->getRequest();
+    	
+    	$contenu = new Contenu();
+    	$form = $this->createForm(new ContenuType, $contenu);
+
+    	if($request->getMethod() == 'POST')
+    	{
+    		
+    		$idcategorie = $_POST['categorie'];
+   			$categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
+
+   			return $this->render('ArticleBundle:Admin:ajouter_un_contenu.html.twig',array(
+    		'form' =>$form->createView(),
+    		'categorie' => $categorie,
+    		));
+    	}
+
+    	return $this->redirect($this->generateUrl('article_admin_homepage'));
 
     }
-    /*===========Fin ajouter contenu ==========================*/
+    /*===========Fin choix_categorie ==========================*/
+
+    /*===========ajouter_un_contenu ==========================*/
+    public function ajouter_un_contenuAction()
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	$request = $this->getRequest();
+
+    	$idcategorie = $request->query->get('categorie');
+   		$categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
+
+   		$contenu = new Contenu();
+    	$form = $this->createForm(new ContenuType, $contenu);
+
+    	if($request->getMethod() == 'POST')
+    	{
+    		$form->bind($request);
+    		if ($form->isValid()) {
+    			$contenu = $form->getData();
+    			$contenu->setDateCreation(new \Datetime());
+
+    			$em->persist($contenu);
+    			$categorie->addContenus($contenu);
+
+    			$em->flush();
+
+    			return $this->redirect($this->generateUrl('article_admin_homepage'));
+    		}
+    	}
+    	return $this->redirect($this->generateUrl('article_admin_homepage'));
+
+    }
+    /*===========Fin ajouter_un_contenu ==========================*/
 
 
 }
