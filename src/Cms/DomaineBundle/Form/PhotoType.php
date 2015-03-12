@@ -15,7 +15,12 @@ class PhotoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file')
+            ->add('numero')
+            ->add('url')
+            ->add('alt')
+            ->add('title')
+            ->add('page')
+            ->add('sousmenu')
         ;
     }
     
@@ -34,6 +39,6 @@ class PhotoType extends AbstractType
      */
     public function getName()
     {
-        return 'Cms_domainebundle_photo';
+        return 'cms_domainebundle_photo';
     }
 }

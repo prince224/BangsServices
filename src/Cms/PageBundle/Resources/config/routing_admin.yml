@@ -1,5 +1,5 @@
 Page_admin_homepage:
-    pattern: /ajouter_une_page
+    pattern: /page_homepage
     defaults: { _controller: PageBundle:Admin:page_homepage}
 
 Page_admin_ajouter_une_page:
@@ -14,52 +14,15 @@ Page_admin_supprimer_une_page:
     pattern: /supprimer_une_page/{idpage}
     defaults: { _controller: PageBundle:Admin:supprimer_une_page}
 
-Page_admin_ajouter_image_page:
-    pattern: /ajouter_image_page/{idpage}
-    defaults: { _controller: PageBundle:Admin:ajouter_image_page}
+Page_admin_ajouter_image_carousel_page:
+    pattern: /ajouter_image_carousel_page/{idpage}
+    defaults: { _controller: PageBundle:Admin:ajouter_image_carousel_page}
 
-Page_admin_modifier_image_page:
-    pattern: /modifier_image_page/{idpage}
-    defaults: { _controller: PageBundle:Admin:modifier_image_page}
+Page_admin_modifier_image_carousel_page:
+    pattern: /modifier_image_carousel_page/{idphoto}
+    defaults: { _controller: PageBundle:Admin:modifier_image_carousel_page}
 
-Page_admin_supprimer_image_page:
-    pattern: /supprimer_image_page/{idPhoto}
-    defaults: { _controller: PageBundle:Admin:supprimer_image_page}
+Page_admin_supprimer_image_carousel_page:
+    pattern: /supprimer_image_carousel_page/{idphoto}
+    defaults: { _controller: PageBundle:Admin:supprimer_image_carousel_page}
 
-
-
-Page_admin_voir_page:
-    pattern: /accueil-page/{idpage}
-    defaults: { _controller: PageBundle:Admin:index_page}
-
-Page_admin_ajouter_bandeau_page:
-    pattern: /ajouter-bandeau-page/{idpage}
-    defaults: { _controller: PageBundle:Admin:ajouter_bandeau_page}
-
-Page_admin_modifier_bandeau_page:
-    pattern: /modifier-bandeau-page/{idpage}
-    defaults: { _controller: PageBundle:Admin:modifier_bandeau_page}
-
-Page_admin_supprimer_bandeau_page:
-    pattern: /supprimer-bandeau-page/{idpage}/{idPhoto}
-    defaults: { _controller: PageBundle:Admin:supprimer_bandeau_page}
-
-
-
-
-
-Page_admin_ajouter_menu_page:
-    pattern: /ajouter-menu_page/{idpage}
-    defaults: { _controller: PageBundle:Admin:ajouter_menu_page}
-
-Page_admin_ajouter_photo_menu_page:
-    pattern: /ajouter-photo-menu-page/{idpage}
-    defaults: { _controller: PageBundle:Admin:ajouter_photo_page}
-
-Page_admin_modifier_photo_menu_page:
-    pattern: /modifier-photo-menu-page/{idpage}
-    defaults: { _controller: PageBundle:Admin:modifier_photo_page}
-
-Page_admin_supprimer_photo_menu_page:
-    pattern: /supprimer-photo-menu-page/{idpage}/{idPhoto}
-    defaults: { _controller: PageBundle:Admin:supprimer_photo_page}

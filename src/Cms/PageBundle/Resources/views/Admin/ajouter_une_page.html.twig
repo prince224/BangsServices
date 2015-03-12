@@ -1,9 +1,12 @@
+{% extends "::layout_admin.html.twig" %}
 
 {% form_theme form 'DomaineBundle:Form:fields.html.twig' %}
 
-<h1>Créer une nouvelle activité :</h1>
+
+{% block section %}
+<h1>Créer une nouvelle page :</h1>
 <div class="well">
-  <form action="{{path('domaine_admin_ajouter_une_activite')}} " method="post" {{ form_enctype(form) }}>
+  <form action="#" method="post" {{ form_enctype(form) }}>
   	<table class="table responsive">
   		<tbody>
   			{{ form(form) }}
@@ -13,3 +16,4 @@
     <input type="submit" class="btn btn-success" />
   </form>
 </div>
+{% endblock %}

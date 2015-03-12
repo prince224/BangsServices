@@ -25,11 +25,10 @@ class AdminController extends Controller
             'numero' => 1
             ));
 
-        if( $Page != null)
+        if( $pages != null)
         {
             return $this->render('PageBundle:Admin:page_homepage.html.twig', array(
-                'Pages' => $Pages,
-                'Page' => $Page, 
+                'pages' => $pages, 
                 'photos_bandeau' => $photos_bandeau,
                 'sousmenus' => $sousmenus,
                 ))
@@ -44,13 +43,13 @@ class AdminController extends Controller
     }
     /*=============================== Fin page homepage ============================================*/
 
-    /*============== Ajouter une activité =========================================*/
+    /*============== Ajouter une page=========================================*/
     public function ajouter_une_pageAction()
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $Page = new Page();
+        $page = new Page();
 
         $form = $this->createForm(new PageType, $Page);
 
@@ -59,84 +58,84 @@ class AdminController extends Controller
             $form->bind($request);
             if($form->isValid())
             {
-                $Page = $form->getData();
+                $page = $form->getData();
 
-                $em->persist($Page);
+                $em->persist($page);
                 $em->flush($Page);
 
-                //on fait une redirection vers la page d'accueil
-                return $this->redirect($this->generateUrl('domaine_admin_homepage'));
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_homepage'));
             }
         }
     	return $this->render('PageBundle:Admin:ajouter_une_page.html.twig', array(
             'form' => $form->createView(),
             ));
     }
-    /*============== Fin de l'ajout d'une activité =========================================*/
+    /*============== Fin de l'ajout d'une page =========================================*/
 
-    /*============== Modifier une activité =========================================*/
+    /*============== Modifier une page =========================================*/
     public function modifier_une_pageAction($idpage)
     {
     	$em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $Page = $em->getRepository('PageBundle:Page')->find($idpage);
+        $page = $em->getRepository('PageBundle:Page')->find($idpage);
 
-        $form = $this->createForm(new PageType, $Page);
+        $form = $this->createForm(new PageType, $page);
 
         if($request->getMethod() == "POST")
         {
             $form->bind($request);
             if($form->isValid())
             {
-                $Page = $form->getData();
+                $page = $form->getData();
 
-                $em->flush($Page);
+                $em->flush($page);
 
-                //on fait une redirection vers la page d'accueil
-                return $this->redirect($this->generateUrl('domaine_admin_homepage'));
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_homepage'));
             }
         }
         return $this->render('PageBundle:Admin:modifier_une_page.html.twig', array(
             'form' => $form->createView(),
-            'Page' => $Page,
+            'page' => $page,
             ));
     }
-    /*===================== Fin de la modification d'une activité ===================================*/
+    /*===================== Fin de la modification d'une page ===================================*/
 
-    /*===================== Supprimer une activité ==================================================*/
+    /*===================== Supprimer une page ==================================================*/
     public function supprimer_une_pageAction($idpage)
     {
     	$em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $Page = $em->getRepository('PageBundle:Page')->find($idpage);
+        $page = $em->getRepository('PageBundle:Page')->find($idpage);
 
-        if($Page != null )
+        if($page != null )
         {
-            $em->remove($Page);
+            $em->remove($page);
             $em->flush();
             
-            //on fait une redirection vers la page d'accueil
-            return $this->redirect($this->generateUrl('domaine_admin_homepage'));
+            //on fait une redirection vers page homepage
+            return $this->redirect($this->generateUrl('Page_admin_homepage'));
 
         }
        
-        return $this->render('PageBundle:Admin:index.html.twig');
+        //on fait une redirection vers page homepage
+            return $this->redirect($this->generateUrl('Page_admin_homepage'));
     }
-    /*===================== Fin de la suppression d'une activité =====================================*/
+    /*===================== Fin de la suppression d'une page =====================================*/
 
 
-    /*===================== Ajouter une image à une activité ==========================================*/
-    public function ajouter_image_pageAction($idpage)
+    /*===================== Ajouter un carousel à une page ==========================================*/
+    public function ajouter_image_carousel_pageAction($idpage)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
-        $Pages = $em->getRepository('PageBundle:Page')->findAll();
 
         $section = new Section();
 
-        $Page = $em->getRepository('PageBundle:Page')->find($idpage);
+        $page = $em->getRepository('PageBundle:Page')->find($idpage);
         $photo = new Photo();
 
         $form = $this->createForm(new PhotoType, $photo);
@@ -148,38 +147,36 @@ class AdminController extends Controller
             {
                 $photo = $form->getData();
 
-                //numero pour les photos de la page d'accueil du Domaine du Cms
-                $photo->setNumero('0');
+                //numero 1 pour les photos du carousel
+                $photo->setNumero('1');
 
                 $em->persist($photo);
-                $Page->addPhoto($photo);
+                $page->addPhoto($photo);
 
                 $em->flush();
 
-                //on fait une redirection vers la page d'accueil
-                return $this->redirect($this->generateUrl('domaine_admin_homepage'));
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_homepage'));
             }
         }
-        return $this->render('PageBundle:Admin:ajouter_image_page.html.twig', array(
+        return $this->render('PageBundle:Admin:ajouter_image_carousel_page.html.twig', array(
             'form' => $form->createView(),
-            'Page' => $Page,
-            'Pages' => $Pages,
+            'page' => $page,
             ));
     }
-    /*===================== Fin de l'ajout d'une image à une activité ==========================================*/
+    /*===================== Fin de l'ajout image carousel page ==========================================*/
 
 
-    /*===================== Mofifier une image à une activité ==========================================*/
-    public function modifier_image_pageAction($idpage)
+    /*===================== Mofifier une image à une page ==========================================*/
+    public function modifier_image_carousel_pageAction($idphoto)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
-        $Pages = $em->getRepository('PageBundle:Page')->findAll();
 
-        $idPhoto = $request->query->get('idPhoto');
+        $idpage = $request->query->get('idpage');
 
-        $Page = $em->getRepository('PageBundle:Page')->find($idpage);
-        $photo = $em->getRepository('PageBundle:Photo')->find($idPhoto);
+        $page = $em->getRepository('PageBundle:Page')->find($idpage);
+        $photo = $em->getRepository('PageBundle:Photo')->find($idphoto);
 
         $form = $this->createForm(new PhotoType, $photo);
 
@@ -190,43 +187,43 @@ class AdminController extends Controller
             {
                 $photo = $form->getData();
 
-                $Page->addPhoto($photo);
+                $page->addPhoto($photo);
 
                 $em->flush();
 
-                //on fait une redirection vers la page d'accueil
-                return $this->redirect($this->generateUrl('domaine_admin_homepage'));
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_homepage'));
             }
         }
-        return $this->render('PageBundle:Admin:modifier_image_page.html.twig', array(
+        return $this->render('PageBundle:Admin:modifier_image_carousel_page.html.twig', array(
             'form' => $form->createView(),
-            'Page' => $Page,
-            'Pages' => $Pages,
+            'page' => $page,
             ));
     }
-    /*===================== Fin de la modification d'une image à une activité ==========================================*/
+    /*===================== Fin modification image carousel ==========================================*/
 
-    /*===================== supprimer une image à une activité ==========================================*/
-    public function supprimer_image_pageAction($idPhoto)
+    /*===================== supprimer une image à une page ==========================================*/
+    public function supprimer_image_carousel_pageAction($idphoto)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $photo = $em->getRepository('PageBundle:Photo')->find($idPhoto);
+        $photo = $em->getRepository('PageBundle:Photo')->find($idphoto);
 
         if($photo != null )
         {
             $em->remove($photo);
             $em->flush();
             
-            //on fait une redirection vers la page d'accueil
-            return $this->redirect($this->generateUrl('domaine_admin_homepage'));
+            //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_homepage'));
 
         }
        
-        return $this->render('PageBundle:Admin:index.html.twig');         
+        //on fait une redirection vers la page homepage
+        return $this->redirect($this->generateUrl('Page_admin_homepage'));        
     }
-    /*===================== Fin de la suppression d'une image à une activité ===============================================*/
+    /*===================== Fin de la suppression d'une image à une page ===============================================*/
 
     /*===================== Ajouter une photo pour le bandeau de la page accueil ==========================================*/
 
@@ -248,10 +245,10 @@ class AdminController extends Controller
             {
                 $photo = $form->getData();
 
-                //numéro 1 pour la première activité
+                //numéro 1 pour la première page
                 $photo->setNumero('1');
 
-                //l'onglet 1 pour la page d'accueil
+                //l'onglet 1 pour la page homepage
                 $photo->setOnglet('0');
 
                 $em->persist($photo);
@@ -259,7 +256,7 @@ class AdminController extends Controller
 
                 $em->flush();
 
-                //on fait une redirection vers la page d'accueil
+                //on fait une redirection vers la page homepage
                 return $this->redirect($this->generateUrl('domaine_admin_voir_page', array(
                     'idpage' => $Page->getId(),
                     )));
@@ -302,7 +299,7 @@ class AdminController extends Controller
 
                 $em->flush();
 
-                //on fait une redirection vers la page d'accueil
+                //on fait une redirection vers la page homepage
                 return $this->redirect($this->generateUrl('domaine_admin_voir_page', array(
                     'idpage' => $Page->getId(),
                     )));
@@ -317,7 +314,7 @@ class AdminController extends Controller
     /*===================== Fin de la modification d'un bandeau page accueil ==========================================*/
 
 
-    /*===================== supprimer bandeau activité ==========================================*/
+    /*===================== supprimer bandeau page ==========================================*/
 
     public function supprimer_bandeau_pageAction($idpage, $idPhoto)
     {
@@ -331,7 +328,7 @@ class AdminController extends Controller
             $em->remove($photo_bandeau);
             $em->flush();
             
-            //on fait une redirection vers la page d'accueil
+            //on fait une redirection vers la page homepage
             return $this->redirect($this->generateUrl('domaine_admin_voir_page', array(
                     'idpage' => $Page->getId(),
                     )));
@@ -340,6 +337,6 @@ class AdminController extends Controller
        
         return $this->render('PageBundle:Admin:index.html.twig');         
     }
-    /*===================== Fin de la suppression bandeau activité ==========================================*/
+    /*===================== Fin de la suppression bandeau page ==========================================*/
 
 }

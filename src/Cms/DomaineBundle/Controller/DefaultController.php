@@ -1,6 +1,6 @@
 <?php
 
-namespace Rabot\DomaineBundle\Controller;
+namespace Cms\DomaineBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

@@ -1,0 +1,13 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+	<h2>Modification image carousel : <strong> Page "{{ page.nom }}"" </strong></h2>
+	
+	<div class="well">
+	  <form action="#" method="post" {{ form_enctype(form) }}>
+	  		{{ form_widget(form) }}
+	    <input type="submit" class="btn btn-primary" value="Envoyer"/>
+	  </form>
+	</div>
+
+{% endblock %}

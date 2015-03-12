@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Administration Le Domaine du RABOT</title>
+    <title>Administration B-S Cms </title>
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="-1">
 
@@ -39,7 +39,7 @@
     <div class="row-fluid">
       <div class="container">
         <div class="row-fluid" id="titre">
-          <h1>ADMINISTRATION DU DOMAINE DU RABOT</h1>
+          <h1>ADMINISTRATION BANGS-SERVICES CMS</h1>
         </div>
       </div>
     </div>
@@ -50,13 +50,13 @@
 
     <div>
       <div class="col-md-3" id="gestion_activites">
-        <h2> <a href="{{path('domaine_admin_homepage')}} ">GESTIONS</a> </h2>
+        <h2> <a href="{{path('domaine_admin_homepage')}} ">Gestions</a> </h2>
         {% block menu_gestion %}
-          {% if categories is defined %}
-            {% for activite in categories %}
-              <h3><strong><a href="{{path('domaine_admin_voir_activite', {'idActivite' : activite.id })}} "> - {{ activite.nom }} </a></strong></h3>
-            {% endfor %}
-            {% endif %}
+          <div><p><a href=""><strong>Pages</strong></a></p></div>
+          <div><p><a href=""><strong>Articles</strong></a></p></div>
+          <div><p><a href=""><strong>Categories</strong></a></p></div>
+          <hr>
+          <div><p><a href=""><strong>Utilisateurs</strong></a></p></div>
         {% endblock %}
         
 
@@ -98,8 +98,7 @@
 
         $('#balltrap').removeClass('active');
         $('#paintball').removeClass('active');
-        $('#espaceloisirs').removeClass('active');
-        $('#paddockotels').removeClass('active');
+        
         // Initialisation des variables pour la taille de la fenêtre
             var navWidth, navHeight;
             if (self.innerWidth != undefined)

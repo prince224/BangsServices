@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ParcourType extends AbstractType
+class SousMenuType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -16,7 +16,7 @@ class ParcourType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('description')
+            ->add('page')
         ;
     }
     
@@ -26,7 +26,7 @@ class ParcourType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Cms\DomaineBundle\Entity\Parcour'
+            'data_class' => 'Cms\DomaineBundle\Entity\SousMenu'
         ));
     }
 
@@ -35,6 +35,6 @@ class ParcourType extends AbstractType
      */
     public function getName()
     {
-        return 'Cms_domainebundle_parcour';
+        return 'cms_domainebundle_sousmenu';
     }
 }

@@ -1,0 +1,5 @@
+{% if categories is defined %}
+            {% for activite in categories %}
+              <h3><strong><a href="{{path('domaine_admin_voir_activite', {'idActivite' : activite.id })}} "> - {{ activite.nom }} </a></strong></h3>
+            {% endfor %}
+          {% endif %}

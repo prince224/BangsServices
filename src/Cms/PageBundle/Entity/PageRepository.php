@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\DomaineBundle\Entity;
+namespace Cms\PageBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

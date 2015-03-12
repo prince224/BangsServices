@@ -1,12 +1,12 @@
 <?php
 
-namespace Cms\DomaineBundle\Form;
+namespace Cms\PageBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class EvenementType extends AbstractType
+class PageType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -15,10 +15,8 @@ class EvenementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
-            ->add('date')
-            ->add('description')
-            ->add('duree')
+            ->add('nom')
+            ->add('contenu')
         ;
     }
     
@@ -28,7 +26,7 @@ class EvenementType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Cms\DomaineBundle\Entity\Evenement'
+            'data_class' => 'Cms\PageBundle\Entity\Page'
         ));
     }
 
@@ -37,6 +35,6 @@ class EvenementType extends AbstractType
      */
     public function getName()
     {
-        return 'Cms_domainebundle_evenement';
+        return 'cms_pagebundle_page';
     }
 }
