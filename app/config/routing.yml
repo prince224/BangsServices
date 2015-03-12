@@ -8,7 +8,7 @@ page:
 
 gestion_page:
     resource: "@PageBundle/Resources/config/routing_admin.yml"
-    prefix:   /
+    prefix:   /gestion
 
 user:
     resource: "@UserBundle/Resources/config/routing.yml"

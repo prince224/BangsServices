@@ -20,7 +20,9 @@
             {% for photo in photo_carousel %}
                 <div class="col-md-6">
                     <img class="col-lg-12" src="{{asset(photo.webPath)}} ">
-                    <a href="{{path('Page_admin_modifier_image_carousel_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn-success"> Modifier slider</a> <br>
+                    <a href="{{path('Page_admin_modifier_image_carousel_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn-success"> Modifier slider</a> 
+
+                    <a href="{{path('Page_admin_supprimer_image_carousel_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn-danger"> Supprimer slider</a>
                 </div>
             {% endfor %}
         {% endif %}

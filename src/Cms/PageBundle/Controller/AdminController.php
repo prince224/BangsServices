@@ -188,11 +188,9 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $idpage = $request->query->get('idpage');
-
-        $page = $em->getRepository('PageBundle:Page')->find($idpage);
         $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
-
+        $page = $photo->getPage();
+        
         $form = $this->createForm(new PhotoType, $photo);
 
         if($request->getMethod() == "POST")
@@ -219,13 +217,14 @@ class AdminController extends Controller
     }
     /*===================== Fin modification image carousel ==========================================*/
 
-    /*===================== supprimer une image à une page ==========================================*/
+    /*===================== supprimer une image carousel==========================================*/
     public function supprimer_image_carousel_pageAction($idphoto)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $photo = $em->getRepository('PageBundle:Photo')->find($idphoto);
+        $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
+        $page = $photo->getPage();
 
         if($photo != null )
         {
@@ -233,14 +232,18 @@ class AdminController extends Controller
             $em->flush();
             
             //on fait une redirection vers la page homepage
-            return $this->redirect($this->generateUrl('Page_admin_homepage'));
+            return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    )));
 
         }
        
         //on fait une redirection vers la page homepage
-        return $this->redirect($this->generateUrl('Page_admin_homepage'));        
+            return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    ))); 
     }
-    /*===================== Fin de la suppression d'une image à une page ===============================================*/
+    /*===================== Fin de la suppression d'une image carousel ===============================================*/
 
     /*===================== Ajouter une photo pour le bandeau de la page accueil ==========================================*/
 
