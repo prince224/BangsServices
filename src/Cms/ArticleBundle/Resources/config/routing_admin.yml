@@ -22,3 +22,7 @@ article_admin_supprimer_un_contenu:
     pattern:  /supprimer_un_contenu/{idcontenu}
     defaults: { _controller: ArticleBundle:Admin:supprimer_un_contenu }
 
+article_admin_ajouter_photo_contenu:
+    pattern:  /ajouter_photo_contenu/{idcontenu}
+    defaults: { _controller: ArticleBundle:Admin:ajouter_photo_contenu }
+

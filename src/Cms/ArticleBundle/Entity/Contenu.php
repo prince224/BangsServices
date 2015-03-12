@@ -53,7 +53,7 @@ class Contenu
     /**
      * @var string
      *
-     * @ORM\Column(name="contenu", type="string", length=255, nullable=true)
+     * @ORM\Column(name="contenu", type="text", nullable=true)
      */
     private $contenu;
 
@@ -338,7 +338,7 @@ class Contenu
     public function addPhoto(\Cms\DomaineBundle\Entity\Photo $photos)
     {
         $this->photos[] = $photos;
-
+        $photos->setContenu($this);
         return $this;
     }
 

@@ -18,6 +18,8 @@ use Cms\ArticleBundle\Form\ContenuType;
 use Cms\ArticleBundle\Entity\Categorie;
 use Cms\ArticleBundle\Form\CategorieType;
 
+use Cms\DomaineBundle\Entity\Photo;
+use Cms\DomaineBundle\Form\PhotoType;
 
 class AdminController extends Controller
 {
@@ -273,9 +275,49 @@ class AdminController extends Controller
 
             return $this->redirect($this->generateUrl('article_admin_homepage'));
         }
-        
+
         return $this->redirect($this->generateUrl('article_admin_homepage'));
     }
 
     /*===========Fin  supprimer_un_contenu ==========================*/
+
+     /*===================== ajouter_photo_contenu ==========================================*/
+    public function ajouter_photo_contenuAction($idcontenu)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+        $photo = new Photo();
+
+        $form = $this->createForm(new PhotoType, $photo);
+
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $photo = $form->getData();
+
+                //numero 1 pour les photos du carousel
+                $photo->setNumero('1');
+
+                $em->persist($photo);
+                $contenu->addPhoto($photo);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
+                    'idcontenu' => $contenu->getId(),
+                    )));
+            }
+        }
+        return $this->render('ArticleBundle:Admin:ajouter_photo_contenu.html.twig', array(
+            'form' => $form->createView(),
+            'contenu' => $contenu,
+            ));
+    }
+    /*===================== Fin ajouter_photo_contenu ==========================================*/
+
+
 }
