@@ -15,8 +15,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Cms\PageBundle\Entity\Page;
 use Cms\PageBundle\Form\PageType;
 
-use Cms\DomaineBundle\Entity\Photo;
-use Cms\DomaineBundle\Form\PhotoType;
+use Cms\PageBundle\Entity\Section;
+use Cms\PageBundle\Form\SectionType;
+
+use Cms\ArticleBundle\Entity\Contenu;
+use Cms\ArticleBundle\Form\ContenuType;
+
 
 
 class AdminController extends Controller
@@ -45,6 +49,9 @@ class AdminController extends Controller
         $sousmenus = $em->getRepository('DomaineBundle:SousMenu')->findBy(array(
             'page' => $page));
 
+        $sections = $em->getRepository('PageBundle:Section')->findBy(array(
+            'page' => $page));
+
         $photo_carousel = $em->getRepository('DomaineBundle:Photo')->findBy(array(
             'page' =>$page,
             'numero' => 1
@@ -54,6 +61,7 @@ class AdminController extends Controller
                 'page' => $page,
                 'sousmenus' => $sousmenus,
                 'photo_carousel'=> $photo_carousel,
+                'sections' => $sections,
                 ))
             ;
         
@@ -156,22 +164,22 @@ class AdminController extends Controller
         $request = $this->getRequest();
 
         $page = $em->getRepository('PageBundle:Page')->find($idpage);
-        $photo = new Photo();
+        $section = new section();
 
-        $form = $this->createForm(new PhotoType, $photo);
+        $form = $this->createForm(new sectionType, $section);
 
         if($request->getMethod() == "POST")
         {
             $form->bind($request);
             if($form->isValid())
             {
-                $photo = $form->getData();
+                $section = $form->getData();
 
-                //numero 1 pour les photos du carousel
-                $photo->setNumero('1');
+                //numero 1 pour les sections du carousel
+                $section->setNumero('1');
 
-                $em->persist($photo);
-                $page->addPhoto($photo);
+                $em->persist($section);
+                $page->addsection($section);
 
                 $em->flush();
 
@@ -190,24 +198,24 @@ class AdminController extends Controller
 
 
     /*===================== Mofifier une image à une page ==========================================*/
-    public function modifier_image_carousel_pageAction($idphoto)
+    public function modifier_image_carousel_pageAction($idsection)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
-        $page = $photo->getPage();
+        $section = $em->getRepository('DomaineBundle:section')->find($idsection);
+        $page = $section->getPage();
 
-        $form = $this->createForm(new PhotoType, $photo);
+        $form = $this->createForm(new sectionType, $section);
 
         if($request->getMethod() == "POST")
         {
             $form->bind($request);
             if($form->isValid())
             {
-                $photo = $form->getData();
+                $section = $form->getData();
 
-                $page->addPhoto($photo);
+                $page->addsection($section);
 
                 $em->flush();
 
@@ -225,17 +233,17 @@ class AdminController extends Controller
     /*===================== Fin modification image carousel ==========================================*/
 
     /*===================== supprimer une image carousel==========================================*/
-    public function supprimer_image_carousel_pageAction($idphoto)
+    public function supprimer_image_carousel_pageAction($idsection)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
-        $page = $photo->getPage();
+        $section = $em->getRepository('DomaineBundle:section')->find($idsection);
+        $page = $section->getPage();
 
-        if($photo != null )
+        if($section != null )
         {
-            $em->remove($photo);
+            $em->remove($section);
             $em->flush();
             
             //on fait une redirection vers la page homepage
@@ -252,5 +260,45 @@ class AdminController extends Controller
     }
     /*===================== Fin de la suppression d'une image carousel ===============================================*/
 
-    
+        
+    /*===================== ajouter_section_page==========================================*/
+    public function ajouter_section_pageAction($idpage)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $page = $em->getRepository('PageBundle:Page')->find($idpage);
+        $contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
+
+        $section = new Section();
+
+        $form = $this->createForm(new SectionType, $section);
+
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $section = $form->getData();
+
+                $em->persist($section);
+                $page->addSection($section);
+
+                $em->flush();
+
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    )));
+            }
+        }
+        return $this->render('PageBundle:Admin:ajouter_section_page.html.twig', array(
+            'form' => $form->createView(),
+            'page' => $page,
+            ));
+    }
+    /*===================== Fin ajouter_section_page ==========================================*/
+
+
+
 }

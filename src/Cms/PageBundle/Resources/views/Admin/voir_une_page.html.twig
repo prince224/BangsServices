@@ -13,6 +13,9 @@
             <div class="col-md-3">
                 <a href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter sous-menu</a>
             </div>
+            <div class="col-md-3">
+                <a href="{{path('Page_admin_ajouter_section_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter section</a>
+            </div>
         </div>
         <div class="col-md-12">
         {% if photo_carousel is not empty %}
@@ -37,6 +40,55 @@
             </p>
         </div>
     </div>
+
+    <div class="col-lg-12">
+        
+        {% if sections is defined %}
+        {% if sections is not empty %}
+        
+        <table class="table responsive">
+            <thead>
+                <th>Nom</th>
+                <th>Contenu</th>
+                <th>Position</th>
+            </thead>
+            <tbody>
+                {% for section in sections %}
+                <tr> 
+                    <td>{{ section.nom }} <a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
+                    <td>
+                        {% if section.contenus is not empty %}
+                            <ul>
+                            {% for contenu in section.contenus %}
+                                <li> {{ contenu.titre }} 
+                                    <a href="#"> 
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if section.numero == 0 %}
+                            A droite
+                        {% endif %}
+                        {% if section.numero == 1 %}
+                            Au milieu
+                        {% endif %}
+                        {% if section.numero == 2 %}
+                            A gauche
+                        {% endif %}
+                </tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% endif %}
+    </div>
+
 	<div class="col-lg-12">
         
         {% if sousmenus is defined %}

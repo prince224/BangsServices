@@ -30,3 +30,8 @@ Page_admin_supprimer_image_carousel_page:
     pattern: /supprimer_image_carousel_page/{idphoto}
     defaults: { _controller: PageBundle:Admin:supprimer_image_carousel_page}
 
+
+Page_admin_ajouter_section_page:
+    pattern: /ajouter_section_page/{idpage}
+    defaults: { _controller: PageBundle:Admin:ajouter_section_page}
+
