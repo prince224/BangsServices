@@ -146,11 +146,51 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
                 return $this->mergeDefaults(array_replace($matches, array('_route' => 'page_homepage')), array (  '_controller' => 'Cms\\PageBundle\\Controller\\DefaultController::indexAction',));
             }
 
-            // user_homepage
-            if (preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
-                return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_homepage')), array (  '_controller' => 'Cms\\UserBundle\\Controller\\DefaultController::indexAction',));
-            }
+        }
 
+        // Page_admin_homepage
+        if ($pathinfo === '/page_homepage') {
+            return array (  '_controller' => 'Cms\\PageBundle\\Controller\\AdminController::page_homepageAction',  '_route' => 'Page_admin_homepage',);
+        }
+
+        // Page_admin_voir_une_page
+        if (0 === strpos($pathinfo, '/voir_une_page') && preg_match('#^/voir_une_page/(?P<idpage>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'Page_admin_voir_une_page')), array (  '_controller' => 'Cms\\PageBundle\\Controller\\AdminController::voir_une_pageAction',));
+        }
+
+        // Page_admin_ajouter_une_page
+        if ($pathinfo === '/ajouter_une_page') {
+            return array (  '_controller' => 'Cms\\PageBundle\\Controller\\AdminController::ajouter_une_pageAction',  '_route' => 'Page_admin_ajouter_une_page',);
+        }
+
+        // Page_admin_modifier_une_page
+        if (0 === strpos($pathinfo, '/modifier_une_page') && preg_match('#^/modifier_une_page/(?P<idpage>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'Page_admin_modifier_une_page')), array (  '_controller' => 'Cms\\PageBundle\\Controller\\AdminController::modifier_une_pageAction',));
+        }
+
+        // Page_admin_supprimer_une_page
+        if (0 === strpos($pathinfo, '/supprimer_une_page') && preg_match('#^/supprimer_une_page/(?P<idpage>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'Page_admin_supprimer_une_page')), array (  '_controller' => 'Cms\\PageBundle\\Controller\\AdminController::supprimer_une_pageAction',));
+        }
+
+        // Page_admin_ajouter_image_carousel_page
+        if (0 === strpos($pathinfo, '/ajouter_image_carousel_page') && preg_match('#^/ajouter_image_carousel_page/(?P<idpage>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'Page_admin_ajouter_image_carousel_page')), array (  '_controller' => 'Cms\\PageBundle\\Controller\\AdminController::ajouter_image_carousel_pageAction',));
+        }
+
+        // Page_admin_modifier_image_carousel_page
+        if (0 === strpos($pathinfo, '/modifier_image_carousel_page') && preg_match('#^/modifier_image_carousel_page/(?P<idphoto>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'Page_admin_modifier_image_carousel_page')), array (  '_controller' => 'Cms\\PageBundle\\Controller\\AdminController::modifier_image_carousel_pageAction',));
+        }
+
+        // Page_admin_supprimer_image_carousel_page
+        if (0 === strpos($pathinfo, '/supprimer_image_carousel_page') && preg_match('#^/supprimer_image_carousel_page/(?P<idphoto>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'Page_admin_supprimer_image_carousel_page')), array (  '_controller' => 'Cms\\PageBundle\\Controller\\AdminController::supprimer_image_carousel_pageAction',));
+        }
+
+        // user_homepage
+        if (0 === strpos($pathinfo, '/hello') && preg_match('#^/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'user_homepage')), array (  '_controller' => 'Cms\\UserBundle\\Controller\\DefaultController::indexAction',));
         }
 
         // domaine_homepage

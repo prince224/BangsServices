@@ -1,0 +1,80 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+    <h1>Gestion des pages du site </h1>
+    <hr>
+    <h4>Page : <em> {{ page.nom }} </em></h4>
+    <div class="col-md-12">
+        <div class="row">
+
+            <div class="col-md-2">
+                <a href="{{path('Page_admin_ajouter_image_carousel_page', {'idpage' : page.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter slider</a>
+            </div>
+            <div class="col-md-3">
+                <a href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter sous-menu</a>
+            </div>
+        </div>
+        <div class="col-md-12">
+        {% if photo_carousel is not empty %}
+        <h4>Photos slider : </h4>
+            {% for photo in photo_carousel %}
+                <div class="col-md-6">
+                    <img class="col-lg-12" src="{{asset(photo.webPath)}} ">
+                    <a href="{{path('Page_admin_modifier_image_carousel_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn-success"> Modifier slider</a> <br>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <p><strong>Contenu :</strong> <br>
+                {{ page.contenu|raw }}
+            </p>
+            <p>
+                <a href="{{path('Page_admin_modifier_une_page',{'idpage' : page.id })}} " class="btn btn-success">Modifier</a>
+            </p>
+        </div>
+    </div>
+	<div class="col-lg-12">
+        
+        {% if sousmenus is defined %}
+        {% if sousmenus is not empty %}
+        
+        <table class="table responsive">
+            <thead>
+                <th>Nom</th>
+                <th>Détails</th>
+                <th>Modifier</th>
+            </thead>
+            <tbody>
+        		{% for sousmenu in sousmenus %}
+                <tr> 
+                    <td>{{ sousmenu.nom }}</td>
+                    <td><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                    <td><a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
+                </tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+        {% endif %}
+	</div>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
+{% endblock %}

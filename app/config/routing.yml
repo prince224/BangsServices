@@ -6,6 +6,10 @@ page:
     resource: "@PageBundle/Resources/config/routing.yml"
     prefix:   /
 
+gestion_page:
+    resource: "@PageBundle/Resources/config/routing_admin.yml"
+    prefix:   /
+
 user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /

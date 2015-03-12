@@ -1,6 +1,6 @@
 <?php
 
-namespace Rabot\DomaineBundle\Entity;
+namespace Cms\DomaineBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

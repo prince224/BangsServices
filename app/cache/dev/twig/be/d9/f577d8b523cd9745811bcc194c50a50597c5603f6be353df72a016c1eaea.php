@@ -172,7 +172,9 @@ class __TwigTemplate_bed9f577d8b523cd9745811bcc194c50a50597c5603f6be353df72a016c
     public function block_menu_gestion($context, array $blocks = array())
     {
         // line 55
-        echo "          <div><p><a href=\"\"><strong>Pages</strong></a></p></div>
+        echo "          <div><p><a href=\"";
+        echo $this->env->getExtension('routing')->getPath("Page_admin_homepage");
+        echo " \"><strong>Pages</strong></a></p></div>
           <div><p><a href=\"\"><strong>Articles</strong></a></p></div>
           <div><p><a href=\"\"><strong>Categories</strong></a></p></div>
           <hr>
@@ -208,6 +210,6 @@ class __TwigTemplate_bed9f577d8b523cd9745811bcc194c50a50597c5603f6be353df72a016c
 
     public function getDebugInfo()
     {
-        return array (  195 => 72,  192 => 71,  187 => 67,  184 => 66,  175 => 55,  172 => 54,  135 => 95,  131 => 94,  109 => 74,  107 => 71,  103 => 69,  101 => 66,  94 => 61,  92 => 54,  88 => 53,  65 => 33,  61 => 32,  47 => 21,  40 => 17,  22 => 1,  37 => 9,  31 => 5,  28 => 4,);
+        return array (  197 => 72,  194 => 71,  189 => 67,  186 => 66,  175 => 55,  172 => 54,  135 => 95,  131 => 94,  109 => 74,  107 => 71,  103 => 69,  101 => 66,  94 => 61,  92 => 54,  88 => 53,  65 => 33,  61 => 32,  47 => 21,  40 => 17,  22 => 1,);
     }
 }

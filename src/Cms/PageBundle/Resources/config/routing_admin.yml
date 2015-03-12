@@ -2,6 +2,10 @@ Page_admin_homepage:
     pattern: /page_homepage
     defaults: { _controller: PageBundle:Admin:page_homepage}
 
+Page_admin_voir_une_page:
+    pattern: /voir_une_page/{idpage}
+    defaults: { _controller: PageBundle:Admin:voir_une_page}
+
 Page_admin_ajouter_une_page:
     pattern: /ajouter_une_page
     defaults: { _controller: PageBundle:Admin:ajouter_une_page}

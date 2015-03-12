@@ -3,9 +3,13 @@
 namespace Cms\PageBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 
 use Cms\PageBundle\Entity\Page;
 use Cms\PageBundle\Form\PageType;
+
+use Cms\DomaineBundle\Entity\Photo;
+use Cms\DomaineBundle\Form\PhotoType;
 
 
 class AdminController extends Controller
@@ -17,31 +21,38 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $pages = $em->getRepository('PageBundle:Page')->findAll();
 
-        $sousmenus = $em->getRepository('PageBundle:SousMenu')->findBy(array(
-        	'page' => $page));
-
-        $photos_bandeau = $em->getRepository('PageBundle:Photo')->findBy(array(
-            'Page' => $Page,
-            'numero' => 1
-            ));
-
-        if( $pages != null)
-        {
-            return $this->render('PageBundle:Admin:page_homepage.html.twig', array(
+       return $this->render('PageBundle:Admin:page_homepage.html.twig', array(
                 'pages' => $pages, 
-                'photos_bandeau' => $photos_bandeau,
-                'sousmenus' => $sousmenus,
                 ))
             ;
-        }
-
-        else
-        {
-            return new Response('non');
-        }
         
     }
     /*=============================== Fin page homepage ============================================*/
+
+    /*=============================== voir une page ===============================================*/
+    public function voir_une_pageAction($idpage)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('PageBundle:Page')->find($idpage);
+
+        $sousmenus = $em->getRepository('DomaineBundle:SousMenu')->findBy(array(
+            'page' => $page));
+
+        $photo_carousel = $em->getRepository('DomaineBundle:Photo')->findBy(array(
+            'page' =>$page,
+            'numero' => 1
+            ));
+
+       return $this->render('PageBundle:Admin:voir_une_page.html.twig', array(
+                'page' => $page,
+                'sousmenus' => $sousmenus,
+                'photo_carousel'=> $photo_carousel,
+                ))
+            ;
+        
+    }
+    /*=============================== Fin page voir une page ============================================*/
+
 
     /*============== Ajouter une page=========================================*/
     public function ajouter_une_pageAction()
@@ -51,7 +62,7 @@ class AdminController extends Controller
 
         $page = new Page();
 
-        $form = $this->createForm(new PageType, $Page);
+        $form = $this->createForm(new PageType, $page);
 
         if($request->getMethod() == "POST")
         {
@@ -61,10 +72,12 @@ class AdminController extends Controller
                 $page = $form->getData();
 
                 $em->persist($page);
-                $em->flush($Page);
+                $em->flush($page);
 
                 //on fait une redirection vers la page homepage
-                return $this->redirect($this->generateUrl('Page_admin_homepage'));
+                return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    )));
             }
         }
     	return $this->render('PageBundle:Admin:ajouter_une_page.html.twig', array(
@@ -93,7 +106,9 @@ class AdminController extends Controller
                 $em->flush($page);
 
                 //on fait une redirection vers la page homepage
-                return $this->redirect($this->generateUrl('Page_admin_homepage'));
+                return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    )));
             }
         }
         return $this->render('PageBundle:Admin:modifier_une_page.html.twig', array(
@@ -133,8 +148,6 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $section = new Section();
-
         $page = $em->getRepository('PageBundle:Page')->find($idpage);
         $photo = new Photo();
 
@@ -156,7 +169,9 @@ class AdminController extends Controller
                 $em->flush();
 
                 //on fait une redirection vers la page homepage
-                return $this->redirect($this->generateUrl('Page_admin_homepage'));
+                return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    )));
             }
         }
         return $this->render('PageBundle:Admin:ajouter_image_carousel_page.html.twig', array(
@@ -176,7 +191,7 @@ class AdminController extends Controller
         $idpage = $request->query->get('idpage');
 
         $page = $em->getRepository('PageBundle:Page')->find($idpage);
-        $photo = $em->getRepository('PageBundle:Photo')->find($idphoto);
+        $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
 
         $form = $this->createForm(new PhotoType, $photo);
 
@@ -192,7 +207,9 @@ class AdminController extends Controller
                 $em->flush();
 
                 //on fait une redirection vers la page homepage
-                return $this->redirect($this->generateUrl('Page_admin_homepage'));
+                return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    )));
             }
         }
         return $this->render('PageBundle:Admin:modifier_image_carousel_page.html.twig', array(
