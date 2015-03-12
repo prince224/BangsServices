@@ -2,6 +2,10 @@ article:
     resource: "@ArticleBundle/Resources/config/routing.yml"
     prefix:   /
 
+gestion_article:
+    resource: "@ArticleBundle/Resources/config/routing_admin.yml"
+    prefix:   /gestion
+
 page:
     resource: "@PageBundle/Resources/config/routing.yml"
     prefix:   /

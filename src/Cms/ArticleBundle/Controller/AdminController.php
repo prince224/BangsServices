@@ -11,10 +11,10 @@ namespace Cms\ArticleBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends Controller
+class AdminController extends Controller
 {
-    public function indexAction($name)
+    public function contenu_homepageAction()
     {
-        return $this->render('ArticleBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('ArticleBundle:Admin:contenu_homepage.html.twig');
     }
 }
