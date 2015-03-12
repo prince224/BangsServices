@@ -48,7 +48,7 @@
                         <div class="col-md-5">
                             <a href="{{path('article_admin_modifier_photo_contenu', {'idphoto' : photo.id, 'contenu' : contenu.id })}} " class="btn-success"> Modifier photo</a> 
 
-                            <a href="#" class="btn-danger"> Supprimer photo</a>
+                            <a href="{{path('article_admin_supprimer_photo_contenu', {'idphoto' : photo.id, 'contenu' : contenu.id })}} " class="btn-danger"> Supprimer photo</a>
                             <img class="col-lg-12" src="{{asset(photo.webPath)}} ">
                             
                         </div>
