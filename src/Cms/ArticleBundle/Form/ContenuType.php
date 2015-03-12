@@ -16,21 +16,23 @@ class ContenuType extends AbstractType
     {
         $builder
             ->add('titre','text', array('label' => 'Titre *:'))
-
+            
             ->add('contenu', 'textarea', array(
                 'label' => 'Contenu',
                 'attr'=> array('class' => 'ckeditor')))
 
-            //->add('dateCreation')
+            ->add('dateCreation')
 
             ->add('auteur')
 
-            /*->add('categorie', 'entity', array(
-                'class' => 'ArticleBundle:Categorie',
-                'label' => 'Categorie :',
-                'multiple' => false,
-                'property' => 'nom',
-                ))*/
+            ->add('dateDebut')
+            ->add('dateFin')
+            ->add('description')
+            ->add('prix')
+            //->add('categorie')
+
+
+
         ;
     }
     

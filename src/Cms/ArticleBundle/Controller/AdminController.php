@@ -43,20 +43,16 @@ class AdminController extends Controller
     {
     	$em = $this->getDoctrine()->getManager();
     	$request = $this->getRequest();
-    	
-    	$contenu = new Contenu();
-    	$form = $this->createForm(new ContenuType, $contenu);
 
     	if($request->getMethod() == 'POST')
     	{
-    		
+  
     		$idcategorie = $_POST['categorie'];
    			$categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
 
-   			return $this->render('ArticleBundle:Admin:ajouter_un_contenu.html.twig',array(
-    		'form' =>$form->createView(),
-    		'categorie' => $categorie,
-    		));
+   			return $this->redirect($this->generateUrl('article_admin_ajouter_un_contenu',array(
+    		'categorie' => $categorie->getId(),
+    		)));
     	}
 
     	return $this->redirect($this->generateUrl('article_admin_homepage'));
@@ -68,18 +64,73 @@ class AdminController extends Controller
     public function ajouter_un_contenuAction()
     {
     	$em = $this->getDoctrine()->getManager();
+    	
     	$request = $this->getRequest();
-
     	$idcategorie = $request->query->get('categorie');
+
    		$categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
 
    		$contenu = new Contenu();
-    	$form = $this->createForm(new ContenuType, $contenu);
+    	//$form = $this->createForm(new ContenuType, $contenu);
+
+    	if ($categorie->getNom() == 'Article')
+        {
+    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+                        ->add('titre','text', array('label' => 'Titre *:'))
+            
+			            ->add('contenu', 'textarea', array(
+			                'label' => 'Contenu',
+			                'attr'=> array('class' => 'ckeditor')))
+
+			            ->add('auteur', 'text', array(
+			            	'label' => 'Auteur :'))
+
+                        ->getForm();
+                     ;
+        }
+
+        if ($categorie->getNom() == 'Service')
+        {
+    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+                        ->add('titre','text', array('label' => 'Prestation *:'))
+            
+			            ->add('description', 'textarea', array(
+			                'label' => 'Contenu',
+			                'attr'=> array('class' => 'ckeditor')))
+
+			            ->add('prix')
+
+                        ->getForm();
+                     ;
+        }
+
+        if ($categorie->getNom() == 'Evenement')
+        {
+    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+                        ->add('titre','text', array('label' => 'Intitulé de l\'événement *:'))
+            
+			            ->add('contenu', 'textarea', array(
+			                'label' => 'Contenu',
+			                'attr'=> array('class' => 'ckeditor')))
+
+			            ->add('auteur', 'text', array(
+			            	'label' => 'Auteur :'))
+
+			            ->add('dateDebut', 'date', array(
+			            	'label' => 'Date de début :'))
+
+			            ->add('dateFin', 'date', array(
+			            	'label' => 'Date de fin :'))
+
+                        ->getForm();
+                     ;
+        }
 
     	if($request->getMethod() == 'POST')
     	{
     		$form->bind($request);
     		if ($form->isValid()) {
+    			
     			$contenu = $form->getData();
     			$contenu->setDateCreation(new \Datetime());
 
@@ -91,7 +142,10 @@ class AdminController extends Controller
     			return $this->redirect($this->generateUrl('article_admin_homepage'));
     		}
     	}
-    	return $this->redirect($this->generateUrl('article_admin_homepage'));
+    	return $this->render('ArticleBundle:Admin:ajouter_un_contenu.html.twig',array(
+    		'form' => $form->createView(),
+    		'categorie' => $categorie,
+    		));
 
     }
     /*===========Fin ajouter_un_contenu ==========================*/

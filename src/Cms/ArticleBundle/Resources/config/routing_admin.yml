@@ -9,3 +9,4 @@ article_admin_choix_categorie:
 article_admin_ajouter_un_contenu:
     pattern:  /ajouter_un_contenu
     defaults: { _controller: ArticleBundle:Admin:ajouter_un_contenu }
+
