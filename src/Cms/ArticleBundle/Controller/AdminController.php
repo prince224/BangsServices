@@ -159,7 +159,9 @@ class AdminController extends Controller
 
     			$em->flush();
 
-    			return $this->redirect($this->generateUrl('article_admin_homepage'));
+    			return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
+                    'idcontenu' => $contenu->getId(),
+                    )));
     		}
     	}
     	return $this->render('ArticleBundle:Admin:ajouter_un_contenu.html.twig',array(
@@ -170,5 +172,90 @@ class AdminController extends Controller
     }
     /*===========Fin ajouter_un_contenu ==========================*/
 
+    /*===========modifier_un_contenu ==========================*/
+    public function modifier_un_contenuAction($idcontenu)
+    {
+    	$em = $this->getDoctrine()->getManager();
+    	
+    	$request = $this->getRequest();
+        $idcategorie = $request->query->get('idcategorie');
+
+        $categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
+   		$contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+
+    	if ($categorie->getNom() == 'Article')
+        {
+    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+                        ->add('titre','text', array('label' => 'Titre *:'))
+            
+			            ->add('contenu', 'textarea', array(
+			                'label' => 'Contenu',
+			                'attr'=> array('class' => 'ckeditor')))
+
+			            ->add('auteur', 'text', array(
+			            	'label' => 'Auteur :'))
+
+                        ->getForm();
+                     ;
+        }
+
+        if ($categorie->getNom() == 'Service')
+        {
+    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+                        ->add('titre','text', array('label' => 'Prestation *:'))
+            
+			            ->add('description', 'textarea', array(
+			                'label' => 'Contenu',
+			                'attr'=> array('class' => 'ckeditor')))
+
+			            ->add('prix')
+
+                        ->getForm();
+                     ;
+        }
+
+        if ($categorie->getNom() == 'Evenement')
+        {
+    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+                        ->add('titre','text', array('label' => 'Intitulé de l\'événement *:'))
+            
+			            ->add('contenu', 'textarea', array(
+			                'label' => 'Contenu',
+			                'attr'=> array('class' => 'ckeditor')))
+
+			            ->add('auteur', 'text', array(
+			            	'label' => 'Auteur :'))
+
+			            ->add('dateDebut', 'date', array(
+			            	'label' => 'Date de début :'))
+
+			            ->add('dateFin', 'date', array(
+			            	'label' => 'Date de fin :'))
+
+                        ->getForm();
+                     ;
+        }
+
+    	if($request->getMethod() == 'POST')
+    	{
+    		$form->bind($request);
+    		if ($form->isValid()) {
+
+    			$contenu = $form->getData();
+    			$contenu->setDateCreation(new \Datetime());
+
+    			$em->flush();
+
+    			return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
+                    'idcontenu' => $contenu->getId(),
+                    )));
+    		}
+    	}
+    	return $this->render('ArticleBundle:Admin:modifier_un_contenu.html.twig',array(
+    		'form' => $form->createView(),
+    		'categorie' => $categorie,
+    		));
+    }
+    /*===========Fin modifier_un_contenu ==========================*/
 
 }

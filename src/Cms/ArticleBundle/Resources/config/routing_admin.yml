@@ -14,4 +14,7 @@ article_admin_ajouter_un_contenu:
     pattern:  /ajouter_un_contenu
     defaults: { _controller: ArticleBundle:Admin:ajouter_un_contenu }
 
+article_admin_modifier_un_contenu:
+    pattern:  /modifier_un_contenu/{idcontenu}
+    defaults: { _controller: ArticleBundle:Admin:modifier_un_contenu }
 
