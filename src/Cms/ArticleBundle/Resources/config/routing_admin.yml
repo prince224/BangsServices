@@ -1,3 +1,7 @@
 article_admin_homepage:
     pattern:  /contenu_homepage
     defaults: { _controller: ArticleBundle:Admin:contenu_homepage }
+
+article_admin_ajouter_contenu:
+    pattern:  /ajouter_contenu
+    defaults: { _controller: ArticleBundle:Admin:ajouter_contenu }

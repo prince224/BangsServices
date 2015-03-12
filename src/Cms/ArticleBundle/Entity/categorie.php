@@ -7,17 +7,18 @@
     @Date==>2015
     @V 0.1
 */
+
 namespace Cms\ArticleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * categorie
+ * Categorie
  *
  * @ORM\Table(name="categorie")
- * @ORM\Entity(repositoryClass="Cms\ArticleBundle\Entity\categorieRepository")
+ * @ORM\Entity(repositoryClass="Cms\ArticleBundle\Entity\CategorieRepository")
  */
-class categorie
+class Categorie
 {
     /**
      * @var integer
@@ -27,6 +28,14 @@ class categorie
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+
+    /**
+    *
+    * @ORM\OneToMany(targetEntity="Cms\ArticleBundle\Entity\Contenu", mappedBy="categorie", cascade={"persist", "remove"})
+    *
+    */
+    private $contenus;
 
     /**
      * @var string
@@ -50,7 +59,7 @@ class categorie
      * Set nom
      *
      * @param string $nom
-     * @return categorie
+     * @return Categorie
      */
     public function setNom($nom)
     {
@@ -67,5 +76,45 @@ class categorie
     public function getNom()
     {
         return $this->nom;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->contenus = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add contenus
+     *
+     * @param \Cms\ArticleBundle\Entity\Contenu $contenus
+     * @return Categorie
+     */
+    public function addContenus(\Cms\ArticleBundle\Entity\Contenu $contenus)
+    {
+        $this->contenus[] = $contenus;
+        $contenus->setCategorie($this);
+        return $this;
+    }
+
+    /**
+     * Remove contenus
+     *
+     * @param \Cms\ArticleBundle\Entity\Contenu $contenus
+     */
+    public function removeContenus(\Cms\ArticleBundle\Entity\Contenu $contenus)
+    {
+        $this->contenus->removeElement($contenus);
+    }
+
+    /**
+     * Get contenus
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContenus()
+    {
+        return $this->contenus;
     }
 }

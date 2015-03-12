@@ -1,10 +1,52 @@
 {% extends "::layout_admin.html.twig" %}
 
-
 {% block section %}
+<h1>Gestion d'autres contenus <em>Articles - Produits - Services</em> </h1>
+<hr>
+<div id="menu_balltrap" class="col-md-12">
+    <div class="col-md-12">
+        <a href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter</a>
+    </div>
+  
+	<div class="col-lg-12">
+        {% if contenus is defined %}
+        {% if contenus is not empty %}
+        <table class="table responsive">
+            <thead>
+                <th>Nom</th>
+                <th>Categorie</th>
+                <th>Détails</th>
+                <th>Modifier</th>
+            </thead>
+            <tbody>
+        		{% for contenu in contenus %}
+                <tr> 
+                    <td>{{ contenu.titre }}</td>
+                    <td>{{ contenu.categorie.nom }} </td>
+                    <td><a href="#"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                    <td><a href="# "><span class="glyphicon glyphicon-pencil"></span></a></td>
+                </tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% endif %}
+	</div>
 
-<p>Gestion d'autres contenus : <strong>Articl - Evenement - Produit - Services etc</strong></p>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
 {% endblock %}

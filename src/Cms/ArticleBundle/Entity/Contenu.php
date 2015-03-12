@@ -28,6 +28,13 @@ class Contenu
      */
     private $id;
 
+    /**
+    *
+    * @ORM\ManyToOne(targetEntity="Cms\ArticleBundle\Entity\Categorie", inversedBy="contenus")
+    *
+    */
+    private $categorie;
+
      /**
      * @var string
      *
@@ -156,5 +163,28 @@ class Contenu
     public function getAuteur()
     {
         return $this->auteur;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param \Cms\ArticleBundle\Entity\Categorie $categorie
+     * @return Contenu
+     */
+    public function setCategorie(\Cms\ArticleBundle\Entity\Categorie $categorie = null)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \Cms\ArticleBundle\Entity\Categorie 
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }

@@ -19,6 +19,11 @@ class ContenuType extends AbstractType
             ->add('contenu')
             ->add('dateCreation')
             ->add('auteur')
+            ->add('categorie', 'entity', array(
+                'label' => 'Categorie :',
+                'multiple' => false,
+                'property' => 'nom',
+                ))
         ;
     }
     
