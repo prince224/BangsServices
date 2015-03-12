@@ -18,3 +18,7 @@ article_admin_modifier_un_contenu:
     pattern:  /modifier_un_contenu/{idcontenu}
     defaults: { _controller: ArticleBundle:Admin:modifier_un_contenu }
 
+article_admin_supprimer_un_contenu:
+    pattern:  /supprimer_un_contenu/{idcontenu}
+    defaults: { _controller: ArticleBundle:Admin:supprimer_un_contenu }
+

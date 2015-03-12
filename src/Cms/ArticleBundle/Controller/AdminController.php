@@ -258,4 +258,24 @@ class AdminController extends Controller
     }
     /*===========Fin modifier_un_contenu ==========================*/
 
+    /*=========== supprimer_un_contenu ==========================*/
+    public function supprimer_un_contenuAction($idcontenu)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+
+        if($contenu != null)
+        {
+            $em->remove($contenu);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('article_admin_homepage'));
+        }
+        
+        return $this->redirect($this->generateUrl('article_admin_homepage'));
+    }
+
+    /*===========Fin  supprimer_un_contenu ==========================*/
 }
