@@ -1,0 +1,87 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+<h1>Gestion des menus du site </h1>
+<hr>
+<div class="col-md-12">
+    <div class="col-md-12">
+       <p>Pour créer votre menu, veuillez sélectioner les pageq que vous souhaitez faire apparaitre.</p>
+    </div>
+    <hr>
+    <div class="col-md-2">
+        {% if pages is defined %}
+        {% if pages is not empty %}
+            <table class="table responsive">
+                <form method="post" action="{{path('domaine_admin_ajouter_menu')}} ">
+                    {% for page in pages %}
+                    <tr>
+                        <td><label for="page">{{ page.nom }} </label></td>
+                        <td><input type="checkbox" class="choix" value={{ page.id }} name="choix[]"> </td>
+                    </tr>
+                    {% endfor %}
+                    <tr><td><input type="submit" value="créer menu"></td></tr>
+                </form>
+            </table>
+        {% else %}
+            <p>Aucune page existante</p>
+        {% endif %}
+        {% endif %}
+    </div>
+	
+    <div class="col-md-8 col-md-offset-2" id="liste_menu">
+        {% if menus is defined %}
+        {% if menus is not empty %}
+            <h4>Liste des menus déjà crées :</h4>
+            <div class="alert alert-success">
+                {% for menu in menus %}
+                    <div class="col-md-12"> 
+                        <div class="col-md-5">
+                           <p><strong>Nom</strong></p>
+                         {{ menu.nom }} 
+                            <a href="{{path('domaine_admin_modifier_nom_menu', {'idmenu' : menu.id })}} "> 
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                            
+                        </div>
+                        
+                        <div class="col-md-7">
+                            <p><strong>Contenu</strong></p>
+                            {% if menu.pages is not empty %}
+                                <ul>
+                                {% for page in menu.pages %}
+                                   <li> {{ page.nom }} 
+                                        <a href="{{path('domaine_admin_supprimer_page_menu', {'idmenu' : menu.id, 'page' : page.id })}} "> 
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p><strong><em>Aucun menu existant !!!</em></strong></p>
+        {% endif %}
+        
+        {% endif %}
+	</div>
+
+
+
+</div>
+
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
+{% endblock %}

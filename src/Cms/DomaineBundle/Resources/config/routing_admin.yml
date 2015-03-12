@@ -2,6 +2,22 @@ domaine_admin_homepage:
     pattern:  /
     defaults: { _controller: DomaineBundle:Admin:index }
 
+domaine_admin_menu_homepage:
+    pattern:  /menu_homepage
+    defaults: { _controller: DomaineBundle:Admin:menu_homepage }
+
+domaine_admin_ajouter_menu:
+    pattern:  /ajouter_menu
+    defaults: { _controller: DomaineBundle:Admin:ajouter_menu }
+
+domaine_admin_modifier_nom_menu:
+    pattern:  /modifier_nom_menu/{idmenu}
+    defaults: { _controller: DomaineBundle:Admin:modifier_nom_menu }
+
+domaine_admin_supprimer_page_menu:
+    pattern:  /supprimer_page_menu/{idmenu}
+    defaults: { _controller: DomaineBundle:Admin:supprimer_page_menu }
+
 
 
 
