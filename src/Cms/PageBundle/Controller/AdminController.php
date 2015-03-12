@@ -190,7 +190,7 @@ class AdminController extends Controller
 
         $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
         $page = $photo->getPage();
-        
+
         $form = $this->createForm(new PhotoType, $photo);
 
         if($request->getMethod() == "POST")
@@ -245,118 +245,5 @@ class AdminController extends Controller
     }
     /*===================== Fin de la suppression d'une image carousel ===============================================*/
 
-    /*===================== Ajouter une photo pour le bandeau de la page accueil ==========================================*/
-
-    public function ajouter_bandeau_pageAction($idpage)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();
-        $Pages = $em->getRepository('PageBundle:Page')->findAll();
-
-        $Page = $em->getRepository('PageBundle:Page')->find($idpage);
-        $photo = new Photo();
-
-        $form = $this->createForm(new PhotoType, $photo);
-
-        if($request->getMethod() == "POST")
-        {
-            $form->bind($request);
-            if($form->isValid())
-            {
-                $photo = $form->getData();
-
-                //numéro 1 pour la première page
-                $photo->setNumero('1');
-
-                //l'onglet 1 pour la page homepage
-                $photo->setOnglet('0');
-
-                $em->persist($photo);
-                $Page->addPhoto($photo);
-
-                $em->flush();
-
-                //on fait une redirection vers la page homepage
-                return $this->redirect($this->generateUrl('domaine_admin_voir_page', array(
-                    'idpage' => $Page->getId(),
-                    )));
-            }
-        }
-        return $this->render('PageBundle:Admin:ajouter_bandeau_page.html.twig', array(
-            'form' => $form->createView(),
-            'Page' => $Page,
-            'Pages' => $Pages,
-            ));
-    }
-    /*===================== Fin de l'ajout d'un bandeau page accueil ==========================================*/
-
-
-    /*===================== modifier une photo pour le bandeau de la page accueil ==========================================*/
-
-    public function modifier_bandeau_pageAction($idpage)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $request = $this->getRequest();
-
-        $Pages = $em->getRepository('PageBundle:Page')->findAll();
-
-        $idPhoto = $request->query->get('idPhoto');
-
-        $Page = $em->getRepository('PageBundle:Page')->find($idpage);
-
-        $photo = $em->getRepository('PageBundle:Photo')->find($idPhoto);
-
-        $form = $this->createForm(new PhotoType, $photo);
-
-        if($request->getMethod() == "POST")
-        {
-            $form->bind($request);
-            if($form->isValid())
-            {
-                $photo = $form->getData();
-
-                $Page->addPhoto($photo);
-
-                $em->flush();
-
-                //on fait une redirection vers la page homepage
-                return $this->redirect($this->generateUrl('domaine_admin_voir_page', array(
-                    'idpage' => $Page->getId(),
-                    )));
-            }
-        }
-        return $this->render('PageBundle:Admin:modifier_bandeau_page.html.twig', array(
-            'form' => $form->createView(),
-            'Page' => $Page,
-            'Pages' => $Pages,
-            ));
-    }
-    /*===================== Fin de la modification d'un bandeau page accueil ==========================================*/
-
-
-    /*===================== supprimer bandeau page ==========================================*/
-
-    public function supprimer_bandeau_pageAction($idpage, $idPhoto)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $Page = $em->getRepository('PageBundle:Page')->find($idpage);
-
-        $photo_bandeau = $em->getRepository('PageBundle:Photo')->find($idPhoto);
-
-        if($photo_bandeau != null )
-        {
-            $em->remove($photo_bandeau);
-            $em->flush();
-            
-            //on fait une redirection vers la page homepage
-            return $this->redirect($this->generateUrl('domaine_admin_voir_page', array(
-                    'idpage' => $Page->getId(),
-                    )));
-
-        }
-       
-        return $this->render('PageBundle:Admin:index.html.twig');         
-    }
-    /*===================== Fin de la suppression bandeau page ==========================================*/
-
+    
 }
