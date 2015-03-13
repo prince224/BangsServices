@@ -55,13 +55,20 @@
             <tbody>
                 {% for section in sections %}
                 <tr> 
-                    <td>{{ section.nom }} <a href="{{path('Page_admin_modifier_section_page', {'idsection' : section.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></td>
+                    <td><strong class="col-md-2">{{ section.nom }} </strong>
+                        <a class="col-md-2" href="{{path('Page_admin_modifier_section_page', {'idsection' : section.id })}} ">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                        <a class="col-md-2" href="{{path('Page_admin_supprimer_section_page', {'idsection': section.id })}} "> 
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </td>
                     <td>
                         {% if section.categories is not empty %}
                             <ul>
                             {% for categorie in section.categories %}
                                 <li> {{ categorie.nom }} 
-                                    <a href="#"> 
+                                    <a href=" "> 
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </li>

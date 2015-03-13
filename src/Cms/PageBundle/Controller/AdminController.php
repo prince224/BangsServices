@@ -330,6 +330,34 @@ class AdminController extends Controller
     }
     /*===================== Fin modifier_section_page ==========================================*/
 
+    /*===================== supprimer_section_page==========================================*/
+    public function supprimer_section_pageAction($idsection)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $section = $em->getRepository('PageBundle:Section')->find($idsection);
+
+        $page = $section->getPage();
+
+        if($section != null)
+        {
+            $em->remove($section);           
+            $em->flush();
+
+            //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                )));
+        }
+
+        //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                )));
+    }
+    /*===================== Fin supprimer_section_page ==========================================*/
+
 
 
 }

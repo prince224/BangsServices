@@ -39,3 +39,7 @@ Page_admin_modifier_section_page:
     pattern: /modifier_section_page/{idsection}
     defaults: { _controller: PageBundle:Admin:modifier_section_page}
 
+Page_admin_supprimer_section_page:
+    pattern: /supprimer_section_page/{idsection}
+    defaults: { _controller: PageBundle:Admin:supprimer_section_page}
+
