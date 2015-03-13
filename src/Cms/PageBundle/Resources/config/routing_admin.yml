@@ -43,3 +43,7 @@ Page_admin_supprimer_section_page:
     pattern: /supprimer_section_page/{idsection}
     defaults: { _controller: PageBundle:Admin:supprimer_section_page}
 
+Page_admin_supprimer_categories_section_page:
+    pattern: /supprimer_categories_section_page/{idsection}
+    defaults: { _controller: PageBundle:Admin:supprimer_categories_section_page}
+

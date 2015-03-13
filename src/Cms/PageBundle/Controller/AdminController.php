@@ -358,6 +358,36 @@ class AdminController extends Controller
     }
     /*===================== Fin supprimer_section_page ==========================================*/
 
+     /*===================== supprimer_categories_section_page==========================================*/
+    public function supprimer_categories_section_pageAction($idsection)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        $idcategorie = $request->query->get('categorie');
+
+        $section = $em->getRepository('PageBundle:Section')->find($idsection);
+        $categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
+
+        $page = $section->getPage();
+
+        if($section != null and $categorie != null)
+        {
+            $section->removeCategory($categorie);           
+            $em->flush();
+
+            //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                )));
+        }
+
+        //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                )));
+    }
+    /*===================== Fin supprimer_categories_section_page ==========================================*/
+
 
 
 }
