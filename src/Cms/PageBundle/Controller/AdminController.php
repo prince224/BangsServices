@@ -295,10 +295,40 @@ class AdminController extends Controller
         }
         return $this->render('PageBundle:Admin:ajouter_section_page.html.twig', array(
             'form' => $form->createView(),
-            'page' => $page,
             ));
     }
     /*===================== Fin ajouter_section_page ==========================================*/
+
+    /*===================== modifier_section_page==========================================*/
+    public function modifier_section_pageAction($idsection)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $section = $em->getRepository('PageBundle:Section')->find($idsection);
+
+        $form = $this->createForm(new SectionType, $section);
+
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $section = $form->getData();
+
+                $em->flush();
+
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $section->getPage()->getId(),
+                    )));
+            }
+        }
+        return $this->render('PageBundle:Admin:modifier_section_page.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }
+    /*===================== Fin modifier_section_page ==========================================*/
 
 
 

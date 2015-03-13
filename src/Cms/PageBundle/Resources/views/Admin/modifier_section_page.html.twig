@@ -1,0 +1,32 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% form_theme form 'DomaineBundle:Form:fields.html.twig' %}
+
+
+{% block section %}
+<h1>Modifier la section :</h1>
+
+<div class="col-md-10">
+	<p>Définissez un nom pour votre section.</p>
+	<p>Définissez la position pour votre menu sur le site, en indiquant un numéro de 0 à 2.</p>
+	<p>
+		<ul>
+			<li>- 0  : A droite</li>
+			<li>- 1 : Au milieu</li>
+			<li>- 2 : A gauche</li>
+		</ul>
+		<strong>Par défaut, tous les menus ont la position 0 </strong>
+	</p>
+	<div class="col-md-10 well">
+		<form action="#" method="post" {{ form_enctype(form) }}>
+	  		<table class="table responsive">
+		  		<tbody>
+		  			{{ form(form) }}
+		  		</tbody>
+	  		</table>
+	    <input type="submit" class="btn btn-success" />
+	  </form>
+	</div>
+
+</div>
+{% endblock %}

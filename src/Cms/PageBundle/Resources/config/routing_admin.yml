@@ -35,3 +35,7 @@ Page_admin_ajouter_section_page:
     pattern: /ajouter_section_page/{idpage}
     defaults: { _controller: PageBundle:Admin:ajouter_section_page}
 
+Page_admin_modifier_section_page:
+    pattern: /modifier_section_page/{idsection}
+    defaults: { _controller: PageBundle:Admin:modifier_section_page}
+

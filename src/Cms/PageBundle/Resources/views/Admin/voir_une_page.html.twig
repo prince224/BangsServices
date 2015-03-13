@@ -55,7 +55,7 @@
             <tbody>
                 {% for section in sections %}
                 <tr> 
-                    <td>{{ section.nom }} <a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
+                    <td>{{ section.nom }} <a href="{{path('Page_admin_modifier_section_page', {'idsection' : section.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></td>
                     <td>
                         {% if section.categories is not empty %}
                             <ul>
