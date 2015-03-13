@@ -49,7 +49,7 @@
         <table class="table responsive">
             <thead>
                 <th>Nom</th>
-                <th>Contenu</th>
+                <th>Catégories contenu</th>
                 <th>Position</th>
             </thead>
             <tbody>
@@ -57,10 +57,10 @@
                 <tr> 
                     <td>{{ section.nom }} <a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
                     <td>
-                        {% if section.contenus is not empty %}
+                        {% if section.categories is not empty %}
                             <ul>
-                            {% for contenu in section.contenus %}
-                                <li> {{ contenu.titre }} 
+                            {% for categorie in section.categories %}
+                                <li> {{ categorie.nom }} 
                                     <a href="#"> 
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>

@@ -268,7 +268,6 @@ class AdminController extends Controller
         $request = $this->getRequest();
 
         $page = $em->getRepository('PageBundle:Page')->find($idpage);
-        $contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
 
         $section = new Section();
 
@@ -280,6 +279,8 @@ class AdminController extends Controller
             if($form->isValid())
             {
                 $section = $form->getData();
+
+               // $section->addCategory($categories);
 
                 $em->persist($section);
                 $page->addSection($section);

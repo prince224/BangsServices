@@ -44,10 +44,10 @@ class Section
     private $numero;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Cms\ArticleBundle\Entity\Contenu", cascade="persist")
+    * @ORM\ManyToMany(targetEntity="Cms\ArticleBundle\Entity\Categorie", cascade="persist")
     *
     */
-    private $contenus;
+    private $categories;
 
     /**
     *
@@ -88,46 +88,6 @@ class Section
     {
         return $this->numero;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->contenus = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add contenus
-     *
-     * @param \Cms\ArticleBundle\Entity\Contenu $contenus
-     * @return Section
-     */
-    public function addContenus(\Cms\ArticleBundle\Entity\Contenu $contenus)
-    {
-        $this->contenus[] = $contenus;
-
-        return $this;
-    }
-
-    /**
-     * Remove contenus
-     *
-     * @param \Cms\ArticleBundle\Entity\Contenu $contenus
-     */
-    public function removeContenus(\Cms\ArticleBundle\Entity\Contenu $contenus)
-    {
-        $this->contenus->removeElement($contenus);
-    }
-
-    /**
-     * Get contenus
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getContenus()
-    {
-        return $this->contenus;
-    }
 
     /**
      * Set nom
@@ -150,5 +110,28 @@ class Section
     public function getNom()
     {
         return $this->nom;
+    }
+
+    /**
+     * Set page
+     *
+     * @param \Cms\PageBundle\Entity\Page $page
+     * @return Section
+     */
+    public function setPage(\Cms\PageBundle\Entity\Page $page = null)
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+
+    /**
+     * Get page
+     *
+     * @return \Cms\PageBundle\Entity\Page 
+     */
+    public function getPage()
+    {
+        return $this->page;
     }
 }

@@ -15,14 +15,15 @@ class SectionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', 'text', array('label' => 'Nom de la section : '))
+            ->add('nom')
             ->add('numero')
-            ->add('contenus', 'entity', array(
-                'class' => 'ArticleBundle:Contenu',
-                'label' => 'Sélectionez les contenus : ',
+            ->add('categories', 'entity', array(
+                'class' => 'ArticleBundle:Categorie',
+                'label' => 'Sélectionez les catégories : ',
                 'multiple' => true,
-                'property' => 'titre',
+                'property' => 'nom',
                 ))
+            
         ;
     }
     

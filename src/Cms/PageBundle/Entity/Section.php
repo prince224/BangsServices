@@ -44,10 +44,10 @@ class Section
     private $numero;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Cms\ArticleBundle\Entity\Contenu", cascade="persist")
+    * @ORM\ManyToMany(targetEntity="Cms\ArticleBundle\Entity\Categorie", cascade="persist")
     *
     */
-    private $contenus;
+    private $categories;
 
     /**
     *
@@ -87,46 +87,6 @@ class Section
     public function getNumero()
     {
         return $this->numero;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->contenus = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add contenus
-     *
-     * @param \Cms\ArticleBundle\Entity\Contenu $contenus
-     * @return Section
-     */
-    public function addContenus(\Cms\ArticleBundle\Entity\Contenu $contenus)
-    {
-        $this->contenus[] = $contenus;
-
-        return $this;
-    }
-
-    /**
-     * Remove contenus
-     *
-     * @param \Cms\ArticleBundle\Entity\Contenu $contenus
-     */
-    public function removeContenus(\Cms\ArticleBundle\Entity\Contenu $contenus)
-    {
-        $this->contenus->removeElement($contenus);
-    }
-
-    /**
-     * Get contenus
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getContenus()
-    {
-        return $this->contenus;
     }
 
     /**
@@ -173,5 +133,45 @@ class Section
     public function getPage()
     {
         return $this->page;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Cms\ArticleBundle\Entity\Categorie $categories
+     * @return Section
+     */
+    public function addCategory(\Cms\ArticleBundle\Entity\Categorie $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Cms\ArticleBundle\Entity\Categorie $categories
+     */
+    public function removeCategory(\Cms\ArticleBundle\Entity\Categorie $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }
