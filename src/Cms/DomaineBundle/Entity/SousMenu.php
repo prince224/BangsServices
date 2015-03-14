@@ -36,6 +36,12 @@ class SousMenu
     private $page;
 
     /**
+    * @ORM\OneToMany(targetEntity="Cms\PageBundle\Entity\Section", mappedBy="sousmenu", cascade={"persist"})
+    *
+    */
+    private $sections;
+
+    /**
     *
     * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\Photo", mappedBy="sousmenu", cascade={"persist", "remove"})
     *
@@ -48,6 +54,13 @@ class SousMenu
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="contenu", type="text")
+     */
+    private $contenu;
 
 
     /**
@@ -145,5 +158,61 @@ class SousMenu
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * Set contenu
+     *
+     * @param string $contenu
+     * @return SousMenu
+     */
+    public function setContenu($contenu)
+    {
+        $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    /**
+     * Get contenu
+     *
+     * @return string 
+     */
+    public function getContenu()
+    {
+        return $this->contenu;
+    }
+
+    /**
+     * Add sections
+     *
+     * @param \Cms\PageBundle\Entity\Section $sections
+     * @return SousMenu
+     */
+    public function addSection(\Cms\PageBundle\Entity\Section $sections)
+    {
+        $this->sections[] = $sections;
+
+        return $this;
+    }
+
+    /**
+     * Remove sections
+     *
+     * @param \Cms\PageBundle\Entity\Section $sections
+     */
+    public function removeSection(\Cms\PageBundle\Entity\Section $sections)
+    {
+        $this->sections->removeElement($sections);
+    }
+
+    /**
+     * Get sections
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSections()
+    {
+        return $this->sections;
     }
 }

@@ -21,6 +21,9 @@ use Cms\PageBundle\Form\SectionType;
 use Cms\ArticleBundle\Entity\Contenu;
 use Cms\ArticleBundle\Form\ContenuType;
 
+use Cms\DomaineBundle\Entity\SousMenu;
+use Cms\DomaineBundle\Form\SousMenuType;
+
 
 
 class AdminController extends Controller
@@ -388,6 +391,66 @@ class AdminController extends Controller
     }
     /*===================== Fin supprimer_categories_section_page ==========================================*/
 
+    /*===================ajouter_sous menu_page ========================== */
+    public function ajouter_sous_menu_pageAction($idpage)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
 
+        $page = $em->getRepository('PageBundle:Page')->find($idpage);
+        $sousmenu = new SousMenu();
+
+        $form = $this->createForm(new SousMenuType, $sousmenu);
+
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $sousmenu = $form->getData();
+
+                $em->persist($sousmenu);
+                $page->addSousmenu($sousmenu);
+
+                $em->flush();
+
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_voir_sous_menu_page', array(
+                    'idsousmenu' => $sousmenu->getId(),
+                    )));
+            }
+        }
+        return $this->render('PageBundle:Admin:ajouter_sous_menu_page.html.twig', array(
+            'form' => $form->createView(),
+            'page' => $page,
+            ));
+    }
+    /*===============Fin ajouter_sous menu_page===================*/
+
+    /*=============================== voir_sous_menu_page ===============================================*/
+    public function voir_sous_menu_pageAction($idsousmenu)
+    {
+        $em = $this->getDoctrine()->getManager();
+       
+        $sousmenu = $em->getRepository('DomaineBundle:SousMenu')->find($idsousmenu);
+        $page = $sousmenu->getPage();
+
+        $sections = $em->getRepository('PageBundle:Section')->findBy(array(
+            'sousmenu' => $sousmenu));
+
+        $photo_carousel = $em->getRepository('DomaineBundle:Photo')->findBy(array(
+            'sousmenu' =>$sousmenu,
+            ));
+
+       return $this->render('PageBundle:Admin:voir_sous_menu_page.html.twig', array(
+                'page' => $page,
+                'sousmenu' => $sousmenu,
+                'photo_carousel'=> $photo_carousel,
+                'sections' => $sections,
+                ))
+            ;
+        
+    }
+    /*=============================== Fin page voir_sous_menu_page ============================================*/
 
 }

@@ -57,6 +57,13 @@ class Section
     private $page;
 
     /**
+    *
+    * @ORM\ManyToOne(targetEntity="Cms\DomaineBundle\Entity\SousMenu", inversedBy="sections")
+    *
+    */
+    private $sousmenu;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -173,5 +180,28 @@ class Section
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set sousmenu
+     *
+     * @param \Cms\DomaineBundle\Entity\SousMenu $sousmenu
+     * @return Section
+     */
+    public function setSousmenu(\Cms\DomaineBundle\Entity\SousMenu $sousmenu = null)
+    {
+        $this->sousmenu = $sousmenu;
+
+        return $this;
+    }
+
+    /**
+     * Get sousmenu
+     *
+     * @return \Cms\DomaineBundle\Entity\SousMenu 
+     */
+    public function getSousmenu()
+    {
+        return $this->sousmenu;
     }
 }

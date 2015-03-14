@@ -23,7 +23,9 @@ class SousMenuType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('page')
+            ->add('contenu', 'textarea', array(
+                'label' => 'Contenu : ',
+                'attr' => array('class' => 'ckeditor')))
         ;
     }
     

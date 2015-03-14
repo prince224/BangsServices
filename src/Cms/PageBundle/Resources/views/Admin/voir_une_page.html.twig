@@ -3,20 +3,34 @@
 {% block section %}
     <h1>Gestion des pages du site </h1>
     <hr>
-    <h4>Page : <em> {{ page.nom }} </em></h4>
     <div class="col-md-12">
         <div class="row">
-
+            <div class="col-md-2"><h4>Page : <em> {{ page.nom }} </em></h4></div>
             <div class="col-md-2">
                 <a href="{{path('Page_admin_ajouter_image_carousel_page', {'idpage' : page.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter slider</a>
             </div>
             <div class="col-md-3">
-                <a href="#"><span class="glyphicon glyphicon-plus"></span> Ajouter sous-menu</a>
+                <a href="{{path('Page_admin_ajouter_sous_menu_page', {'idpage' : page.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter sous-menu</a>
             </div>
             <div class="col-md-3">
                 <a href="{{path('Page_admin_ajouter_section_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter section</a>
             </div>
         </div>
+        <hr>
+        <div class="col-lg-12">
+            {% if sousmenus is defined %}
+            {% if sousmenus is not empty %}
+                <h4>Sous-menu</h4>
+                {% for sousmenu in sousmenus %}
+                    <div class="col-lg-2">
+                       <a href="{{path('Page_admin_voir_sous_menu_page', {'idsousmenu' : sousmenu.id })}} "><strong>{{ sousmenu.nom }}</strong> </a> 
+                    </div>
+                        
+                {% endfor %}
+            {% endif %}
+            {% endif %}
+        </div>
+        <br>
         <div class="col-md-12">
         {% if photo_carousel is not empty %}
         <h4>Photos slider : </h4>
@@ -30,7 +44,6 @@
             {% endfor %}
         {% endif %}
         </div>
-        <hr>
         <div class="col-md-12">
             <p><strong>Contenu :</strong> <br>
                 {{ page.contenu|raw }}
@@ -96,32 +109,7 @@
         {% endif %}
     </div>
 
-	<div class="col-lg-12">
-        
-        {% if sousmenus is defined %}
-        {% if sousmenus is not empty %}
-        
-        <table class="table responsive">
-            <thead>
-                <th>Nom</th>
-                <th>Détails</th>
-                <th>Modifier</th>
-            </thead>
-            <tbody>
-        		{% for sousmenu in sousmenus %}
-                <tr> 
-                    <td>{{ sousmenu.nom }}</td>
-                    <td><a href=""><span class="glyphicon glyphicon-eye-open"></span></a></td>
-                    <td><a href=""><span class="glyphicon glyphicon-pencil"></span></a></td>
-                </tr>
-                    
-                {% endfor %}
-            </tbody>
-        </table>
-        {% endif %}
-
-        {% endif %}
-	</div>
+	
 
 
 

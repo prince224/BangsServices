@@ -21,8 +21,6 @@ domaine_admin_supprimer_page_menu:
 
 
 
-
-
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

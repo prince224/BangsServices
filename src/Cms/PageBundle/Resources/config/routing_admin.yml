@@ -47,3 +47,15 @@ Page_admin_supprimer_categories_section_page:
     pattern: /supprimer_categories_section_page/{idsection}
     defaults: { _controller: PageBundle:Admin:supprimer_categories_section_page}
 
+
+
+
+Page_admin_voir_sous_menu_page:
+    pattern: /voir_sous_menu_page/{idsousmenu}
+    defaults: { _controller: PageBundle:Admin:voir_sous_menu_page}
+
+
+Page_admin_ajouter_sous_menu_page:
+    pattern: /ajouter_sous_menu_page/{idpage}
+    defaults: { _controller: PageBundle:Admin:ajouter_sous_menu_page}
+

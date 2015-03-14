@@ -195,4 +195,38 @@ class Page
         return $this->contenu;
     }
 
+
+    /**
+     * Add sections
+     *
+     * @param \Cms\PageBundle\Entity\Section $sections
+     * @return Page
+     */
+    public function addSection(\Cms\PageBundle\Entity\Section $sections)
+    {
+        $this->sections[] = $sections;
+        $sections->setPage($this);
+
+        return $this;
+    }
+
+    /**
+     * Remove sections
+     *
+     * @param \Cms\PageBundle\Entity\Section $sections
+     */
+    public function removeSection(\Cms\PageBundle\Entity\Section $sections)
+    {
+        $this->sections->removeElement($sections);
+    }
+
+    /**
+     * Get sections
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSections()
+    {
+        return $this->sections;
+    }
 }

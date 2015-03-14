@@ -57,6 +57,13 @@ class Section
     private $page;
 
     /**
+    *
+    * @ORM\ManyToOne(targetEntity="Cms\DomaineBundle\Entity\SousMenu", inversedBy="sections")
+    *
+    */
+    private $sousmenu;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -133,5 +140,45 @@ class Section
     public function getPage()
     {
         return $this->page;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Cms\ArticleBundle\Entity\Categorie $categories
+     * @return Section
+     */
+    public function addCategory(\Cms\ArticleBundle\Entity\Categorie $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Cms\ArticleBundle\Entity\Categorie $categories
+     */
+    public function removeCategory(\Cms\ArticleBundle\Entity\Categorie $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }
