@@ -88,3 +88,7 @@ Page_admin_modifier_section_sous_menu_page:
     pattern: /modifier_section_sous_menu_page/{idsection}
     defaults: { _controller: PageBundle:Admin:modifier_section_sous_menu_page}
 
+Page_admin_supprimer_section_sous_menu_page:
+    pattern: /supprimer_section_sous_menu_page/{idsection}
+    defaults: { _controller: PageBundle:Admin:supprimer_section_sous_menu_page}
+
