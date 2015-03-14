@@ -79,3 +79,8 @@ Page_admin_supprimer_image_carousel_sous_menu_page:
     pattern: /supprimer_image_carousel_sous_menu_page/{idphoto}
     defaults: { _controller: PageBundle:Admin:supprimer_image_carousel_sous_menu_page}
 
+
+Page_admin_ajouter_section_sous_menu_page:
+    pattern: /ajouter_section_sous_menu_page/{idsousmenu}
+    defaults: { _controller: PageBundle:Admin:ajouter_section_sous_menu_page}
+

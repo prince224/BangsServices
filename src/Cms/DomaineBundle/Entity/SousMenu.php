@@ -137,7 +137,7 @@ class SousMenu
     {
         $this->photos[] = $photos;
         $photos->setSousmenu($this);
-        
+
         return $this;
     }
 
@@ -193,7 +193,7 @@ class SousMenu
     public function addSection(\Cms\PageBundle\Entity\Section $sections)
     {
         $this->sections[] = $sections;
-
+        $sections->setSousmenu($this);
         return $this;
     }
 

@@ -614,4 +614,42 @@ class AdminController extends Controller
     }
     /*===================== Fin supprimer image carousel sous_menu page ==========================================*/
    
+    /*===================== ajouter_section_sous_menu_page==========================================*/
+    public function ajouter_section_sous_menu_pageAction($idsousmenu)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $sousmenu = $em->getRepository('DomaineBundle:SousMenu')->find($idsousmenu);
+
+        $section = new Section();
+
+        $form = $this->createForm(new SectionType, $section);
+
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $section = $form->getData();
+
+                $em->persist($section);
+                $sousmenu->addSection($section);
+
+                $em->flush();
+
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_voir_sous_menu_page', array(
+                    'idsousmenu' => $sousmenu->getId(),
+                    )));
+
+            }
+        }
+        return $this->render('PageBundle:Admin:ajouter_section_sous_menu_page.html.twig', array(
+            'form' => $form->createView(),
+            'sousmenu' => $sousmenu,
+            ));
+    }
+    /*===================== Fin ajouter_section__sous_menupage ==========================================*/
+
 }
