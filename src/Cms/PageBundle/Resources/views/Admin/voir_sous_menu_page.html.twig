@@ -68,7 +68,7 @@
                             <ul>
                             {% for categorie in section.categories %}
                                 <li> {{ categorie.nom }} 
-                                    <a href="{{path('Page_admin_supprimer_categories_section_page', {'idsection' : section.id, 'categorie' : categorie.id })}} "> 
+                                    <a href="{{path('Page_admin_supprimer_categorie_section_sous_menu_page', {'idsection' : section.id, 'categorie' : categorie.id })}} "> 
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
                                 </li>

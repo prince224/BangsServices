@@ -92,3 +92,7 @@ Page_admin_supprimer_section_sous_menu_page:
     pattern: /supprimer_section_sous_menu_page/{idsection}
     defaults: { _controller: PageBundle:Admin:supprimer_section_sous_menu_page}
 
+Page_admin_supprimer_categorie_section_sous_menu_page:
+    pattern: /supprimer_categorie_section_sous_menu_page/{idsection}
+    defaults: { _controller: PageBundle:Admin:supprimer_categorie_section_sous_menu_page}
+

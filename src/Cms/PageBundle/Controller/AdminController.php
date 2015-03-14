@@ -715,4 +715,35 @@ class AdminController extends Controller
     }
     /*===================== Fin supprimer_section__sous_menupage ==========================================*/
 
+     /*===================== supprimer_section_sous_menu_page==========================================*/
+    public function supprimer_categorie_section_sous_menu_pageAction($idsection)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        $idcategorie = $request->query->get('categorie');
+
+        $categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
+
+        $section = $em->getRepository('PageBundle:Section')->find($idsection);
+
+        $sousmenu = $section->getSousmenu();
+
+        if($section != null and $categorie != null)
+        {
+            $section->removeCategory($categorie);
+            $em->flush();
+
+            //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_voir_sous_menu_page', array(
+                    'idsousmenu' => $sousmenu->getId(),
+                    )));
+        }
+
+        //on fait une redirection vers la page homepage
+        return $this->redirect($this->generateUrl('Page_admin_voir_sous_menu_page', array(
+                    'idsousmenu' => $sousmenu->getId(),
+                    )));
+    }
+    /*===================== Fin supprimer_categorie_section__sous_menupage ==========================================*/
+
 }
