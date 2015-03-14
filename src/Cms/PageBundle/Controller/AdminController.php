@@ -554,5 +554,37 @@ class AdminController extends Controller
     }
     /*===================== Fin de l'ajout image carousel sous_menu page ==========================================*/
 
+    /*===================== modifier un carousel sous_menu page ==========================================*/
+    public function modifier_image_carousel_sous_menu_pageAction($idphoto)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
+        $sousmenu = $photo->getSousmenu();
+
+        $form = $this->createForm(new PhotoType, $photo);
+
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $photo = $form->getData();
+                $em->flush();
+
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_voir_sous_menu_page', array(
+                    'idsousmenu' => $sousmenu->getId(),
+                    )));
+            }
+        }
+        return $this->render('PageBundle:Admin:modifier_image_carousel_sous_menu_page.html.twig', array(
+            'form' => $form->createView(),
+            'sousmenu' => $sousmenu,
+            ));
+    }
+    /*===================== Fin modifier image carousel sous_menu page ==========================================*/
+
    
 }
