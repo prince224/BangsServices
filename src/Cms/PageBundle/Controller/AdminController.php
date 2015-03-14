@@ -586,5 +586,32 @@ class AdminController extends Controller
     }
     /*===================== Fin modifier image carousel sous_menu page ==========================================*/
 
+    /*===================== supprimer un carousel sous_menu page ==========================================*/
+    public function supprimer_image_carousel_sous_menu_pageAction($idphoto)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
+        $sousmenu = $photo->getSousmenu();
+
+        if($photo != null)
+        {
+            $em->remove($photo);
+            $em->flush();
+
+            //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_voir_sous_menu_page', array(
+                    'idsousmenu' => $sousmenu->getId(),
+                    )));
+            
+        }
+        //on fait une redirection vers la page homepage
+        return $this->redirect($this->generateUrl('Page_admin_voir_sous_menu_page', array(
+            'idsousmenu' => $sousmenu->getId(),
+                    )));
+        
+    }
+    /*===================== Fin supprimer image carousel sous_menu page ==========================================*/
    
 }
