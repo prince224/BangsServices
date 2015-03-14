@@ -391,6 +391,33 @@ class AdminController extends Controller
     }
     /*===================== Fin supprimer_categories_section_page ==========================================*/
 
+     /*=============================== voir_sous_menu_page ===============================================*/
+    public function voir_sous_menu_pageAction($idsousmenu)
+    {
+        $em = $this->getDoctrine()->getManager();
+       
+        $sousmenu = $em->getRepository('DomaineBundle:SousMenu')->find($idsousmenu);
+        $page = $sousmenu->getPage();
+
+        $sections = $em->getRepository('PageBundle:Section')->findBy(array(
+            'sousmenu' => $sousmenu));
+
+        $photo_carousel = $em->getRepository('DomaineBundle:Photo')->findBy(array(
+            'sousmenu' =>$sousmenu,
+            ));
+
+       return $this->render('PageBundle:Admin:voir_sous_menu_page.html.twig', array(
+                'page' => $page,
+                'sousmenu' => $sousmenu,
+                'photo_carousel'=> $photo_carousel,
+                'sections' => $sections,
+                ))
+            ;
+        
+    }
+    /*=============================== Fin page voir_sous_menu_page ============================================*/
+
+
     /*===================ajouter_sous menu_page ========================== */
     public function ajouter_sous_menu_pageAction($idpage)
     {
@@ -427,30 +454,39 @@ class AdminController extends Controller
     }
     /*===============Fin ajouter_sous menu_page===================*/
 
-    /*=============================== voir_sous_menu_page ===============================================*/
-    public function voir_sous_menu_pageAction($idsousmenu)
+
+    /*===================modifier_sous menu_page ========================== */
+    public function modifier_sous_menu_pageAction($idsousmenu)
     {
         $em = $this->getDoctrine()->getManager();
-       
+        $request = $this->getRequest();
+
         $sousmenu = $em->getRepository('DomaineBundle:SousMenu')->find($idsousmenu);
         $page = $sousmenu->getPage();
 
-        $sections = $em->getRepository('PageBundle:Section')->findBy(array(
-            'sousmenu' => $sousmenu));
+        $form = $this->createForm(new SousMenuType, $sousmenu);
 
-        $photo_carousel = $em->getRepository('DomaineBundle:Photo')->findBy(array(
-            'sousmenu' =>$sousmenu,
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $sousmenu = $form->getData();
+                $em->flush();
+
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_voir_sous_menu_page', array(
+                    'idsousmenu' => $sousmenu->getId(),
+                    )));
+            }
+        }
+        return $this->render('PageBundle:Admin:modifier_sous_menu_page.html.twig', array(
+            'form' => $form->createView(),
+            'page' => $page,
+            'sousmenu' => $sousmenu,
             ));
-
-       return $this->render('PageBundle:Admin:voir_sous_menu_page.html.twig', array(
-                'page' => $page,
-                'sousmenu' => $sousmenu,
-                'photo_carousel'=> $photo_carousel,
-                'sections' => $sections,
-                ))
-            ;
-        
     }
-    /*=============================== Fin page voir_sous_menu_page ============================================*/
+    /*===============Fin modifier_sous menu_page===================*/
 
+   
 }

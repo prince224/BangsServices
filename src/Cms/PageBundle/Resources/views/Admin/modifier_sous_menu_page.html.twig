@@ -1,0 +1,19 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% form_theme form 'DomaineBundle:Form:fields.html.twig' %}
+
+
+{% block section %}
+<h1>Modifier le sous-menu {{ sousmenu.nom|upper }} : pour la page <strong>{{ page.nom }} </strong></h1>
+<div class="well">
+  <form action="#" method="post" {{ form_enctype(form) }}>
+  	<table class="table responsive">
+  		<tbody>
+  			{{ form(form) }}
+  		</tbody>
+  	</table>
+   
+    <input type="submit" class="btn btn-success" />
+  </form>
+</div>
+{% endblock %}
