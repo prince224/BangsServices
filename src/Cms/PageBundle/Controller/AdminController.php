@@ -652,4 +652,39 @@ class AdminController extends Controller
     }
     /*===================== Fin ajouter_section__sous_menupage ==========================================*/
 
+    /*===================== modifier_section_sous_menu_page==========================================*/
+    public function modifier_section_sous_menu_pageAction($idsection)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $section = $em->getRepository('PageBundle:Section')->find($idsection);
+
+        $sousmenu = $section->getSousmenu();
+
+        $form = $this->createForm(new SectionType, $section);
+
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $section = $form->getData();
+
+                $em->flush();
+
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_voir_sous_menu_page', array(
+                    'idsousmenu' => $sousmenu->getId(),
+                    )));
+
+            }
+        }
+        return $this->render('PageBundle:Admin:modifier_section_sous_menu_page.html.twig', array(
+            'form' => $form->createView(),
+            'sousmenu' => $sousmenu,
+            ));
+    }
+    /*===================== Fin modifier_section__sous_menupage ==========================================*/
+
 }
