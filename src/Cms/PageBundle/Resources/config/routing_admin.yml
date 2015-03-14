@@ -63,3 +63,7 @@ Page_admin_modifier_sous_menu_page:
     pattern: /modifier_sous_menu_page/{idsousmenu}
     defaults: { _controller: PageBundle:Admin:modifier_sous_menu_page}
 
+Page_admin_supprimer_sous_menu_page:
+    pattern: /supprimer_sous_menu_page/{idsousmenu}
+    defaults: { _controller: PageBundle:Admin:supprimer_sous_menu_page}
+

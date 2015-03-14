@@ -488,5 +488,32 @@ class AdminController extends Controller
     }
     /*===============Fin modifier_sous menu_page===================*/
 
+     /*===================supprimer_sous menu_page ========================== */
+    public function supprimer_sous_menu_pageAction($idsousmenu)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $sousmenu = $em->getRepository('DomaineBundle:SousMenu')->find($idsousmenu);
+        $page = $sousmenu->getPage();
+
+        if($sousmenu != null )
+        {
+            $em->remove($sousmenu);
+            $em->flush();
+
+            //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                )));
+            
+        }
+        //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                )));
+    }
+    /*===============Fin supprimer_sous menu_page===================*/
+
    
 }
