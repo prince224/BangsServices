@@ -523,34 +523,33 @@ class AdminController extends Controller
         $request = $this->getRequest();
 
         $sousmenu = $em->getRepository('DomaineBundle:SousMenu')->find($idsousmenu);
-        $section = new section();
+        $photo = new Photo();
 
-        $form = $this->createForm(new sectionType, $section);
+        $form = $this->createForm(new PhotoType, $photo);
 
         if($request->getMethod() == "POST")
         {
             $form->bind($request);
             if($form->isValid())
             {
-                $section = $form->getData();
+                $photo = $form->getData();
 
-                //numero 1 pour les sections du carousel
-                $section->setNumero('1');
+                $photo->setNumero(1);
 
-                $em->persist($section);
-                $page->addsection($section);
+                $em->persist($photo);
+                $sousmenu->addPhoto($photo);
 
                 $em->flush();
 
                 //on fait une redirection vers la page homepage
-                return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
-                    'idpage' => $page->getId(),
+                return $this->redirect($this->generateUrl('Page_admin_voir_sous_menu_page', array(
+                    'idsousmenu' => $sousmenu->getId(),
                     )));
             }
         }
-        return $this->render('PageBundle:Admin:ajouter_image_carousel_page.html.twig', array(
+        return $this->render('PageBundle:Admin:ajouter_image_carousel_sous_menu_page.html.twig', array(
             'form' => $form->createView(),
-            'page' => $page,
+            'sousmenu' => $sousmenu,
             ));
     }
     /*===================== Fin de l'ajout image carousel sous_menu page ==========================================*/

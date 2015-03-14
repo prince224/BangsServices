@@ -136,7 +136,8 @@ class SousMenu
     public function addPhoto(\Cms\DomaineBundle\Entity\Photo $photos)
     {
         $this->photos[] = $photos;
-
+        $photos->setSousmenu($this);
+        
         return $this;
     }
 
