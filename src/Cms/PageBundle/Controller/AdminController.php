@@ -24,6 +24,9 @@ use Cms\ArticleBundle\Form\ContenuType;
 use Cms\DomaineBundle\Entity\SousMenu;
 use Cms\DomaineBundle\Form\SousMenuType;
 
+use Cms\DomaineBundle\Entity\Photo;
+use Cms\DomaineBundle\Form\PhotoType;
+
 
 
 class AdminController extends Controller
@@ -167,9 +170,9 @@ class AdminController extends Controller
         $request = $this->getRequest();
 
         $page = $em->getRepository('PageBundle:Page')->find($idpage);
-        $section = new section();
+        $photo = new Photo();
 
-        $form = $this->createForm(new sectionType, $section);
+        $form = $this->createForm(new PhotoType, $photo);
 
         if($request->getMethod() == "POST")
         {
@@ -179,10 +182,10 @@ class AdminController extends Controller
                 $section = $form->getData();
 
                 //numero 1 pour les sections du carousel
-                $section->setNumero('1');
+                $photo->setNumero('1');
 
-                $em->persist($section);
-                $page->addsection($section);
+                $em->persist($photo);
+                $page->addPhoto($photo);
 
                 $em->flush();
 
@@ -201,24 +204,22 @@ class AdminController extends Controller
 
 
     /*===================== Mofifier une image à une page ==========================================*/
-    public function modifier_image_carousel_pageAction($idsection)
+    public function modifier_image_carousel_pageAction($idphoto)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $section = $em->getRepository('DomaineBundle:section')->find($idsection);
-        $page = $section->getPage();
+        $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
+        $page = $photo->getPage();
 
-        $form = $this->createForm(new sectionType, $section);
+        $form = $this->createForm(new PhotoType, $photo);
 
         if($request->getMethod() == "POST")
         {
             $form->bind($request);
             if($form->isValid())
             {
-                $section = $form->getData();
-
-                $page->addsection($section);
+                $photo= $form->getData();
 
                 $em->flush();
 
@@ -236,17 +237,17 @@ class AdminController extends Controller
     /*===================== Fin modification image carousel ==========================================*/
 
     /*===================== supprimer une image carousel==========================================*/
-    public function supprimer_image_carousel_pageAction($idsection)
+    public function supprimer_image_carousel_pageAction($idphoto)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $section = $em->getRepository('DomaineBundle:section')->find($idsection);
-        $page = $section->getPage();
+        $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
+        $page = $photo->getPage();
 
-        if($section != null )
+        if($photo != null )
         {
-            $em->remove($section);
+            $em->remove($photo);
             $em->flush();
             
             //on fait une redirection vers la page homepage
@@ -488,7 +489,7 @@ class AdminController extends Controller
     }
     /*===============Fin modifier_sous menu_page===================*/
 
-     /*===================supprimer_sous menu_page ========================== */
+    /*===================supprimer_sous menu_page ========================== */
     public function supprimer_sous_menu_pageAction($idsousmenu)
     {
         $em = $this->getDoctrine()->getManager();
@@ -514,6 +515,45 @@ class AdminController extends Controller
                 )));
     }
     /*===============Fin supprimer_sous menu_page===================*/
+
+    /*===================== Ajouter un carousel sous_menu page ==========================================*/
+    public function ajouter_image_carousel_sous_menu_pageAction($idsousmenu)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $sousmenu = $em->getRepository('DomaineBundle:SousMenu')->find($idsousmenu);
+        $section = new section();
+
+        $form = $this->createForm(new sectionType, $section);
+
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $section = $form->getData();
+
+                //numero 1 pour les sections du carousel
+                $section->setNumero('1');
+
+                $em->persist($section);
+                $page->addsection($section);
+
+                $em->flush();
+
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    )));
+            }
+        }
+        return $this->render('PageBundle:Admin:ajouter_image_carousel_page.html.twig', array(
+            'form' => $form->createView(),
+            'page' => $page,
+            ));
+    }
+    /*===================== Fin de l'ajout image carousel sous_menu page ==========================================*/
 
    
 }
