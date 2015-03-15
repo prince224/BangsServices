@@ -200,6 +200,40 @@ class AdminController extends Controller
     }
     /*===================== Fin parametre_ajouter_contact_contenu ==========================================*/
 
+    /*===================== parametre_modifier_contact_contenu ==========================================*/
+    public function parametre_modifier_contact_contenuAction($idcontenu)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+
+        $form = $this->get('form.factory')->createBuilder('form', $contenu)
+                                  
+                        ->add('telephone', 'text', array(
+                            'label' => 'Numéro de téléphone :',))
+                        ->getForm();
+                     ;
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $contenu = $form->getData();
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+            }
+        }
+        return $this->render('DomaineBundle:Admin:parametre_modifier_contact_contenu.html.twig', array(
+            'form' => $form->createView(),
+            'contenu' => $contenu,
+            ));
+    }
+    /*===================== Fin parametre_modifier_contact_contenu ==========================================*/
+
+
     /*===================== parametre_ajouter_reseaux_sociaux_contenu ==========================================*/
     public function parametre_ajouter_reseaux_sociaux_contenuAction()
     {
@@ -229,5 +263,34 @@ class AdminController extends Controller
             ));
     }
     /*===================== Fin parametre_ajouter_reseaux_sociaux_contenu ==========================================*/
+
+    /*===================== parametre_modifier_reseaux_sociaux_contenu ==========================================*/
+    public function parametre_modifier_reseaux_sociaux_contenuAction($idlogo)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $reseau_social = $em->getRepository('DomaineBundle:Logos')->find($idlogo);
+
+       $form = $this->createForm(new LogosType, $reseau_social);
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $reseau_social = $form->getData();
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+            }
+        }
+        return $this->render('DomaineBundle:Admin:parametre_modifier_reseaux_sociaux_contenu.html.twig', array(
+            'form' => $form->createView(),
+            'reseau_social'=> $reseau_social
+            ));
+    }
+    /*===================== Fin parametre_modifier_reseaux_sociaux_contenu ==========================================*/
 
 }   

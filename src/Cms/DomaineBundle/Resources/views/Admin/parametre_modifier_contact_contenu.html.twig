@@ -4,12 +4,12 @@
 
 
 {% block section %}
-<h1>Ajout d'un réseaux social :</h1>
+<h1>Modification du contact téléphonique :<em>{{ contenu.telephone }} </em></h1> 
 <div class="well">
   <form action="#" method="post" {{ form_enctype(form) }}>
   	<table class="table responsive">
   		<tbody>
-  			{{ form_widget(form) }}
+  			{{ form(form) }}
   		</tbody>
   	</table>
    

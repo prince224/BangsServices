@@ -11,19 +11,28 @@
         <a class="col-md-3" href=""><span class="glyphicon glyphicon-plus"></span> Nouvelle adresse</a>
         <br>
         <hr>
+        <table class="table responsive">
         {% for contenu in contenus %}
-            {% if contenu.telephone is not empty %}
-                <strong>Contact Téléphonique : {{ contenu.telephone }} </strong> <br><br>
-            {% else %}
-                
-            {% endif %}
-            {% if contenu.email_contact is defined %}
+        
+        {% if contenu.telephone is not empty %}
+            <tr>
+                <td><strong>Contact Téléphonique : {{ contenu.telephone }} </strong></td>
+                <td>
+                    <a href="{{path('domaine_admin_parametre_modifier_contact_contenu', {'idcontenu' : contenu.id })}} "><span class="glyphicon glyphicon-pencil"></span></a>
+                </td> 
+            </tr>  
+        {% endif %}
+        
+        
+        {% if contenu.email_contact is defined %}
+            <tr> 
                 <strong>Contact Email : {{ contenu.email_contact }} </strong><br><br>
-             {% else %}
-                   
-            {% endif %}
+            </tr>
+        {% endif %}
+        
         {% endfor %}
-    
+
+        </table>
     </div>
    
     <div class="col-md-12">
@@ -46,7 +55,7 @@
                <td>{{ logo.nom }}</td>
                <td>{{ logo.url }}</td>
                <td><img class="col-md2" src="{{asset(logo.webPath)}} "> </td>
-               <td><span class="glyphicon glyphicon-pencil"></span></td>
+               <td><a href="{{path('domaine_admin_parametre_modifier_reseaux_sociaux_contenu', {'idlogo' : logo.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></td>
                <td><span class="glyphicon glyphicon-remove"></span></td>
             </tr>
             {% endif %}

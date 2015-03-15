@@ -27,9 +27,19 @@ domaine_admin_parametre_ajouter_contact_contenu:
     pattern:  /parametre_ajouter_contact_contenu/
     defaults: { _controller: DomaineBundle:Admin:parametre_ajouter_contact_contenu }
 
+domaine_admin_parametre_modifier_contact_contenu:
+    pattern:  /parametre_modifier_contact_contenu/{idcontenu}
+    defaults: { _controller: DomaineBundle:Admin:parametre_modifier_contact_contenu }
+
 domaine_admin_parametre_ajouter_reseaux_sociaux_contenu:
     pattern:  /parametre_ajouter_reseaux_sociaux_contenu/
     defaults: { _controller: DomaineBundle:Admin:parametre_ajouter_reseaux_sociaux_contenu }
+
+domaine_admin_parametre_modifier_reseaux_sociaux_contenu:
+    pattern:  /parametre_modifier_reseaux_sociaux_contenu/{idlogo}
+    defaults: { _controller: DomaineBundle:Admin:parametre_modifier_reseaux_sociaux_contenu }
+
+
 
 
 
