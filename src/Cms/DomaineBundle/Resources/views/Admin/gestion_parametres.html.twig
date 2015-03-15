@@ -19,6 +19,9 @@
                 <td><strong>Contact Téléphonique : {{ contenu.telephone }} </strong></td>
                 <td>
                     <a href="{{path('domaine_admin_parametre_modifier_contact_contenu', {'idcontenu' : contenu.id })}} "><span class="glyphicon glyphicon-pencil"></span></a>
+                </td>
+                <td>
+                    <a href="{{path('domaine_admin_parametre_supprimer_contact_contenu', {'idcontenu' : contenu.id })}} "><span class="glyphicon glyphicon-remove"></span></a>
                 </td> 
             </tr>  
         {% endif %}

@@ -233,6 +233,27 @@ class AdminController extends Controller
     }
     /*===================== Fin parametre_modifier_contact_contenu ==========================================*/
 
+     /*===================== parametre_supprimer_contact_contenu ==========================================*/
+    public function parametre_supprimer_contact_contenuAction($idcontenu)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+
+        if($contenu != null)
+        {
+            $em->remove($contenu);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+
+        }
+        return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+    }
+    /*===================== Fin parametre_supprimer_contact_contenu ==========================================*/
+
+
 
     /*===================== parametre_ajouter_reseaux_sociaux_contenu ==========================================*/
     public function parametre_ajouter_reseaux_sociaux_contenuAction()
