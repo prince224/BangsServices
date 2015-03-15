@@ -59,7 +59,8 @@
                <td>{{ logo.url }}</td>
                <td><img class="col-md2" src="{{asset(logo.webPath)}} "> </td>
                <td><a href="{{path('domaine_admin_parametre_modifier_reseaux_sociaux_contenu', {'idlogo' : logo.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></td>
-               <td><span class="glyphicon glyphicon-remove"></span></td>
+
+               <td><a href="{{path('domaine_admin_parametre_supprimer_reseaux_sociaux_contenu', {'idlogo' : logo.id })}} "><span class="glyphicon glyphicon-remove"></span></a></td>
             </tr>
             {% endif %}
         {% endfor %}

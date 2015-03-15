@@ -53,23 +53,16 @@
   </div>
     
 
-    <!-- ================================================== -->
+    <!-- ================Partie contact et réseaux sociaux ================================== -->
     <div class="container" id="reseau_sociaux">
       <div class="row" style="text-align:center; font-size: 150%;" >
-        <li class="glyphicon glyphicon-phone-alt"></li>
-          <a href=""><strong>Contact</strong></a> 
+        {{ render(controller('DomaineBundle:Default:inserer_contact'))}}
         <hr>
       </div>
 
       <div class="row-fluid">
         <div class="col-md-offset-4">
-          <a class="col-lg-1" href="#">
-            <img src="{{asset('bundles/domaine/images/facebook.jpg')}} " alt="logo facebook" title="logo facebook">
-          </a>
-
-          <a class="col-lg-1" href="#">
-            <img src="{{asset('bundles/domaine/images/youtube.jpg')}} " alt="logo youtube" title="logo youtube">
-          </a>
+          {{ render(controller('DomaineBundle:Default:inserer_reseaux_sociaux'))}}
         </div>
       </div>
     </div>

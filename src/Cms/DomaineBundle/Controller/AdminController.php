@@ -314,4 +314,25 @@ class AdminController extends Controller
     }
     /*===================== Fin parametre_modifier_reseaux_sociaux_contenu ==========================================*/
 
+    /*===================== parametre_supprimer_reseaux_sociaux_contenu ==========================================*/
+    public function parametre_supprimer_reseaux_sociaux_contenuAction($idlogo)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $reseau_social = $em->getRepository('DomaineBundle:Logos')->find($idlogo);
+
+        if($reseau_social != null)
+        {
+            $em->remove($reseau_social);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+           
+        }
+        return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+           
+    }
+    /*===================== Fin parametre_supprimer_reseaux_sociaux_contenu ==========================================*/
+
 }   

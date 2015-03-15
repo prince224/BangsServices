@@ -12,10 +12,9 @@ namespace Cms\DomaineBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cms\DomaineBundle\Entity\Menu;
-use Cms\DomaineBundle\Form\MenuType;
-
 use Cms\PageBundle\Entity\Page;
-use Cms\PageBundle\Form\PageType;
+use Cms\ArticleBundle\Entity\Contenu;
+use Cms\DomaineBundle\Entity\Logos;
 
 class DefaultController extends Controller
 {
@@ -45,8 +44,35 @@ class DefaultController extends Controller
             'menus' => $menus,
             ));
     }
-
     /* ==== fin inserer menu =====*/
+
+    /*====inserer contact ====*/
+    public function inserer_contactAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
+
+        return $this->render('DomaineBundle:Default:inserer_contact.html.twig',array(
+            'contenus' => $contenus,
+            ));
+    }
+    /* ==== fin inserer contact =====*/
+
+    /*====inserer_reseaux_sociaux====*/
+    public function inserer_reseaux_sociauxAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $reseaux_sociaux = $em->getRepository('DomaineBundle:Logos')->findAll();
+
+        return $this->render('DomaineBundle:Default:inserer_reseaux_sociaux.html.twig',array(
+            'reseaux_sociaux' => $reseaux_sociaux,
+            ));
+    }
+    /* ==== fin inserer_reseaux_sociaux=====*/
 
     /*============consulter page ===================*/
     public function consulter_pageAction($idpage)

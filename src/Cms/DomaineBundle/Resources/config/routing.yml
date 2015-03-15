@@ -7,6 +7,14 @@ domaine_homepage_inserer_menu:
     pattern: /inserer-menu
     defaults: { _controller: DomaineBundle:Default:inserer_menu}
 
+domaine_homepage_inserer_contact:
+    pattern: /inserer-contact
+    defaults: { _controller: DomaineBundle:Default:inserer_contact}
+
+domaine_homepage_inserer_reseaux_sociaux:
+    pattern: /inserer-reseaux-sociaux
+    defaults: { _controller: DomaineBundle:Default:inserer_reseaux_sociaux}
+
 domaine_voir_page:
     pattern: /consulter-page/{idpage}
     defaults: { _controller: DomaineBundle:Default:consulter_page}
