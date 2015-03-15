@@ -5,7 +5,7 @@
     @Function Engineer
     @Young entrepreneur
     @Date==>2015
-    @V 0.1
+    @V 0.1.1
 */
 namespace Cms\ArticleBundle\Entity;
 
@@ -41,11 +41,6 @@ class Contenu
     *
     */
     private $photos;
-
-    /**
-    * @ORM\OneToOne(targetEntity="Cms\DomaineBundle\Entity\Logos", cascade={"persist"})
-    */
-    private $logos;
 
     /**
      * @var string
@@ -433,5 +428,51 @@ class Contenu
     public function getLien()
     {
         return $this->lien;
+    }
+
+    /**
+     * Set email_contact
+     *
+     * @param string $emailContact
+     * @return Contenu
+     */
+    public function setEmailContact($emailContact)
+    {
+        $this->email_contact = $emailContact;
+    
+        return $this;
+    }
+
+    /**
+     * Get email_contact
+     *
+     * @return string 
+     */
+    public function getEmailContact()
+    {
+        return $this->email_contact;
+    }
+
+    /**
+     * Set logos
+     *
+     * @param \Cms\DomaineBundle\Entity\Logos $logos
+     * @return Contenu
+     */
+    public function setLogos(\Cms\DomaineBundle\Entity\Logos $logos = null)
+    {
+        $this->logos = $logos;
+    
+        return $this;
+    }
+
+    /**
+     * Get logos
+     *
+     * @return \Cms\DomaineBundle\Entity\Logos 
+     */
+    public function getLogos()
+    {
+        return $this->logos;
     }
 }

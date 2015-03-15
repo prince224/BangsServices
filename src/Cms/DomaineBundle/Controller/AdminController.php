@@ -21,6 +21,12 @@ use Cms\DomaineBundle\Form\MenuType;
 use Cms\DomaineBundle\Entity\SousMenu;
 use Cms\DomaineBundle\Form\SousMenuType;
 
+use Cms\ArticleBundle\Entity\Contenu;
+use Cms\ArticleBundle\Form\ContenuType;
+
+use Cms\DomaineBundle\Entity\Logos;
+use Cms\DomaineBundle\Form\LogosType;
+
 class AdminController extends Controller
 {
     public function indexAction()
@@ -139,4 +145,89 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('domaine_admin_menu_homepage'));
     }
     /*===============Fin supprimer_page menu===================*/
+
+
+    /*===================== gestion_parametres ==========================================*/
+    public function gestion_parametresAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
+        $logos = $em->getRepository('DomaineBundle:Logos')->findAll();
+
+
+        return $this->render('DomaineBundle:Admin:gestion_parametres.html.twig',array(
+            'contenus' => $contenus,
+            'logos' => $logos
+            ));
+    }
+    /*===================== Fin gestion_parametres ==========================================*/
+
+
+    /*===================== parametre_ajouter_contact_contenu ==========================================*/
+    public function parametre_ajouter_contact_contenuAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $contenu = new Contenu();
+
+        $form = $this->get('form.factory')->createBuilder('form', $contenu)
+                                  
+                        ->add('telephone', 'text', array(
+                            'label' => 'Numéro de téléphone :',))
+                        ->getForm();
+                     ;
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $contenu = $form->getData();
+
+                $em->persist($contenu);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+            }
+        }
+        return $this->render('DomaineBundle:Admin:parametre_ajouter_contact_contenu.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }
+    /*===================== Fin parametre_ajouter_contact_contenu ==========================================*/
+
+    /*===================== parametre_ajouter_reseaux_sociaux_contenu ==========================================*/
+    public function parametre_ajouter_reseaux_sociaux_contenuAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $reseau_social = new Logos();
+
+       $form = $this->createForm(new LogosType, $reseau_social);
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $reseau_social = $form->getData();
+
+                $em->persist($reseau_social);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+            }
+        }
+        return $this->render('DomaineBundle:Admin:parametre_ajouter_reseaux_sociaux_contenu.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }
+    /*===================== Fin parametre_ajouter_reseaux_sociaux_contenu ==========================================*/
+
 }   

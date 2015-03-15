@@ -43,11 +43,6 @@ class Contenu
     private $photos;
 
     /**
-    * @ORM\OneToOne(targetEntity="Cms\DomaineBundle\Entity\Logos", cascade={"persist"})
-    */
-    private $logos;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255, nullable=true)

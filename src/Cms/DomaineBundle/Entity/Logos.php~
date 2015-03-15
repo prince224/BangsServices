@@ -1,5 +1,13 @@
 <?php
 
+/*
+    @Author Prince Bangoura
+    @product CMS build with PHP >=5.3.3 SYMFONY 2.5 - Bootstrap 3.3.2 - ckeditor 4.4.7
+    @Function Engineer
+    @Young entrepreneur
+    @Date==>2015
+    @V 0.1.1
+*/
 namespace Cms\DomaineBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -25,13 +33,6 @@ class Logos
     private $id;
 
     /**
-    *
-    * @ORM\ManyToOne(targetEntity="Cms\ArticleBundle\Entity\Contenu", inversedBy="photos")
-    *
-    */
-    private $contenu;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255, nullable=true)
@@ -44,6 +45,13 @@ class Logos
      * @ORM\Column(name="alt", type="string", length=255, nullable=true)
      */
     private $alt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     */
+    private $nom;
 
     /**
      * @var string
@@ -183,5 +191,75 @@ class Logos
       {
         return $this->getUploadDir().'/'.$this->getId().'.'.$this->getUrl();
       }
+
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return Logos
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set alt
+     *
+     * @param string $alt
+     * @return Logos
+     */
+    public function setAlt($alt)
+    {
+        $this->alt = $alt;
+    
+        return $this;
+    }
+
+    /**
+     * Get alt
+     *
+     * @return string 
+     */
+    public function getAlt()
+    {
+        return $this->alt;
+    }
+
+    /**
+     * Set lien
+     *
+     * @param string $lien
+     * @return Logos
+     */
+    public function setLien($lien)
+    {
+        $this->lien = $lien;
+    
+        return $this;
+    }
+
+    /**
+     * Get lien
+     *
+     * @return string 
+     */
+    public function getLien()
+    {
+        return $this->lien;
+    }
 
 }

@@ -49,6 +49,13 @@ class Logos
     /**
      * @var string
      *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="lien", type="string", length=255, nullable=true)
      */
     private $lien;
@@ -255,4 +262,27 @@ class Logos
         return $this->lien;
     }
 
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Logos
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
 }

@@ -1,0 +1,70 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+<h1>Gestion des paramètres du site :</h1>
+<hr>
+
+    <div class="col-md-12">
+        <h3>Contacts : </h3>
+        <a class="col-md-3" href="{{path('domaine_admin_parametre_ajouter_contact_contenu')}} "><span class="glyphicon glyphicon-plus"></span> Nouveau Contact</a>
+
+        <a class="col-md-3" href=""><span class="glyphicon glyphicon-plus"></span> Nouvelle adresse</a>
+        <br>
+        <hr>
+        {% for contenu in contenus %}
+            {% if contenu.telephone is not empty %}
+                <strong>Contact Téléphonique : {{ contenu.telephone }} </strong> <br><br>
+            {% else %}
+                
+            {% endif %}
+            {% if contenu.email_contact is defined %}
+                <strong>Contact Email : {{ contenu.email_contact }} </strong><br><br>
+             {% else %}
+                   
+            {% endif %}
+        {% endfor %}
+    
+    </div>
+   
+    <div class="col-md-12">
+        
+        <h3>Réseaux sociaux : </h3> 
+        <a class="col-md-3" href="{{path('domaine_admin_parametre_ajouter_reseaux_sociaux_contenu')}} "><span class="glyphicon glyphicon-plus"></span> Insérer un réseau social</a>
+        <br>
+        <hr>
+        <table class="table responsive">
+            <thead>
+                <th>Nom</th>
+                <th>Url</th>
+                <th>Image</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </thead>
+        {% for logo in logos %}
+            {% if logo is not empty %}
+            <tr>
+               <td>{{ logo.nom }}</td>
+               <td>{{ logo.url }}</td>
+               <td><img class="col-md2" src="{{asset(logo.webPath)}} "> </td>
+               <td><span class="glyphicon glyphicon-pencil"></span></td>
+               <td><span class="glyphicon glyphicon-remove"></span></td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
+{% endblock %}

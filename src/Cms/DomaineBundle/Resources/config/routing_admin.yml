@@ -19,6 +19,19 @@ domaine_admin_supprimer_page_menu:
     defaults: { _controller: DomaineBundle:Admin:supprimer_page_menu }
 
 
+domaine_admin_parametre_homepage:
+    pattern: /gestion_parametres
+    defaults: { _controller: DomaineBundle:Admin:gestion_parametres}
+
+domaine_admin_parametre_ajouter_contact_contenu:
+    pattern:  /parametre_ajouter_contact_contenu/
+    defaults: { _controller: DomaineBundle:Admin:parametre_ajouter_contact_contenu }
+
+domaine_admin_parametre_ajouter_reseaux_sociaux_contenu:
+    pattern:  /parametre_ajouter_reseaux_sociaux_contenu/
+    defaults: { _controller: DomaineBundle:Admin:parametre_ajouter_reseaux_sociaux_contenu }
+
+
 
 
 fos_user_security:
