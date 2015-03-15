@@ -8,14 +8,13 @@
     @Date==>2015
     @V 0.1.1
 */
-    
-namespace Cms\ArticleBundle\Form;
+namespace Cms\DomaineBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ContenuType extends AbstractType
+class LogosType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -24,19 +23,8 @@ class ContenuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
-            ->add('contenu')
-            ->add('dateCreation')
-            ->add('auteur')
-            ->add('dateDebut')
-            ->add('dateFin')
-            ->add('description')
-            ->add('prix')
-            ->add('telephone')
-            ->add('email_contact')
+            ->add('file', 'file')
             ->add('lien')
-            ->add('categorie')
-            ->add('logos')
         ;
     }
     
@@ -46,7 +34,7 @@ class ContenuType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Cms\ArticleBundle\Entity\Contenu'
+            'data_class' => 'Cms\DomaineBundle\Entity\Logos'
         ));
     }
 
@@ -55,6 +43,6 @@ class ContenuType extends AbstractType
      */
     public function getName()
     {
-        return 'cms_articlebundle_contenu';
+        return 'cms_domainebundle_logos';
     }
 }

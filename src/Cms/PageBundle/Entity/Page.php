@@ -5,7 +5,7 @@
     @Function Engineer
     @Young entrepreneur
     @Date==>2015
-    @V 0.1
+    @V 0.1.1
 */
 namespace Cms\PageBundle\Entity;
 
@@ -63,6 +63,12 @@ class Page
      */
     private $contenu;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     */
+    private $url;
 
     /**
      * Get id
@@ -228,5 +234,28 @@ class Page
     public function getSections()
     {
         return $this->sections;
+    }
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return Page
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+    
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 }

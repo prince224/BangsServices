@@ -43,6 +43,11 @@ class Contenu
     private $photos;
 
     /**
+    * @ORM\OneToOne(targetEntity="Cms\DomaineBundle\Entity\Logos", cascade={"persist"})
+    */
+    private $logos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255, nullable=true)
@@ -105,6 +110,28 @@ class Contenu
 
     /*==================== Fin categorie article, evenemnt ======================= */
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telephone", type="string", length=255, nullable=true)
+     */
+    private $telephone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email_contact", type="string", length=255, nullable=true)
+     */
+    private $email_contact;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lien", type="string", length=255, nullable=true)
+     */
+    private $lien;
+
+    
     /**
      * Get id
      *
@@ -360,5 +387,51 @@ class Contenu
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * Set telephone
+     *
+     * @param string $telephone
+     * @return Contenu
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    
+        return $this;
+    }
+
+    /**
+     * Get telephone
+     *
+     * @return string 
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * Set lien
+     *
+     * @param string $lien
+     * @return Contenu
+     */
+    public function setLien($lien)
+    {
+        $this->lien = $lien;
+    
+        return $this;
+    }
+
+    /**
+     * Get lien
+     *
+     * @return string 
+     */
+    public function getLien()
+    {
+        return $this->lien;
     }
 }

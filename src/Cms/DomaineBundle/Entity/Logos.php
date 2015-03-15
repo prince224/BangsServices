@@ -1,4 +1,5 @@
 <?php
+
 /*
     @Author Prince Bangoura
     @product CMS build with PHP >=5.3.3 SYMFONY 2.5 - Bootstrap 3.3.2 - ckeditor 4.4.7
@@ -14,14 +15,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Photo
+ * Logos
  *
- * @ORM\Table(name="photo")
- * @ORM\Entity(repositoryClass="Cms\DomaineBundle\Entity\PhotoRepository")
+ * @ORM\Table(name="logos")
+ * @ORM\Entity(repositoryClass="Cms\DomaineBundle\Entity\LogosRepository")
  * @ORM\HasLifecycleCallbacks
- *
  */
-class Photo
+class Logos
 {
     /**
      * @var integer
@@ -32,35 +32,6 @@ class Photo
      */
     private $id;
 
-    /**
-    *
-    * @ORM\ManyToOne(targetEntity="Cms\PageBundle\Entity\Page", inversedBy="photos")
-    *
-    */
-    private $page;
-
-    /**
-    *
-    * @ORM\ManyToOne(targetEntity="Cms\ArticleBundle\Entity\Contenu", inversedBy="photos")
-    *
-    */
-    private $contenu;
-
-    /**
-    *
-    * @ORM\ManyToOne(targetEntity="Cms\DomaineBundle\Entity\SousMenu", inversedBy="photos")
-    *
-    */
-    private $sousmenu;
-
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="numero", type="integer")
-     */
-    private $numero;
-    
     /**
      * @var string
      *
@@ -78,9 +49,9 @@ class Photo
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lien", type="string", length=255, nullable=true)
      */
-    private $title;
+    private $lien;
 
     /**
     * @Assert\File(maxSize="6000000")
@@ -219,7 +190,7 @@ class Photo
      * Set url
      *
      * @param string $url
-     * @return Photo
+     * @return Logos
      */
     public function setUrl($url)
     {
@@ -242,7 +213,7 @@ class Photo
      * Set alt
      *
      * @param string $alt
-     * @return Photo
+     * @return Logos
      */
     public function setAlt($alt)
     {
@@ -261,120 +232,27 @@ class Photo
         return $this->alt;
     }
 
+    /**
+     * Set lien
+     *
+     * @param string $lien
+     * @return Logos
+     */
+    public function setLien($lien)
+    {
+        $this->lien = $lien;
     
-
-    /**
-     * Set numero
-     *
-     * @param integer $numero
-     * @return Photo
-     */
-    public function setNumero($numero)
-    {
-        $this->numero = $numero;
-
         return $this;
     }
 
     /**
-     * Get numero
-     *
-     * @return integer 
-     */
-    public function getNumero()
-    {
-        return $this->numero;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Photo
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
+     * Get lien
      *
      * @return string 
      */
-    public function getTitle()
+    public function getLien()
     {
-        return $this->title;
+        return $this->lien;
     }
 
-    /**
-     * Set page
-     *
-     * @param \Cms\PageBundle\Entity\Page $page
-     * @return Photo
-     */
-    public function setPage(\Cms\PageBundle\Entity\Page $page = null)
-    {
-        $this->page = $page;
-
-        return $this;
-    }
-
-    /**
-     * Get page
-     *
-     * @return \Cms\PageBundle\Entity\Page 
-     */
-    public function getPage()
-    {
-        return $this->page;
-    }
-
-    /**
-     * Set sousmenu
-     *
-     * @param \Cms\DomaineBundle\Entity\SousMenu $sousmenu
-     * @return Photo
-     */
-    public function setSousmenu(\Cms\DomaineBundle\Entity\SousMenu $sousmenu = null)
-    {
-        $this->sousmenu = $sousmenu;
-
-        return $this;
-    }
-
-    /**
-     * Get sousmenu
-     *
-     * @return \Cms\DomaineBundle\Entity\SousMenu 
-     */
-    public function getSousmenu()
-    {
-        return $this->sousmenu;
-    }
-
-    /**
-     * Set contenu
-     *
-     * @param \Cms\ArticleBundle\Entity\Contenu $contenu
-     * @return Photo
-     */
-    public function setContenu(\Cms\ArticleBundle\Entity\Contenu $contenu = null)
-    {
-        $this->contenu = $contenu;
-
-        return $this;
-    }
-
-    /**
-     * Get contenu
-     *
-     * @return \Cms\ArticleBundle\Entity\Contenu 
-     */
-    public function getContenu()
-    {
-        return $this->contenu;
-    }
 }

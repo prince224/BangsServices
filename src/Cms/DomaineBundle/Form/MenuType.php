@@ -5,7 +5,7 @@
     @Function Engineer
     @Young entrepreneur
     @Date==>2015
-    @V 0.1
+    @V 0.1.1
 */
 namespace Cms\DomaineBundle\Form;
 
@@ -24,6 +24,11 @@ class MenuType extends AbstractType
         $builder
             ->add('nom')
             ->add('position')
+            ->add('pages', 'entity', array(
+                'class' => 'PageBundle:Page',
+                'label' => 'Choisir les pages du menu :',
+                'multiple' => true,
+                'property' => 'nom'))
         ;
     }
     

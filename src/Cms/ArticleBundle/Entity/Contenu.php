@@ -5,7 +5,7 @@
     @Function Engineer
     @Young entrepreneur
     @Date==>2015
-    @V 0.1
+    @V 0.1.1
 */
 namespace Cms\ArticleBundle\Entity;
 
@@ -41,6 +41,11 @@ class Contenu
     *
     */
     private $photos;
+
+    /**
+    * @ORM\OneToOne(targetEntity="Cms\DomaineBundle\Entity\Logos", cascade={"persist"})
+    */
+    private $logos;
 
     /**
      * @var string
@@ -105,6 +110,28 @@ class Contenu
 
     /*==================== Fin categorie article, evenemnt ======================= */
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="telephone", type="string", length=255, nullable=true)
+     */
+    private $telephone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email_contact", type="string", length=255, nullable=true)
+     */
+    private $email_contact;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lien", type="string", length=255, nullable=true)
+     */
+    private $lien;
+
+    
     /**
      * Get id
      *
@@ -360,5 +387,97 @@ class Contenu
     public function getPhotos()
     {
         return $this->photos;
+    }
+
+    /**
+     * Set telephone
+     *
+     * @param string $telephone
+     * @return Contenu
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+    
+        return $this;
+    }
+
+    /**
+     * Get telephone
+     *
+     * @return string 
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * Set lien
+     *
+     * @param string $lien
+     * @return Contenu
+     */
+    public function setLien($lien)
+    {
+        $this->lien = $lien;
+    
+        return $this;
+    }
+
+    /**
+     * Get lien
+     *
+     * @return string 
+     */
+    public function getLien()
+    {
+        return $this->lien;
+    }
+
+    /**
+     * Set email_contact
+     *
+     * @param string $emailContact
+     * @return Contenu
+     */
+    public function setEmailContact($emailContact)
+    {
+        $this->email_contact = $emailContact;
+    
+        return $this;
+    }
+
+    /**
+     * Get email_contact
+     *
+     * @return string 
+     */
+    public function getEmailContact()
+    {
+        return $this->email_contact;
+    }
+
+    /**
+     * Set logos
+     *
+     * @param \Cms\DomaineBundle\Entity\Logos $logos
+     * @return Contenu
+     */
+    public function setLogos(\Cms\DomaineBundle\Entity\Logos $logos = null)
+    {
+        $this->logos = $logos;
+    
+        return $this;
+    }
+
+    /**
+     * Get logos
+     *
+     * @return \Cms\DomaineBundle\Entity\Logos 
+     */
+    public function getLogos()
+    {
+        return $this->logos;
     }
 }

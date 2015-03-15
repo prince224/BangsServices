@@ -5,7 +5,7 @@
     @Function Engineer
     @Young entrepreneur
     @Date==>2015
-    @V 0.1
+    @V 0.1.1
 */
 namespace Cms\ArticleBundle\Controller;
 
@@ -20,6 +20,9 @@ use Cms\ArticleBundle\Form\CategorieType;
 
 use Cms\DomaineBundle\Entity\Photo;
 use Cms\DomaineBundle\Form\PhotoType;
+
+use Cms\DomaineBundle\Entity\Logos;
+use Cms\DomaineBundle\Form\LogosType;
 
 class AdminController extends Controller
 {
@@ -382,5 +385,89 @@ class AdminController extends Controller
     }
     /*===================== Fin supprimer_photo_contenu ==========================================*/
 
+    /*===================== gestion_parametres ==========================================*/
+    public function gestion_parametresAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
+
+        return $this->render('ArticleBundle:Admin:gestion_parametres.html.twig',array(
+            'contenus' => $contenus));
+    }
+    /*===================== Fin gestion_parametres ==========================================*/
+
+
+    /*===================== parametre_ajouter_contact_contenu ==========================================*/
+    public function parametre_ajouter_contact_contenuAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $contenu = new Contenu();
+
+        $form = $this->get('form.factory')->createBuilder('form', $contenu)
+                                  
+                        ->add('telephone', 'text', array(
+                            'label' => 'Numéro de téléphone :',))
+                        ->getForm();
+                     ;
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $contenu = $form->getData();
+
+                $em->persist($contenu);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('article_admin_parametre_homepage'));
+            }
+        }
+        return $this->render('ArticleBundle:Admin:parametre_ajouter_contact_contenu.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }
+    /*===================== Fin parametre_ajouter_contact_contenu ==========================================*/
+
+    /*===================== parametre_ajouter_reseaux_sociaux_contenu ==========================================*/
+    public function parametre_ajouter_reseaux_sociaux_contenuAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $contenu = new Contenu();
+
+       $form = $this->get('form.factory')->createBuilder('form', $contenu)
+                                  
+                        ->add('lien', 'text', array(
+                            'label' => 'lien réseau social :',))
+                        ->add('logos',  new LogosType())
+                        ->getForm();
+                     ;
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $contenu = $form->getData();
+
+                $em->persist($contenu);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('article_admin_parametre_homepage'));
+            }
+        }
+        return $this->render('ArticleBundle:Admin:parametre_ajouter_reseaux_sociaux_contenu.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }
+    /*===================== Fin parametre_ajouter_reseaux_sociaux_contenu ==========================================*/
 
 }

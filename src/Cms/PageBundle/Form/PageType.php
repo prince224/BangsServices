@@ -1,12 +1,5 @@
 <?php
-/*
-    @Author Prince Bangoura
-    @product CMS build with PHP >=5.3.3 SYMFONY 2.5 - Bootstrap 3.3.2 - ckeditor 4.4.7
-    @Function Engineer
-    @Young entrepreneur
-    @Date==>2015
-    @V 0.1
-*/
+
 namespace Cms\PageBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -23,10 +16,10 @@ class PageType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('url')
             ->add('contenu', 'textarea', array(
                 'label' => 'Contenu de la page',
-                'attr' => array('class' => 'ckeditor')))
-        ;
+                'attr' => array('class' => 'ckeditor')))        ;
     }
     
     /**

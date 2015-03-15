@@ -34,3 +34,16 @@ article_admin_supprimer_photo_contenu:
     pattern:  /supprimer_photo_contenu/{idphoto}
     defaults: { _controller: ArticleBundle:Admin:supprimer_photo_contenu }
 
+
+article_admin_parametre_homepage:
+    pattern: /gestion_parametres
+    defaults: { _controller: ArticleBundle:Admin:gestion_parametres}
+
+article_admin_parametre_ajouter_contact_contenu:
+    pattern:  /parametre_ajouter_contact_contenu/
+    defaults: { _controller: ArticleBundle:Admin:parametre_ajouter_contact_contenu }
+
+article_admin_parametre_ajouter_reseaux_sociaux_contenu:
+    pattern:  /parametre_ajouter_reseaux_sociaux_contenu/
+    defaults: { _controller: ArticleBundle:Admin:parametre_ajouter_reseaux_sociaux_contenu }
+

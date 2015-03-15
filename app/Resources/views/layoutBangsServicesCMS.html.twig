@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Administration B-S Cms </title>
+    <title>Le Domaine du RABOT</title>
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="-1">
 
@@ -30,7 +30,7 @@
 
     
     <link href="{{asset('bundles/domaine/css/carousel.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('bundles/domaine/css/domaine_admin.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('bundles/domaine/css/domaine.css')}}" rel="stylesheet" type="text/css">
 
   </head>
 <!-- NAVBAR
@@ -39,48 +39,54 @@
     <div class="row-fluid">
       <div class="container">
         <div class="row-fluid" id="titre">
-          <h1>ADMINISTRATION BANGS-SERVICES CMS</h1>
+          <h1>DOMAINE DU RABOT</h1>
         </div>
       </div>
     </div>
 
 
+    <!-- Carousel
+    ================================================== -->
+  <div class="row-fluid" id="activites">
+    
+    {{ render(controller('DomaineBundle:Default:inserer_menu'))}}
+  </div>
+    
+
     <!-- ================================================== -->
+    <div class="container" id="reseau_sociaux">
+      <div class="row" style="text-align:center; font-size: 150%;" >
+        <li class="glyphicon glyphicon-phone-alt"></li>
+          <a href=""><strong>Contact</strong></a> 
+        <hr>
+      </div>
+
+      <div class="row-fluid">
+        <div class="col-md-offset-4">
+          <a class="col-lg-1" href="#">
+            <img src="{{asset('bundles/domaine/images/facebook.jpg')}} " alt="logo facebook" title="logo facebook">
+          </a>
+
+          <a class="col-lg-1" href="#">
+            <img src="{{asset('bundles/domaine/images/youtube.jpg')}} " alt="logo youtube" title="logo youtube">
+          </a>
+        </div>
+      </div>
+    </div>
+
     <hr>
 
-    <div>
-      <div class="col-md-3" id="gestion_activites">
-        <h2> <a href="{{path('domaine_admin_homepage')}} ">Gestions</a> </h2>
-        {% block menu_gestion %}
-          <div><p><a href="{{path('Page_admin_homepage')}} "><strong>Pages</strong></a></p></div>
-          <div><p><a href="{{path('article_admin_homepage')}} "><strong>Autre contenu</strong></a></p></div>
-          <div><p><a href="" style="color : red"><strong>Categories</strong></a></p></div>
-          <hr>
-          <div>
-            <p><a href="{{path('domaine_admin_menu_homepage')}} "><strong>Menus</strong></a></p>
-          </div>
-          <hr>
+    <div class="container">
+      <div class="row-fluid">
+        {% block section %}
 
-          <div><p><a href="{{path('article_admin_parametre_homepage')}} "><strong>Paramètres</strong></a></p></div>
-
-          <hr>
-
-          <div><p><a href="" style="color : red"><strong>Utilisateurs</strong></a></p></div>
         {% endblock %}
-        
-
       </div>
-      <div class="col-lg-8 col-lg-offset-1" id="section">
-        <div class="row">
-          {% block section %}
 
-          {% endblock %}
-        </div>
-        <div class="row">
-          {% block section2 %}
+      <div class="row-fluid">
+        {% block section2 %}
 
-          {% endblock %}
-        </div>
+        {% endblock %}
       </div>
     </div>
 
@@ -101,35 +107,9 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('bundles/page/ckeditor/ckeditor.js')}}"></script>
 
-    <script type="text/javascript">
-      $(document).ready(function(){
-
-        $('#balltrap').removeClass('active');
-        $('#paintball').removeClass('active');
-
-        // Initialisation des variables pour la taille de la fenêtre
-            var navWidth, navHeight;
-            if (self.innerWidth != undefined)
-            {
-                navWidth = self.innerWidth;
-                navHeight = self.innerHeight;
-                //alert(navHeight);
-                //alert(navWidth);
-            }
-            else 
-            {
-                navWidth = document.documentElement.clientWidth;
-                navHeight = document.documentElement.clientHeight;
-                //alert(navHeight);
-                //alert(navWidth);
-            };
-
-        $('#gestion_activites').css({
-              height : navHeight
-            });
-      });
-    </script>
+    <script src="{{asset('bundles/domaine/js/doc-min.js')}}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{asset('bundles/domaine/js/bug-workaround.js')}}"></script>
   </body>
 </html>
