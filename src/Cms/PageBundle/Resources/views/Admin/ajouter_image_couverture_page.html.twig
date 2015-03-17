@@ -1,0 +1,13 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+	<h2>Ajout image de couverture : <strong>Page "{{ page.nom }}" </strong></h2>
+	
+	<div class="well">
+	  <form action="{{path('Page_admin_ajouter_image_couverture_page', {'idpage' : page.id })}} " method="post" {{ form_enctype(form) }}>
+	  		{{ form_widget(form) }}
+	    <input type="submit" class="btn btn-primary" value="Envoyer"/>
+	  </form>
+	</div>
+
+{% endblock %}

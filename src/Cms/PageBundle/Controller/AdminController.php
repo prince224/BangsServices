@@ -63,10 +63,16 @@ class AdminController extends Controller
             'numero' => 1
             ));
 
+        $photo_couverture = $em->getRepository('DomaineBundle:Photo')->findBy(array(
+            'page' =>$page,
+            'numero' => 0
+            ));
+
        return $this->render('PageBundle:Admin:voir_une_page.html.twig', array(
                 'page' => $page,
                 'sousmenus' => $sousmenus,
                 'photo_carousel'=> $photo_carousel,
+                'photo_couverture' => $photo_couverture,
                 'sections' => $sections,
                 ))
             ;
@@ -263,6 +269,46 @@ class AdminController extends Controller
                     ))); 
     }
     /*===================== Fin de la suppression d'une image carousel ===============================================*/
+
+    /*===================== Ajouter une couverture à une page ==========================================*/
+    public function ajouter_image_couverture_pageAction($idpage)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $page = $em->getRepository('PageBundle:Page')->find($idpage);
+        $photo = new Photo();
+
+        $form = $this->createForm(new PhotoType, $photo);
+
+        if($request->getMethod() == "POST")
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $section = $form->getData();
+
+                //numero 1 pour les images couvertures
+                $photo->setNumero('0');
+
+                $em->persist($photo);
+                $page->addPhoto($photo);
+
+                $em->flush();
+
+                //on fait une redirection vers la page homepage
+                return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    )));
+            }
+        }
+        return $this->render('PageBundle:Admin:ajouter_image_couverture_page.html.twig', array(
+            'form' => $form->createView(),
+            'page' => $page,
+            ));
+    }
+    /*===================== Fin de l'ajout image couverture page ==========================================*/
+
 
         
     /*===================== ajouter_section_page==========================================*/

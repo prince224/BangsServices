@@ -18,6 +18,8 @@ Page_admin_supprimer_une_page:
     pattern: /supprimer_une_page/{idpage}
     defaults: { _controller: PageBundle:Admin:supprimer_une_page}
 
+
+
 Page_admin_ajouter_image_carousel_page:
     pattern: /ajouter_image_carousel_page/{idpage}
     defaults: { _controller: PageBundle:Admin:ajouter_image_carousel_page}
@@ -29,6 +31,13 @@ Page_admin_modifier_image_carousel_page:
 Page_admin_supprimer_image_carousel_page:
     pattern: /supprimer_image_carousel_page/{idphoto}
     defaults: { _controller: PageBundle:Admin:supprimer_image_carousel_page}
+
+
+
+Page_admin_ajouter_image_couverture_page:
+    pattern: /ajouter_image_couverture_page/{idpage}
+    defaults: { _controller: PageBundle:Admin:ajouter_image_couverture_page}
+
 
 
 Page_admin_ajouter_section_page:
