@@ -16,13 +16,17 @@
                 <th>Nom</th>
                 <th>Détails</th>
                 <th>Modifier</th>
+                <th>Supprimer</th>
             </thead>
             <tbody>
         		{% for page in pages %}
                 <tr> 
                     <td>{{ page.nom }}</td>
                     <td><a href="{{path('Page_admin_voir_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-eye-open"></span></a></td>
+
                     <td><a href="{{path('Page_admin_modifier_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></td>
+
+                    <td><a href="{{path('Page_admin_supprimer_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-remove"></span></a></td>
                 </tr>
                     
                 {% endfor %}
