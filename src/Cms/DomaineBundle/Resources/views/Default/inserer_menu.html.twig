@@ -18,75 +18,41 @@
               </ol>
               
               <div class="carousel-inner" role="listbox">
-              {% if page.photos is empty %}
-                <div class="item active">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1> {{ page.nom }} </h1>
-                      <p></p>
-                      <p><a class="btn btn-lg btn-primary" href="#" target="_blank" role="button">En construction</a></p>
+                {% if page.photos is empty %}
+                  <div class="item">
+                    <div class="container">
+                      <div class="carousel-caption">
+                        <h1> {{ page.nom }} </h1>
+                        <p></p>
+                        <p><a class="btn btn-lg btn-primary" href="#" target="_blank" role="button">En construction</a></p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              {% endif %}
-              {% if page.photos is not empty %}
-                <div class="item active">
-                  <img src="{{asset(page.photos['0'].webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1> {{ page.nom }} </h1>
-                      <p></p>
-                      <p>
-                        {% if page.url is defined %}
-                        <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
-                        {% else %}
-                        <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
-                        {% endif %}
-
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {% if page.photos['1'] is defined %}
-                <div class="item">
-                  <img src="{{asset(page.photos['1'].webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1>{{ page.nom }}</h1>
-                      <p></p>
-                      <p>
-                        {% if page.url is defined %}
-                        <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
-                        {% else %}
-                        <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
-                        {% endif %}
-
-                      </p>
-                    </div>
-                  </div>
-                </div>
                 {% endif %}
-                {% if page.photos['2'] is defined %}
-                <div class="item">
-                  <img src="{{asset(page.photos['2'].webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1>{{ page.nom }}</h1>
-                      <p></p>
-                      <p>
-                        {% if page.url is defined %}
-                        <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
-                        {% else %}
-                        <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
-                        {% endif %}
+                {% if page.photos is not empty %}
+                  {% for photo in page.photos %}
+                  {% if photo.numero == 0 %}
+                  <div class="item">
+                    <img src="{{asset(photo.webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
+                    <div class="container">
+                      <div class="carousel-caption">
+                        <h1> {{ page.nom|upper }} </h1>
+                        <p></p>
+                        <p>
+                          {% if page.url is defined %}
+                          <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
+                          {% else %}
+                          <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
+                          {% endif %}
 
-                      </p>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                  
+                  {% endif %}
+                  {% endfor %}
                 {% endif %}
-              {% endif %}
               </div>
               <a class="left carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -114,75 +80,41 @@
               </ol>
               
               <div class="carousel-inner" role="listbox">
-              {% if page.photos is empty %}
-                <div class="item active">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1> {{ page.nom }} </h1>
-                      <p></p>
-                      <p><a class="btn btn-lg btn-primary" href="#" target="_blank" role="button">En construction</a></p>
+                {% if page.photos is empty %}
+                  <div class="item">
+                    <div class="container">
+                      <div class="carousel-caption">
+                        <h1> {{ page.nom }} </h1>
+                        <p></p>
+                        <p><a class="btn btn-lg btn-primary" href="#" target="_blank" role="button">En construction</a></p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              {% endif %}
-              {% if page.photos is not empty %}
-                <div class="item active">
-                  <img src="{{asset(page.photos['0'].webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1> {{ page.nom }} </h1>
-                      <p></p>
-                      <p>
-                        {% if page.url is defined %}
-                        <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
-                        {% else %}
-                        <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
-                        {% endif %}
-
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {% if page.photos['1'] is defined %}
-                <div class="item">
-                  <img src="{{asset(page.photos['1'].webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1>{{ page.nom }}</h1>
-                      <p></p>
-                      <p>
-                        {% if page.url is defined %}
-                        <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
-                        {% else %}
-                        <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
-                        {% endif %}
-
-                      </p>
-                    </div>
-                  </div>
-                </div>
                 {% endif %}
-                {% if page.photos['2'] is defined %}
-                <div class="item">
-                  <img src="{{asset(page.photos['2'].webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1>{{ page.nom }}</h1>
-                      <p></p>
-                      <p>
-                        {% if page.url is defined %}
-                        <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
-                        {% else %}
-                        <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
-                        {% endif %}
+                {% if page.photos is not empty %}
+                  {% for photo in page.photos %}
+                  {% if photo.numero == 0 %}
+                  <div class="item">
+                    <img src="{{asset(photo.webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
+                    <div class="container">
+                      <div class="carousel-caption">
+                        <h1> {{ page.nom|upper }} </h1>
+                        <p></p>
+                        <p>
+                          {% if page.url is defined %}
+                          <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
+                          {% else %}
+                          <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
+                          {% endif %}
 
-                      </p>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                  
+                  {% endif %}
+                  {% endfor %}
                 {% endif %}
-              {% endif %}
               </div>
               <a class="left carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -209,75 +141,41 @@
               </ol>
               
               <div class="carousel-inner" role="listbox">
-              {% if page.photos is empty %}
-                <div class="item active">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1> {{ page.nom }} </h1>
-                      <p></p>
-                      <p><a class="btn btn-lg btn-primary" href="#" target="_blank" role="button">En construction</a></p>
+                {% if page.photos is empty %}
+                  <div class="item">
+                    <div class="container">
+                      <div class="carousel-caption">
+                        <h1> {{ page.nom }} </h1>
+                        <p></p>
+                        <p><a class="btn btn-lg btn-primary" href="#" target="_blank" role="button">En construction</a></p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              {% endif %}
-              {% if page.photos is not empty %}
-                <div class="item active">
-                  <img src="{{asset(page.photos['0'].webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1> {{ page.nom }} </h1>
-                      <p></p>
-                      <p>
-                        {% if page.url is defined %}
-                        <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
-                        {% else %}
-                        <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
-                        {% endif %}
-
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {% if page.photos['1'] is defined %}
-                <div class="item">
-                  <img src="{{asset(page.photos['1'].webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1>{{ page.nom }}</h1>
-                      <p></p>
-                      <p>
-                        {% if page.url is defined %}
-                        <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
-                        {% else %}
-                        <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
-                        {% endif %}
-
-                      </p>
-                    </div>
-                  </div>
-                </div>
                 {% endif %}
-                {% if page.photos['2'] is defined %}
-                <div class="item">
-                  <img src="{{asset(page.photos['2'].webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
-                  <div class="container">
-                    <div class="carousel-caption">
-                      <h1>{{ page.nom }}</h1>
-                      <p></p>
-                      <p>
-                        {% if page.url is defined %}
-                        <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
-                        {% else %}
-                        <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
-                        {% endif %}
+                {% if page.photos is not empty %}
+                  {% for photo in page.photos %}
+                  {% if photo.numero == 0 %}
+                  <div class="item">
+                    <img src="{{asset(photo.webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
+                    <div class="container">
+                      <div class="carousel-caption">
+                        <h1> {{ page.nom|upper }} </h1>
+                        <p></p>
+                        <p>
+                          {% if page.url is defined %}
+                          <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
+                          {% else %}
+                          <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
+                          {% endif %}
 
-                      </p>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                  
+                  {% endif %}
+                  {% endfor %}
                 {% endif %}
-              {% endif %}
               </div>
               <a class="left carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -302,3 +200,13 @@
       </h1>
     {% endif %}
     {% endfor %}
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      
+      //$('.carousel-inner div').first().addClass('active');
+      $(".carousel-inner div:nth-child(1)").addClass('active');
+    });
+  </script>

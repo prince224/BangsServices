@@ -12,6 +12,7 @@ namespace Cms\DomaineBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cms\DomaineBundle\Entity\Menu;
+use Cms\DomaineBundle\Entity\Photo;
 use Cms\PageBundle\Entity\Page;
 use Cms\ArticleBundle\Entity\Contenu;
 use Cms\DomaineBundle\Entity\Logos;
@@ -32,7 +33,7 @@ class DefaultController extends Controller
     }
 
 
-    /*====inserer menu ====*/
+    /*================================ inserer menu ==========================================*/
     public function inserer_menuAction()
     {
         $em = $this->getDoctrine()->getManager();
