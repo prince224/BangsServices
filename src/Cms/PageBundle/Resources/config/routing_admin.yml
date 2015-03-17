@@ -42,6 +42,12 @@ Page_admin_modifier_image_couverture_page:
     pattern: /modifier_image_couverture_page/{idphoto}
     defaults: { _controller: PageBundle:Admin:modifier_image_couverture_page}
 
+Page_admin_supprimer_image_couverture_page:
+    pattern: /supprimer_image_couverture_page/{idphoto}
+    defaults: { _controller: PageBundle:Admin:supprimer_image_couverture_page}
+
+
+
 
 
 Page_admin_ajouter_section_page:

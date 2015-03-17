@@ -271,6 +271,8 @@ class AdminController extends Controller
     /*===================== Fin de la suppression d'une image carousel ===============================================*/
 
 
+
+
     /*===================== Ajouter une couverture à une page ==========================================*/
     public function ajouter_image_couverture_pageAction($idpage)
     {
@@ -343,7 +345,36 @@ class AdminController extends Controller
     }
     /*===================== Fin modification image couverture ==========================================*/
 
-        
+    /*===================== supprimer une image couverture==========================================*/
+    public function supprimer_image_couverture_pageAction($idphoto)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
+        $page = $photo->getPage();
+
+        if($photo != null )
+        {
+            $em->remove($photo);
+            $em->flush();
+            
+            //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    )));
+
+        }
+       
+        //on fait une redirection vers la page homepage
+            return $this->redirect($this->generateUrl('Page_admin_voir_une_page', array(
+                    'idpage' => $page->getId(),
+                    ))); 
+    }
+    /*===================== Fin de la suppression d'une image couverture ===============================================*/
+ 
+
+
     /*===================== ajouter_section_page==========================================*/
     public function ajouter_section_pageAction($idpage)
     {
