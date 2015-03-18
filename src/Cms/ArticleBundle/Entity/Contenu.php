@@ -49,6 +49,14 @@ class Contenu
      */
     private $titre;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nompartenaire", type="string", length=255, nullable=true)
+     */
+    private $nompartenaire;
+
     /*================== Pour la categorie article, evenement =======================*/
     /**
      * @var string
@@ -458,5 +466,28 @@ class Contenu
     public function getPhoto()
     {
         return $this->photo;
+    }
+
+    /**
+     * Set nompartenaire
+     *
+     * @param string $nompartenaire
+     * @return Contenu
+     */
+    public function setNompartenaire($nompartenaire)
+    {
+        $this->nompartenaire = $nompartenaire;
+    
+        return $this;
+    }
+
+    /**
+     * Get nompartenaire
+     *
+     * @return string 
+     */
+    public function getNompartenaire()
+    {
+        return $this->nompartenaire;
     }
 }

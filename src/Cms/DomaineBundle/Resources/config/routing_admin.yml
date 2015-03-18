@@ -55,6 +55,10 @@ domaine_admin_parametre_supprimer_reseaux_sociaux_contenu:
 
 
 
+domaine_admin_ajouter_partenaires:
+    pattern:  /ajouter_partenaires/
+    defaults: { _controller: DomaineBundle:Admin:ajouter_partenaires }
+
 
 
 

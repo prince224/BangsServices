@@ -49,6 +49,14 @@ class Contenu
      */
     private $titre;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nompartenaire", type="string", length=255, nullable=true)
+     */
+    private $nompartenaire;
+
     /*================== Pour la categorie article, evenement =======================*/
     /**
      * @var string

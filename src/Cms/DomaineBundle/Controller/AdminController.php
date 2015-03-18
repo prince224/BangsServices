@@ -160,6 +160,8 @@ class AdminController extends Controller
             'nom' => 'logoSite'
             ));
 
+        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+
 
         return $this->render('DomaineBundle:Admin:gestion_parametres.html.twig',array(
             'contenus' => $contenus,
@@ -378,5 +380,47 @@ class AdminController extends Controller
            
     }
     /*===================== Fin parametre_supprimer_reseaux_sociaux_contenu ==========================================*/
+
+
+
+
+    /*===================== ajouter_partenaire ==========================================*/
+    public function ajouter_partenairesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $partenaire = new Contenu();
+
+        $form = $this->get('form.factory')->createBuilder('form', $partenaire)
+
+                    ->add('nompartenaire', 'text', array(
+                            'label' => 'Nom :'))
+
+                    ->add('photo', new PhotoType())
+
+                        ->getForm();
+                     ;
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $partenaire = $form->getData();
+
+                $em->persist($partenaire);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+            }
+        }
+        return $this->render('DomaineBundle:Admin:ajouter_partenaires.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }
+    /*===================== Fin ajouter_partenaire ==========================================*/
+
 
 }   
