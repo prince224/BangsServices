@@ -37,10 +37,10 @@ class Contenu
 
     /**
     *
-    * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\Photo", mappedBy="contenu", cascade={"persist", "remove"})
+    * @ORM\OneToOne(targetEntity="Cms\DomaineBundle\Entity\Photo", cascade={"persist", "remove"})
     *
     */
-    private $photos;
+    private $photo;
 
     /**
      * @var string
@@ -344,47 +344,6 @@ class Contenu
         return $this->prix;
     }
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->photos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add photos
-     *
-     * @param \Cms\DomaineBundle\Entity\Photo $photos
-     * @return Contenu
-     */
-    public function addPhoto(\Cms\DomaineBundle\Entity\Photo $photos)
-    {
-        $this->photos[] = $photos;
-        $photos->setContenu($this);
-        return $this;
-    }
-
-    /**
-     * Remove photos
-     *
-     * @param \Cms\DomaineBundle\Entity\Photo $photos
-     */
-    public function removePhoto(\Cms\DomaineBundle\Entity\Photo $photos)
-    {
-        $this->photos->removeElement($photos);
-    }
-
-    /**
-     * Get photos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
-    }
-
-    /**
      * Set telephone
      *
      * @param string $telephone
@@ -474,5 +433,30 @@ class Contenu
     public function getLogos()
     {
         return $this->logos;
+    }
+
+    
+
+    /**
+     * Set photo
+     *
+     * @param \Cms\DomaineBundle\Entity\Photo $photo
+     * @return Contenu
+     */
+    public function setPhoto(\Cms\DomaineBundle\Entity\Photo $photo = null)
+    {
+        $this->photo = $photo;
+    
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \Cms\DomaineBundle\Entity\Photo 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 }

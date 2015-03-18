@@ -147,6 +147,7 @@ class AdminController extends Controller
 			            ->add('dateFin', 'date', array(
 			            	'label' => 'Date de fin :'))
 
+                        ->add('photo', new PhotoType())
                         ->getForm();
                      ;
         }

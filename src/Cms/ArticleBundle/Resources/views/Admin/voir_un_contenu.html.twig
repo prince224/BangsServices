@@ -6,7 +6,7 @@
     <h4>Catgorie : <em> {{ contenu.categorie.nom }} </em></h4>
     <div class="col-md-12">
         <div class="row">
-            {% if contenu.photos is empty %}
+            {% if contenu.photo is empty %}
             <div class="col-md-2">
                 <a href="{{path('article_admin_ajouter_photo_contenu', {'idcontenu' : contenu.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter photo</a>
             </div>
@@ -43,16 +43,14 @@
                     <p><strong>Prix : </strong>{{ contenu.prix }} € </p>
                 {% endif %}
             
-                {% if contenu.photos is not empty %}
-                    {% for photo in contenu.photos %}
+                {% if contenu.photo is not empty %}
                         <div class="col-md-5">
-                            <a href="{{path('article_admin_modifier_photo_contenu', {'idphoto' : photo.id, 'contenu' : contenu.id })}} " class="btn-success"> Modifier photo</a> 
+                            <a href="{{path('article_admin_modifier_photo_contenu', {'idphoto' : contenu.photo.id, 'contenu' : contenu.id })}} " class="btn-success"> Modifier photo</a> 
 
-                            <a href="{{path('article_admin_supprimer_photo_contenu', {'idphoto' : photo.id, 'contenu' : contenu.id })}} " class="btn-danger"> Supprimer photo</a>
-                            <img class="col-lg-12" src="{{asset(photo.webPath)}} ">
+                            <a href="{{path('article_admin_supprimer_photo_contenu', {'idphoto' : contenu.photo.id, 'contenu' : contenu.id })}} " class="btn-danger"> Supprimer photo</a>
+                            <img class="col-lg-12" src="{{asset(contenu.photo.webPath)}} ">
                             
                         </div>
-                    {% endfor %}
                 {% endif %}
                 <p><strong>Contenu :</strong> <br>
                     {% if contenu.contenu is not empty %}
