@@ -110,6 +110,8 @@ class AdminController extends Controller
 			            ->add('auteur', 'text', array(
 			            	'label' => 'Auteur :'))
 
+                        ->add('photo', new PhotoType())
+                        
                         ->getForm();
                      ;
         }
@@ -124,6 +126,8 @@ class AdminController extends Controller
 			                'attr'=> array('class' => 'ckeditor')))
 
 			            ->add('prix')
+
+                        ->add('photo', new PhotoType())
 
                         ->getForm();
                      ;
@@ -148,6 +152,7 @@ class AdminController extends Controller
 			            	'label' => 'Date de fin :'))
 
                         ->add('photo', new PhotoType())
+
                         ->getForm();
                      ;
         }
