@@ -98,12 +98,12 @@
             <tr>
                <td>
                     {{ contenu.nompartenaire }}
-                    <a href="# "><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="{{path('domaine_admin_modifier_text_partenaire', {'idpartenaire' : contenu.id })}} "><span class="glyphicon glyphicon-pencil"></span></a>
                 </td>
                 <td>
                     {% if contenu.photo is not empty %}
                         <img class="col-md-4" src="{{asset(contenu.photo.webPath)}} ">
-                        <a href="# "><span class="glyphicon glyphicon-pencil"></span></a> 
+                        <a href="{{path('domaine_admin_modifier_image_partenaire', {'idpartenaire' : contenu.id })}}"><span class="glyphicon glyphicon-pencil"></span></a> 
                     {% endif %}
                 </td>
 

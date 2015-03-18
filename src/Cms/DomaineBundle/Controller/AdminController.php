@@ -422,5 +422,76 @@ class AdminController extends Controller
     }
     /*===================== Fin ajouter_partenaire ==========================================*/
 
+    /*===================== modifier_text_partenaire==========================================*/
+    public function modifier_text_partenaireAction($idpartenaire)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $partenaire = $em->getRepository('ArticleBundle:Contenu')->find($idpartenaire);
+
+        $form = $this->get('form.factory')->createBuilder('form', $partenaire)
+
+                    ->add('nompartenaire', 'text', array(
+                            'label' => 'Nom :'))
+
+                        ->getForm();
+                     ;
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $partenaire = $form->getData();
+
+                $em->persist($partenaire);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+            }
+        }
+        return $this->render('DomaineBundle:Admin:modifier_text_partenaire.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }
+    /*===================== Fin modifier_text_partenaire==========================================*/
+
+    /*===================== modifier_image_partenaire==========================================*/
+    public function modifier_image_partenaireAction($idpartenaire)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $partenaire = $em->getRepository('ArticleBundle:Contenu')->find($idpartenaire);
+
+        $form = $this->get('form.factory')->createBuilder('form', $partenaire)
+
+                    ->add('photo', new PhotoType())
+
+                        ->getForm();
+                     ;
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $partenaire = $form->getData();
+
+                $em->persist($partenaire);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+            }
+        }
+        return $this->render('DomaineBundle:Admin:modifier_image_partenaire.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }
+    /*===================== Fin modifier_image_partenaire==========================================*/
+
 
 }   
