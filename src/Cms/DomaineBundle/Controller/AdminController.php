@@ -493,5 +493,28 @@ class AdminController extends Controller
     }
     /*===================== Fin modifier_image_partenaire==========================================*/
 
+     /*===================== supprimer_partenaire==========================================*/
+    public function supprimer_partenaireAction($idpartenaire)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $partenaire = $em->getRepository('ArticleBundle:Contenu')->find($idpartenaire);
+
+        if($partenaire != null)
+        {
+            
+            $em->remove($partenaire);
+
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+        }
+        
+        return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+            
+    }
+    /*===================== Fin supprimer_partenaire==========================================*/
+
 
 }   

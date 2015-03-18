@@ -107,7 +107,7 @@
                     {% endif %}
                 </td>
 
-                <td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
+                <td><a href="{{path('domaine_admin_supprimer_partenaire', {'idpartenaire' : contenu.id })}}"><span class="glyphicon glyphicon-remove"></span></a></td>
             </tr>
             {% endif %}
         {% endfor %}

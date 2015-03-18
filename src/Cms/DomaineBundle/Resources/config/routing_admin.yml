@@ -67,6 +67,10 @@ domaine_admin_modifier_image_partenaire:
     pattern:  /modifier_image_partenaire/{idpartenaire}
     defaults: { _controller: DomaineBundle:Admin:modifier_image_partenaire }
 
+domaine_admin_supprimer_partenaire:
+    pattern:  /supprimer_partenaire/{idpartenaire}
+    defaults: { _controller: DomaineBundle:Admin:supprimer_partenaire }
+
 
 
 
