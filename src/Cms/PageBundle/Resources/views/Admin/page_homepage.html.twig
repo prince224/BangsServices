@@ -26,6 +26,8 @@
                     <td>
                         {% if page.etat == true %}
                             Publié
+                        {% else %}
+                            Non Publié
                         {% endif %}
                     </td>
                     <td><a href="{{path('Page_admin_voir_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-eye-open"></span></a></td>

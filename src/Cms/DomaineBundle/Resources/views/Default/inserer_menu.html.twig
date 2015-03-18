@@ -39,10 +39,10 @@
                         <h1> {{ page.nom|upper }} </h1>
                         <p></p>
                         <p>
-                          {% if page.url is defined %}
+                          {% if page.url is not empty %}
                           <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
                           {% else %}
-                          <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
+                          <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " role="button">Visiter</a>
                           {% endif %}
 
                         </p>
@@ -101,7 +101,7 @@
                         <h1> {{ page.nom|upper }} </h1>
                         <p></p>
                         <p>
-                          {% if page.url is defined %}
+                          {% if page.url is not empty %}
                           <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
                           {% else %}
                           <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>
@@ -162,7 +162,7 @@
                         <h1> {{ page.nom|upper }} </h1>
                         <p></p>
                         <p>
-                          {% if page.url is defined %}
+                          {% if page.url is not empty %}
                           <a class="btn btn-lg btn-primary" href="{{ page.url }}" target="_blank" role="button">Visiter</a>
                           {% else %}
                           <a class="btn btn-lg btn-primary" href="{{path('domaine_voir_page', {'idpage': page.id })}} " target="_blank" role="button">Visiter</a>

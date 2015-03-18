@@ -23,6 +23,10 @@ domaine_admin_parametre_homepage:
     pattern: /gestion_parametres
     defaults: { _controller: DomaineBundle:Admin:gestion_parametres}
 
+domaine_admin_parametre_ajouter_logos_site:
+    pattern: /parametre_ajouter_logos_site/
+    defaults: { _controller: DomaineBundle:Admin:parametre_ajouter_logos_site}
+
 domaine_admin_parametre_ajouter_contact_contenu:
     pattern:  /parametre_ajouter_contact_contenu/
     defaults: { _controller: DomaineBundle:Admin:parametre_ajouter_contact_contenu }

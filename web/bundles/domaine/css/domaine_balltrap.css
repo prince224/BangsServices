@@ -1,0 +1,132 @@
+#titre h1
+{
+  text-align: center;
+}
+
+.activites{
+  border-top: 4px solid blue;
+  margin-top:55px;
+  padding-top: 25px;
+}
+
+#logo img{
+	max-height: 250px;
+	max-width: 250px;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+#entete_enveloppe{
+	background-image:radial-gradient(white, black);
+}
+
+#menu_top a, span{
+	color: black;
+	font-weight: bold;
+}
+
+#menu_top span{
+	background-color: black;
+}
+
+#menu_top .active a {
+	border-top: 4px solid blue;
+	border-radius: 10px;
+}
+
+#sous_menu{
+	border-top: 2px solid blue;
+	border-bottom: 2px solid blue;
+	margin-bottom: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-weight: bold;
+}
+
+#sous_menu a {  
+	color: black;
+	padding: 7px;
+}
+
+#sous_menu .active a {
+	background-color: yellow;
+	border-radius: 10px;
+}
+
+#myCarousel_index{
+	max-height: 320px;
+}
+
+#myCarousel_index img
+{
+	max-height: 370px;
+}
+
+#myCarousel_index .item
+{
+	max-height: 370px;
+}
+
+#myCarousel_installations{
+	max-height: 320px;
+}
+
+#myCarousel_installations img
+{
+	max-height: 370px;
+}
+#myCarousel_installations .item
+{
+	max-height: 370px;
+}
+
+#myCarousel_photos_installations{
+	max-height: 300px;
+}
+#myCarousel_photos_installations img
+{
+	max-height: 300px;
+}
+
+#myCarousel_photos_installations .item
+{
+	max-height: 300px;
+}
+
+#myCarousel_partenaires{
+	max-height: 300px;
+}
+#myCarousel_partenaires img
+{
+	max-height: 300px;
+}
+#myCarousel_partenaires .item
+{
+	max-height: 300px;
+}
+
+#myCarousel{
+	margin-bottom: 0px;
+}
+
+#section_installations h3, #text_club_house h3, #club_house_emplacement h3, #text_tarifs h3, #nous_connaitre_localisation h3{
+	text-align: center;
+}
+
+#cote_droit{
+	margin-right: 0px;
+}
+
+#reseau_sociaux img{
+	text-align: center;
+	border-radius: 10px;
+}
+
+
+footer{
+  border-top: 4px solid blue;
+  margin-top:25px;
+  padding-top: 25px;
+}

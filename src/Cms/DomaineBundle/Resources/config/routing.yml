@@ -7,6 +7,10 @@ domaine_homepage_inserer_menu:
     pattern: /inserer-menu
     defaults: { _controller: DomaineBundle:Default:inserer_menu}
 
+domaine_homepage_inserer_menu_page:
+    pattern: /inserer-menu-page
+    defaults: { _controller: DomaineBundle:Default:inserer_menu_page}
+
 domaine_homepage_inserer_contact:
     pattern: /inserer-contact
     defaults: { _controller: DomaineBundle:Default:inserer_contact}

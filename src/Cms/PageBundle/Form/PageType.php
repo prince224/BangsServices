@@ -22,7 +22,8 @@ class PageType extends AbstractType
                 'attr' => array('class' => 'ckeditor')))
 
             ->add('etat', 'checkbox', array(
-                'label' => 'Publier ?'))
+                'label' => 'Publier ?',
+                'required' => false))
             ;
     }
     

@@ -3,8 +3,21 @@
 {% block section %}
 <h1>Gestion des paramètres du site :</h1>
 <hr>
+    <div class="col-md-12">
+        <h3>Logo du site internet : </h3>
+        {% if logo_site is empty %}
+            <a class="col-md-3" href="{{path('domaine_admin_parametre_ajouter_logos_site')}} "><span class="glyphicon glyphicon-plus"></span> Ajouter Logo</a>
+        {% endif %}
+        {% if logo_site is not empty %}
+            <img class="col-md-4" src="{{asset(logo_site.webPath)}} "> 
+            <a href="# "><span class="glyphicon glyphicon-pencil"></span></a>
+
+            <a href="# "><span class="glyphicon glyphicon-remove"></span></a>
+        {% endif %}
+    </div>
 
     <div class="col-md-12">
+        <hr>
         <h3>Contacts : </h3>
         <a class="col-md-3" href="{{path('domaine_admin_parametre_ajouter_contact_contenu')}} "><span class="glyphicon glyphicon-plus"></span> Nouveau Contact</a>
 
@@ -53,11 +66,11 @@
                 <th>Supprimer</th>
             </thead>
         {% for logo in logos %}
-            {% if logo is not empty %}
+            {% if logo is not empty and logo.nom != 'logoSite' %}
             <tr>
                <td>{{ logo.nom }}</td>
                <td>{{ logo.url }}</td>
-               <td><img class="col-md2" src="{{asset(logo.webPath)}} "> </td>
+               <td><img class="col-md-4" src="{{asset(logo.webPath)}} "> </td>
                <td><a href="{{path('domaine_admin_parametre_modifier_reseaux_sociaux_contenu', {'idlogo' : logo.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></td>
 
                <td><a href="{{path('domaine_admin_parametre_supprimer_reseaux_sociaux_contenu', {'idlogo' : logo.id })}} "><span class="glyphicon glyphicon-remove"></span></a></td>

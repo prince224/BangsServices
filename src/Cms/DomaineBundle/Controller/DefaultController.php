@@ -47,6 +47,21 @@ class DefaultController extends Controller
     }
     /* ==== fin inserer menu =====*/
 
+    /*================================ inserer menu_page ==========================================*/
+    public function inserer_menu_pageAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $menus = $em->getRepository('DomaineBundle:Menu')->findAll();
+
+        return $this->render('DomaineBundle:Default:inserer_menu_page.html.twig',array(
+            'menus' => $menus,
+            ));
+    }
+    /* ==== fin inserer menu page =====*/
+
+
     /*====inserer contact ====*/
     public function inserer_contactAction()
     {
@@ -81,12 +96,18 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
+        $menus = $em->getRepository('DomaineBundle:Menu')->findAll();
+
         $page = $em->getRepository('PageBundle:Page')->find($idpage);
+        $sous_menu = $page->getSousmenus();
         
         if($page != null)
         {
            return $this->render('DomaineBundle:Default:consulter_page.html.twig',array(
-            'page' => $page)); 
+            'menus' => $menus,
+            'page' => $page,
+            'sous_menu' => $sous_menu,
+            )); 
         }
         
         return $this->redirect($this->generateUrl('domaine_homepage'));

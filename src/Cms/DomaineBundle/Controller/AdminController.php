@@ -156,13 +156,57 @@ class AdminController extends Controller
         $contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
         $logos = $em->getRepository('DomaineBundle:Logos')->findAll();
 
+        $logo_site = $em->getRepository('DomaineBundle:Logos')->findOneBy(array(
+            'nom' => 'logoSite'
+            ));
+
 
         return $this->render('DomaineBundle:Admin:gestion_parametres.html.twig',array(
             'contenus' => $contenus,
-            'logos' => $logos
+            'logos' => $logos,
+            'logo_site' => $logo_site
             ));
     }
     /*===================== Fin gestion_parametres ==========================================*/
+
+    /*===================== parametre_ajouter_logos_site ==========================================*/
+    public function parametre_ajouter_logos_siteAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $logo_site = new Logos();
+
+        //$form = $this->createForm(new LogosType, $logos_site);
+
+        $form = $this->get('form.factory')->createBuilder('form', $logo_site)
+                                  
+                        ->add('file', 'file')
+
+                        ->getForm();
+                     ;
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $logo_site = $form->getData();
+
+                $logo_site->setNom('logoSite');
+
+                $em->persist($logo_site);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('domaine_admin_parametre_homepage'));
+            }
+        }
+        return $this->render('DomaineBundle:Admin:parametre_ajouter_logos_site.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }
+    /*===================== Fin parametre_ajouter_logos_site ==========================================*/
 
 
     /*===================== parametre_ajouter_contact_contenu ==========================================*/
