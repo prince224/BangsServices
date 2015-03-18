@@ -19,7 +19,11 @@ class PageType extends AbstractType
             ->add('url')
             ->add('contenu', 'textarea', array(
                 'label' => 'Contenu de la page',
-                'attr' => array('class' => 'ckeditor')))        ;
+                'attr' => array('class' => 'ckeditor')))
+
+            ->add('etat', 'checkbox', array(
+                'label' => 'Publier ?'))
+            ;
     }
     
     /**

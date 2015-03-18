@@ -71,6 +71,13 @@ class Page
     private $url;
 
     /**
+    *
+    * @var boolean
+    * @ORM\Column(name="etat", type="boolean", nullable=true)
+    */
+    private $etat;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -257,5 +264,28 @@ class Page
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param boolean $etat
+     * @return Page
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+    
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return boolean 
+     */
+    public function getEtat()
+    {
+        return $this->etat;
     }
 }

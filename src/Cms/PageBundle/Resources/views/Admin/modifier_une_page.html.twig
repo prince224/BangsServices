@@ -7,7 +7,9 @@
 <h1>Modification de la page :</h1>
 <div class="well">
   <form action="#" method="post" {{ form_enctype(form) }}>
+  	<table class="table responsive">
   		{{ form_widget(form) }}
+  	</table>
     <input type="submit" class="btn btn-success" />
   </form>
 </div>
