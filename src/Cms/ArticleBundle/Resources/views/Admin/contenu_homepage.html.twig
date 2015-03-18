@@ -24,6 +24,7 @@
             </thead>
             <tbody>
         		{% for contenu in contenus %}
+        		{% if contenu is defined and contenu.nompartenaire is empty %}
                 <tr> 
                     <td>{{ contenu.titre }}</td>
                     <td>{{ contenu.categorie.nom }} </td>
@@ -35,6 +36,7 @@
 
                     <td><a href="{{path('article_admin_supprimer_un_contenu', {'idcontenu' : contenu.id })}} "><span class="glyphicon glyphicon-remove"></span></a></td>
                 </tr>
+                {% endif %}
                     
                 {% endfor %}
             </tbody>
