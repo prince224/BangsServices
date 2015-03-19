@@ -1,7 +1,7 @@
-{% for reseau in reseaux_sociaux %}
-	{% if reseau is not empty %}
-		<a class="col-lg-2" href="{{ reseau.url }} ">
-            <img src="{{asset(reseau.webPath)}} " alt="{{ reseau.nom }} " title="{{ reseau.nom }} ">
+{% for reseau_logo in reseaux_sociaux %}
+	{% if reseau_logo is not empty  and reseau_logo.nom != 'logoSite' %}
+		<a class="col-lg-2" href="{{ reseau_logo.url }} ">
+            <img src="{{asset(reseau_logo.webPath)}} " alt="{{ reseau_logo.nom }} " title="{{ reseau_logo.nom }} ">
         </a>
 	{% endif %}
 {% endfor %}

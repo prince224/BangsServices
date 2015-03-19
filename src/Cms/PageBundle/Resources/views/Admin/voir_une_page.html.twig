@@ -5,7 +5,7 @@
     <hr>
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-2"><h4>Page : <em> {{ page.nom }} </em></h4> <br>
+            <div class="col-md-2"><h4>Page : <strong><em> {{ page.nom }} </em></strong></h4> <br>
                 <h5>Etat : 
                     {% if page.etat == true %}
                         Publié
@@ -22,7 +22,7 @@
             {% endif %}
             {% if photo_carousel|length < 4 %}
             <div class="col-md-2">
-                <a href="{{path('Page_admin_ajouter_image_carousel_page', {'idpage' : page.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter slider</a>
+                <a href="{{path('Page_admin_ajouter_image_carousel_page', {'idpage' : page.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter Photo slider</a>
             </div>
             {% endif %}
             <div class="col-md-2">
@@ -34,22 +34,56 @@
         </div>
 
         <div class="col-md-12">
-        <hr>
+            <hr>
             {% if photo_couverture is not empty %}
-            <h4>Photos de couverture : </h4>
+            <h4 class="col-md-2">Photos de couverture : </h4>
                 {% for photo in photo_couverture %}
-                    <div class="col-md-3">
-                        <img class="col-lg-12" src="{{asset(photo.webPath)}} ">
+                    <div class="col-md-2">
+                        <a data-target="#Photo_couvertureModal" data-toggle="modal" href="#">
+                            <img class="col-lg-12" src="{{asset(photo.webPath)}} " >
+                        </a>
+                    <!--
                         <a href="{{path('Page_admin_modifier_image_carousel_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn-success"> Modifier </a> 
 
                         <a href="{{path('Page_admin_supprimer_image_carousel_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn-danger"> Supprimer </a>
+                    -->
                     </div>
+
+                   <!-- Modal -->
+                    <div class="modal fade" id="Photo_couvertureModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close btn btn-default" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Photo de couverture</h4>
+                          </div>
+                          <div class="modal-body">
+                             <img class="col-lg-12" src="{{asset(photo.webPath)}} ">
+                          </div>
+
+                          <div class="modal-footer">
+                            <hr>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <a href="{{path('Page_admin_modifier_image_couverture_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn btn-success"> 
+                                Modifier 
+                            </a>
+                            <a href=href="{{path('Page_admin_supprimer_image_couverture_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn btn-danger"> 
+                                Supprimer 
+                            </a>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
                 {% endfor %}
             {% endif %}
         </div>
 
-        <hr>
+        
         <div class="col-lg-12">
+            <hr>
+
             {% if sousmenus is defined %}
             {% if sousmenus is not empty %}
                 <h4>Sous-menu : </h4>
@@ -68,18 +102,47 @@
         <div class="col-md-12">
         <hr>
             {% if photo_carousel is not empty %}
-            <h4>Photos slider : </h4>
+            <h4 class="col-md-2">Photos slider : </h4>
                 {% for photo in photo_carousel %}
-                    <div class="col-md-6">
-                        <img class="col-lg-12" src="{{asset(photo.webPath)}} ">
+                    <div class="col-md-2">
+                        <a data-target="#Photo_sliderModal" data-toggle="modal" href="#">
+                            <img class="col-lg-12" src="{{asset(photo.webPath)}} " >
+                        </a>
+                    <!--
                         <a href="{{path('Page_admin_modifier_image_couverture_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn-success"> Modifier</a> 
 
                         <a href="{{path('Page_admin_supprimer_image_couverture_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn-danger"> Supprimer</a>
+                    -->
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="Photo_sliderModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close btn btn-default" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Photo du Slider</h4>
+                          </div>
+
+                          <div class="modal-body">
+                             <img class="col-lg-12" src="{{asset(photo.webPath)}} ">
+                          </div>
+
+                          <div class="modal-footer">
+                            <hr>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <a href="{{path('Page_admin_modifier_image_carousel_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn btn-success"> Modifier </a>
+                            <a href="{{path('Page_admin_supprimer_image_carousel_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn btn-danger"> Supprimer </a>
+                          </div>
+
+                        </div>
+                      </div>
                     </div>
                 {% endfor %}
             {% endif %}
         </div>
         <div class="col-md-12">
+            <hr>
             <p><strong>Contenu :</strong> <br>
                 {{ page.contenu|raw }}
             </p>
