@@ -2,17 +2,24 @@
 
 {% block section %}
     <h1>Gestion d'autres contenus <em>Articles - Produits - Services ...</em> </h1>
+    <h3>Catgorie : <em> {{ contenu.categorie.nom }} </em></h3>
     <hr>
-    <h4>Catgorie : <em> {{ contenu.categorie.nom }} </em></h4>
+    
     <div class="col-md-12">
         <div class="row">
+            <div class="col-lg-6">
+                <a href="{{path('article_admin_homepage')}} "><span class="glyphicon glyphicon-arrow-left"> RETOUR</span></a>
+            </div>
             {% if contenu.photo is empty %}
             <div class="col-md-2">
                 <a href="{{path('article_admin_ajouter_photo_contenu', {'idcontenu' : contenu.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter photo</a>
             </div>
             {% endif %}
+            <br>
+            
             <hr>
         </div>
+
         <div class="col-md-12">
             <div class="col-md-12">
                 {% if contenu.titre is not empty %}
