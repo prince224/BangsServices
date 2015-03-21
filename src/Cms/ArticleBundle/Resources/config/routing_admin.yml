@@ -10,6 +10,16 @@ article_admin_page_categorie:
    pattern: /page_categorie
    defaults: { _controller: ArticleBundle:Admin:page_categorie}
 
+article_admin_ajouter_une_categorie:
+   pattern: /ajouter_une_categorie
+   defaults: { _controller: ArticleBundle:Admin:ajouter_une_categorie}
+
+article_admin_modifier_une_categorie:
+   pattern: /modifier_une_categorie/{idCategorie}
+   defaults: { _controller: ArticleBundle:Admin:modifier_une_categorie}
+
+
+
 
 article_admin_voir_un_contenu:
     pattern:  /voir_un_contenu/{idcontenu}

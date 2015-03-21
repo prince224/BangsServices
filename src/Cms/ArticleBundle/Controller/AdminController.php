@@ -83,6 +83,69 @@ class AdminController extends Controller
     }
     /*=========== Fin page categorie =========================*/
 
+
+    /*===========ajouter_une_categorie ===============================*/
+    public function ajouter_une_categorieAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $categorie = new Categorie();
+        $form = $this->createForm(new CategorieType, $categorie);
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $categorie = $form->getData();
+                $em->persist($categorie);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('article_admin_page_categorie'));
+            }
+
+        }
+
+        return $this->render('ArticleBundle:Admin:ajouter_une_categorie.html.twig', array(
+            'form' => $form->createView(),
+            ));
+    }
+    /*=========== Fin ajouter_une_categorie =========================*/
+
+    /*===========modifier_une_categorie ===============================*/
+    public function modifier_une_categorieAction($idCategorie)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $categorie = $em->getRepository('ArticleBundle:Categorie')->find($idCategorie);
+        $form = $this->createForm(new CategorieType, $categorie);
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if($form->isValid())
+            {
+                $categorie = $form->getData();
+                $em->persist($categorie);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('article_admin_page_categorie'));
+            }
+
+        }
+
+        return $this->render('ArticleBundle:Admin:modifier_une_categorie.html.twig', array(
+            'form' => $form->createView(),
+            'categorie' => $categorie
+            ));
+    }
+    /*=========== Fin modifier_une_categorie =========================*/
+
+
     /*=========== voir_un_contenu ==========================*/
     public function voir_un_contenuAction($idcontenu)
     {
