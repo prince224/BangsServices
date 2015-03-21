@@ -100,7 +100,7 @@ class Contenu
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", length=255, nullable=true)
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
