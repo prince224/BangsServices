@@ -65,6 +65,23 @@ class AdminController extends Controller
     }
     /*===========Fin choix_categorie ==========================*/
 
+    /*===========Page categorie ===============================*/
+    public function page_categorieAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('ArticleBundle:Categorie')->findAll();
+
+        if($categories != null)
+        {
+            return $this->render('ArticleBundle:Admin:page_categorie.html.twig', array(
+                'categories' => $categories,
+                ));
+
+        }
+        return $this->redirect($this->generateUrl('article_admin_homepage'));
+
+    }
+    /*=========== Fin page categorie =========================*/
 
     /*=========== voir_un_contenu ==========================*/
     public function voir_un_contenuAction($idcontenu)

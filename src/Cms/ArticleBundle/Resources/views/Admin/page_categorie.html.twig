@@ -1,0 +1,76 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+<h1>Gestion des catégories </h1>
+<hr>
+<div id="menu_balltrap" class="col-md-12">
+    <div class="col-md-12">
+        <a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Ajouter</a>
+    </div>
+  	
+  	<hr>
+	<div class="col-lg-12">
+        {% if categories is defined %}
+        {% if categories is not empty %}
+        <table class="table responsive alert alert-success">
+            <thead>
+                <th>Nom</th>
+                <th>Modifier</th>
+                <th>Supprimer</th>
+            </thead>
+            <tbody>
+        		{% for categorie in categories %}
+        		
+                <tr> 
+                    <td>{{ categorie.nom }}</td>
+
+                    <td><a href="# "><span class="glyphicon glyphicon-pencil"></span></a></td>
+
+                    <td><a href="#"><span class="glyphicon glyphicon-remove"></span></a></td>
+                </tr>
+                
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        {% endif %}
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h3 class="modal-title" id="myModalLabel" style="text-align:center">Créer une catégorie : </h3>
+	      </div>
+	      <div class="modal-body">
+	        	<form method="post" action="# " class="alert alert-success" role="alert">
+	        		<input type="submit" value="Envoyer">
+	        	</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	       </div>
+	    </div>
+	  </div>
+	</div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
+{% endblock %}
