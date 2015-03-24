@@ -8,38 +8,58 @@
         <a href="{{path('Page_admin_ajouter_une_page')}} "><span class="glyphicon glyphicon-plus"></span> Ajouter</a>
     </div>
   
-	<div class="col-lg-12">
+	<div class="col-lg-12 alert alert-success">
         {% if pages is defined %}
         {% if pages is not empty %}
-        <table class="table responsive">
-            <thead>
-                <th>Nom</th>
-                <th>Etat</th>
-                <th>Détails</th>
-                <th>Modifier</th>
-                <th>Supprimer</th>
-            </thead>
-            <tbody>
-        		{% for page in pages %}
-                <tr> 
-                    <td>{{ page.nom }}</td>
-                    <td>
+            <div class="col-lg-12">
+                <div class="col-md-3">Nom</div>
+                <div class="col-md-2">Etat</div>
+                <div class="col-md-2">Détails</div>
+                <div class="col-md-2">Modifier</div>
+                <div class="col-md-2">Supprimer</div>
+            </div>
+            
+        	{% for page in pages %}
+                <div class="col-lg-12">
+                    <hr>
+                    <div class="col-md-3">{{ page.nom }}</div>
+                    <div class="col-md-2">
                         {% if page.etat == true %}
                             Publié
                         {% else %}
                             Non Publié
                         {% endif %}
-                    </td>
-                    <td><a href="{{path('Page_admin_voir_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                    </div>
+                    <div class="col-md-2"><a href="{{path('Page_admin_voir_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-eye-open"></span></a></div>
 
-                    <td><a href="{{path('Page_admin_modifier_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></td>
+                    <div class="col-md-2"><a href="{{path('Page_admin_modifier_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></div>
 
-                    <td><a href="{{path('Page_admin_supprimer_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-remove"></span></a></td>
-                </tr>
-                    
-                {% endfor %}
-            </tbody>
-        </table>
+                    <div class="col-md-2"><a href="#" data-toggle="modal" data-target="#suppressionModal{{ page.id }}"><span class="glyphicon glyphicon-remove"></span></a></div>
+                </div>
+
+                <!-- Modal pour la suppression d'un contenu -->
+                <div class="modal fade" id="suppressionModal{{ page.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="myModalLabel" style="text-align:center">Suppression de la page</h3>
+                      </div>
+                      <div class="modal-body">
+                            <p>Voulez-vous supprimer cette page ? {{ page.nom }}</p>
+                            
+                            <a href="{{path('Page_admin_supprimer_une_page',{'idpage' : page.id })}} " style="color : white" class="btn btn-danger">OUI</a>
+                            
+                            
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                       </div>
+                    </div>
+                  </div>
+                </div>     
+            {% endfor %}
+            
         {% endif %}
         {% endif %}
 	</div>
