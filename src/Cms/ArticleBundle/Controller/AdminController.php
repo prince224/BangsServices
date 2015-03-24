@@ -168,29 +168,30 @@ class AdminController extends Controller
     /*===========ajouter_un_contenu ==========================*/
     public function ajouter_un_contenuAction()
     {
-    	$em = $this->getDoctrine()->getManager();
-    	
-    	$request = $this->getRequest();
-    	$idcategorie = $request->query->get('categorie');
+        $em = $this->getDoctrine()->getManager();
+        
+        $request = $this->getRequest();
+        $idcategorie = $request->query->get('categorie');
 
-   		$categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
+        $categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
 
-   		$contenu = new Contenu();
-    	//$form = $this->createForm(new ContenuType, $contenu);
+        $contenu = new Contenu();
+        $form = $this->createForm(new ContenuType, $contenu);
 
-    	if ($categorie->getNom() == 'Article')
+        if ($categorie->getNom() == 'Actualite')
         {
-    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+           $form = $this->get('form.factory')->createBuilder('form', $contenu)
                         ->add('titre','text', array('label' => 'Titre *:'))
             
-			            ->add('contenu', 'textarea', array(
-			                'label' => 'Contenu',
-			                'attr'=> array('class' => 'ckeditor')))
+                        ->add('contenu', 'textarea', array(
+                            'label' => 'Contenu',
+                            'attr'=> array('class' => 'ckeditor')))
 
-			            ->add('auteur', 'text', array(
-			            	'label' => 'Auteur :'))
+                        ->add('auteur', 'text', array(
+                            'label' => 'Auteur :'))
 
-                        ->add('photo', new PhotoType())
+                        ->add('photo', new PhotoType(), array(
+                            'required' => false))
                         
                         ->getForm();
                      ;
@@ -198,16 +199,18 @@ class AdminController extends Controller
 
         if ($categorie->getNom() == 'Service')
         {
-    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+            //return new Response('yesss');
+           $form = $this->get('form.factory')->createBuilder('form', $contenu)
                         ->add('titre','text', array('label' => 'Prestation *:'))
             
-			            ->add('description', 'textarea', array(
-			                'label' => 'Contenu',
-			                'attr'=> array('class' => 'ckeditor')))
+                        ->add('description', 'textarea', array(
+                            'label' => 'Contenu',
+                            'attr'=> array('class' => 'ckeditor')))
 
-			            ->add('prix')
+                        ->add('prix')
 
-                        ->add('photo', new PhotoType())
+                        ->add('photo', new PhotoType(), array(
+                            'required' => false))
 
                         ->getForm();
                      ;
@@ -215,50 +218,51 @@ class AdminController extends Controller
 
         if ($categorie->getNom() == 'Evenement')
         {
-    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+           $form = $this->get('form.factory')->createBuilder('form', $contenu)
                         ->add('titre','text', array('label' => 'Intitulé de l\'événement *:'))
             
-			            ->add('contenu', 'textarea', array(
-			                'label' => 'Contenu',
-			                'attr'=> array('class' => 'ckeditor')))
+                        ->add('contenu', 'textarea', array(
+                            'label' => 'Contenu',
+                            'attr'=> array('class' => 'ckeditor')))
 
-			            ->add('auteur', 'text', array(
-			            	'label' => 'Auteur :'))
+                        ->add('auteur', 'text', array(
+                            'label' => 'Auteur :'))
 
-			            ->add('dateDebut', 'date', array(
-			            	'label' => 'Date de début :'))
+                        ->add('dateDebut', 'date', array(
+                            'label' => 'Date de début :'))
 
-			            ->add('dateFin', 'date', array(
-			            	'label' => 'Date de fin :'))
+                        ->add('dateFin', 'date', array(
+                            'label' => 'Date de fin :'))
 
-                        ->add('photo', new PhotoType())
+                        ->add('photo', new PhotoType(), array(
+                            'required' => false))
 
                         ->getForm();
                      ;
         }
 
-    	if($request->getMethod() == 'POST')
-    	{
-    		$form->bind($request);
-    		if ($form->isValid()) {
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if ($form->isValid()) {
 
-    			$contenu = $form->getData();
-    			$contenu->setDateCreation(new \Datetime());
+                $contenu = $form->getData();
+                $contenu->setDateCreation(new \Datetime());
 
-    			$em->persist($contenu);
-    			$categorie->addContenus($contenu);
+                $em->persist($contenu);
+                $categorie->addContenus($contenu);
 
-    			$em->flush();
+                $em->flush();
 
-    			return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
+                return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
                     'idcontenu' => $contenu->getId(),
                     )));
-    		}
-    	}
-    	return $this->render('ArticleBundle:Admin:ajouter_un_contenu.html.twig',array(
-    		'form' => $form->createView(),
-    		'categorie' => $categorie,
-    		));
+            }
+        }
+        return $this->render('ArticleBundle:Admin:ajouter_un_contenu.html.twig',array(
+            'form' => $form->createView(),
+            'categorie' => $categorie,
+            ));
 
     }
     /*===========Fin ajouter_un_contenu ==========================*/
@@ -266,40 +270,48 @@ class AdminController extends Controller
     /*===========modifier_un_contenu ==========================*/
     public function modifier_un_contenuAction($idcontenu)
     {
-    	$em = $this->getDoctrine()->getManager();
-    	
-    	$request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+        
+        $request = $this->getRequest();
         $idcategorie = $request->query->get('idcategorie');
 
         $categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
-   		$contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
 
-    	if ($categorie->getNom() == 'Article')
+        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+        $form = $this->createForm(new ContenuType, $contenu);
+
+        if ($categorie->getNom() == 'Actualite')
         {
-    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+           $form = $this->get('form.factory')->createBuilder('form', $contenu)
                         ->add('titre','text', array('label' => 'Titre *:'))
             
-			            ->add('contenu', 'textarea', array(
-			                'label' => 'Contenu',
-			                'attr'=> array('class' => 'ckeditor')))
+                        ->add('contenu', 'textarea', array(
+                            'label' => 'Contenu',
+                            'attr'=> array('class' => 'ckeditor')))
 
-			            ->add('auteur', 'text', array(
-			            	'label' => 'Auteur :'))
+                        ->add('auteur', 'text', array(
+                            'label' => 'Auteur :'))
 
+                        ->add('photo', new PhotoType(), array(
+                            'required' => false))
+                        
                         ->getForm();
                      ;
         }
 
         if ($categorie->getNom() == 'Service')
         {
-    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+           $form = $this->get('form.factory')->createBuilder('form', $contenu)
                         ->add('titre','text', array('label' => 'Prestation *:'))
             
-			            ->add('description', 'textarea', array(
-			                'label' => 'Contenu',
-			                'attr'=> array('class' => 'ckeditor')))
+                        ->add('description', 'textarea', array(
+                            'label' => 'Contenu',
+                            'attr'=> array('class' => 'ckeditor')))
 
-			            ->add('prix')
+                        ->add('prix')
+
+                        ->add('photo', new PhotoType(), array(
+                            'required' => false))
 
                         ->getForm();
                      ;
@@ -307,45 +319,49 @@ class AdminController extends Controller
 
         if ($categorie->getNom() == 'Evenement')
         {
-    	   $form = $this->get('form.factory')->createBuilder('form', $contenu)
+           $form = $this->get('form.factory')->createBuilder('form', $contenu)
                         ->add('titre','text', array('label' => 'Intitulé de l\'événement *:'))
             
-			            ->add('contenu', 'textarea', array(
-			                'label' => 'Contenu',
-			                'attr'=> array('class' => 'ckeditor')))
+                        ->add('contenu', 'textarea', array(
+                            'label' => 'Contenu',
+                            'attr'=> array('class' => 'ckeditor')))
 
-			            ->add('auteur', 'text', array(
-			            	'label' => 'Auteur :'))
+                        ->add('auteur', 'text', array(
+                            'label' => 'Auteur :'))
 
-			            ->add('dateDebut', 'date', array(
-			            	'label' => 'Date de début :'))
+                        ->add('dateDebut', 'date', array(
+                            'label' => 'Date de début :'))
 
-			            ->add('dateFin', 'date', array(
-			            	'label' => 'Date de fin :'))
+                        ->add('dateFin', 'date', array(
+                            'label' => 'Date de fin :'))
+
+                        ->add('photo', new PhotoType(), array(
+                            'required' => false))
 
                         ->getForm();
                      ;
         }
 
-    	if($request->getMethod() == 'POST')
-    	{
-    		$form->bind($request);
-    		if ($form->isValid()) {
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if ($form->isValid()) {
 
-    			$contenu = $form->getData();
-    			$contenu->setDateCreation(new \Datetime());
+                $contenu = $form->getData();
+                $contenu->setDateCreation(new \Datetime());
 
-    			$em->flush();
+                $em->flush();
 
-    			return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
+                return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
                     'idcontenu' => $contenu->getId(),
                     )));
-    		}
-    	}
-    	return $this->render('ArticleBundle:Admin:modifier_un_contenu.html.twig',array(
-    		'form' => $form->createView(),
-    		'categorie' => $categorie,
-    		));
+            }
+        }
+        return $this->render('ArticleBundle:Admin:modifier_un_contenu.html.twig',array(
+            'form' => $form->createView(),
+            'categorie' => $categorie,
+            ));
+
     }
     /*===========Fin modifier_un_contenu ==========================*/
 
