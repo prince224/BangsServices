@@ -18,6 +18,10 @@ article_admin_modifier_une_categorie:
    pattern: /modifier_une_categorie/{idCategorie}
    defaults: { _controller: ArticleBundle:Admin:modifier_une_categorie}
 
+article_admin_supprimer_une_categorie:
+   pattern: /supprimer_une_categorie/{idCategorie}
+   defaults: { _controller: ArticleBundle:Admin:supprimer_une_categorie}
+
 
 
 

@@ -9,21 +9,26 @@
     </div>
   	
   	<hr>
-	<div class="col-lg-12">
+	<div class="col-lg-12 alert alert-success">
         {% if categories is defined %}
         {% if categories is not empty %}
-        <div>
+        <div class="col-lg-12">
+          <div class="col-md-5">Nom</div>
+          <div class="col-md-2">Modifier</div>
+          <div class="col-md-2">Supprimer</div>
+        </div>
 
         		{% for categorie in categories %}
-        		
-                <div class="col-md-12 alert alert-success"> 
-                    <div class="col-md-5"><strong>Nom : </strong>{{ categorie.nom }}</div>
+                <div class="col-md-12">
+                  <hr>
+                    <div class="col-md-5">{{ categorie.nom }}</div>
 
                     <div class="col-md-2"><a href="#" data-toggle="modal" data-target="#modifier{{ categorie.id }}"><span class="glyphicon glyphicon-pencil"></span></a></div>
 
-                    <div class="col-md-2"><a href="#"><span class="glyphicon glyphicon-remove"></span></a></div>
+                    <div class="col-md-2"><a href="#"data-toggle="modal" data-target="#suppressionModal{{ categorie.id }}"><span class="glyphicon glyphicon-remove"></span></a></div>
                 </div>
                 
+                <!-- Modifier categorie modal -->
                 <div class="modal fade" id="modifier{{ categorie.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -40,10 +45,32 @@
                     </div>
                   </div>
                 </div>
-                    
+                
+                <!-- Modal pour la suppression d'une categorie -->
+                <div class="modal fade" id="suppressionModal{{ categorie.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="myModalLabel" style="text-align:center">Suppression de la categorie</h3>
+                      </div>
+                      <div class="modal-body">
+                            <p>Voulez-vous supprimer cette categorie ? {{ categorie.nom }}</p>
+                            
+                            <a href="{{path('article_admin_supprimer_une_categorie',{'idCategorie' : categorie.id })}} " style="color : white" class="btn btn-danger">OUI</a>
+                            
+                            
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                       </div>
+                    </div>
+                  </div>
+                </div> 
+
                 {% endfor %}
-            </tbody>
-        </div>
+            
+        
         {% endif %}
         {% endif %}
 	</div>

@@ -145,6 +145,29 @@ class AdminController extends Controller
     }
     /*=========== Fin modifier_une_categorie =========================*/
 
+    /*===========supprimer_une_categorie ===============================*/
+    public function supprimer_une_categorieAction($idCategorie)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $categorie = $em->getRepository('ArticleBundle:Categorie')->find($idCategorie);
+
+        if($categorie != null)
+        {
+            
+            $em->remove($categorie);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('article_admin_page_categorie'));
+        }
+
+        return $this->redirect($this->generateUrl('article_admin_page_categorie'));
+            
+    }
+    /*=========== Fin supprimer_une_categorie =========================*/
+
+
 
     /*=========== voir_un_contenu ==========================*/
     public function voir_un_contenuAction($idcontenu)

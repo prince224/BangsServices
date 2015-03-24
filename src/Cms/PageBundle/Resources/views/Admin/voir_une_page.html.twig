@@ -2,8 +2,14 @@
 
 {% block section %}
     <h1>Gestion des pages du site </h1>
+
+    <div class="col-lg-6">
+        <a href="{{path('Page_admin_homepage')}} "><span class="glyphicon glyphicon-arrow-left"> RETOUR</span></a>
+    </div>
+
     <hr>
     <div class="col-md-12">
+        
         <div class="row">
             <div><h4>Page : <strong><em> {{ page.nom }} </em></strong></h4> <br>
                 <h5>Etat : 
