@@ -100,7 +100,7 @@ class Contenu
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", length=255, nullable=true)
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
 
@@ -134,6 +134,12 @@ class Contenu
      */
     private $lien;
 
+    /**
+    *
+    * @var boolean
+    * @ORM\Column(name="publier", type="boolean", nullable=true)
+    */
+    private $publier;
     
     /**
      * Get id
@@ -467,4 +473,28 @@ class Contenu
     {
         return $this->photo;
     }
+
+    /**
+     * Set nompartenaire
+     *
+     * @param string $nompartenaire
+     * @return Contenu
+     */
+    public function setNompartenaire($nompartenaire)
+    {
+        $this->nompartenaire = $nompartenaire;
+    
+        return $this;
+    }
+
+    /**
+     * Get nompartenaire
+     *
+     * @return string 
+     */
+    public function getNompartenaire()
+    {
+        return $this->nompartenaire;
+    }
+
 }

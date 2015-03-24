@@ -15,6 +15,7 @@
         <table class="table responsive alert alert-success">
             <thead>
                 <th>Nom</th>
+                <th>Publié ?</th>
                 <th>Categorie</th>
                 <th>Auteur</th>
                 <th>Date de création</th>
@@ -27,6 +28,13 @@
         		{% if contenu is defined and contenu.nompartenaire is empty %}
                 <tr> 
                     <td>{{ contenu.titre }}</td>
+                    <td>
+                        {% if contenu.publier == true %}
+                            Oui
+                        {% else %}
+                            Non
+                        {% endif %}
+                    </td>
                     <td>{{ contenu.categorie.nom }} </td>
                     <td>{{ contenu.auteur }} </td>
                     <td>{{ contenu.dateCreation|date('d/m/y') }} </td>

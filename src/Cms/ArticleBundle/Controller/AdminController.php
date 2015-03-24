@@ -192,6 +192,10 @@ class AdminController extends Controller
 
                         ->add('photo', new PhotoType(), array(
                             'required' => false))
+
+                        ->add('publier', 'checkbox', array(
+                            'label' => 'Publier ? ',
+                            'required' => false))
                         
                         ->getForm();
                      ;
@@ -210,6 +214,10 @@ class AdminController extends Controller
                         ->add('prix')
 
                         ->add('photo', new PhotoType(), array(
+                            'required' => false))
+
+                        ->add('publier', 'checkbox', array(
+                            'label' => 'Publier ? ',
                             'required' => false))
 
                         ->getForm();
@@ -235,6 +243,10 @@ class AdminController extends Controller
                             'label' => 'Date de fin :'))
 
                         ->add('photo', new PhotoType(), array(
+                            'required' => false))
+
+                        ->add('publier', 'checkbox', array(
+                            'label' => 'Publier ? ',
                             'required' => false))
 
                         ->getForm();
@@ -295,6 +307,10 @@ class AdminController extends Controller
                         ->add('photo', new PhotoType(), array(
                             'required' => false))
                         
+                        ->add('publier', 'checkbox', array(
+                            'label' => 'Publier ? ',
+                            'required' => false))
+
                         ->getForm();
                      ;
         }
@@ -311,6 +327,10 @@ class AdminController extends Controller
                         ->add('prix')
 
                         ->add('photo', new PhotoType(), array(
+                            'required' => false))
+
+                        ->add('publier', 'checkbox', array(
+                            'label' => 'Publier ? ',
                             'required' => false))
 
                         ->getForm();
@@ -338,7 +358,11 @@ class AdminController extends Controller
                         ->add('photo', new PhotoType(), array(
                             'required' => false))
 
-                        ->getForm();
+                        ->add('publier', 'checkbox', array(
+                            'label' => 'Publier ? ',
+                            'required' => false))
+                        
+                        ->getForm();    
                      ;
         }
 

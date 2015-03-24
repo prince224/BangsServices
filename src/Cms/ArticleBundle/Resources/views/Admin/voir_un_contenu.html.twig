@@ -46,6 +46,12 @@
                     <p><strong>Date de fin : </strong>{{ contenu.dateFin|date('d/m/y') }}</p>
                 {% endif %}
 
+                {% if contenu.publier == true %}
+                    <p><strong>Publier ? :</strong> Oui </p>
+                {% else %}
+                    <p><strong>Publier ? :</strong> Non </p>
+                {% endif %}
+
                 {% if contenu.prix is not empty %}
                     <p><strong>Prix : </strong>{{ contenu.prix }} € </p>
                 {% endif %}

@@ -134,6 +134,12 @@ class Contenu
      */
     private $lien;
 
+    /**
+    *
+    * @var boolean
+    * @ORM\Column(name="publier", type="boolean", nullable=true)
+    */
+    private $publier;
     
     /**
      * Get id
@@ -489,5 +495,29 @@ class Contenu
     public function getNompartenaire()
     {
         return $this->nompartenaire;
+    }
+
+
+    /**
+     * Set publier
+     *
+     * @param boolean $publier
+     * @return Contenu
+     */
+    public function setPublier($publier)
+    {
+        $this->publier = $publier;
+    
+        return $this;
+    }
+
+    /**
+     * Get publier
+     *
+     * @return boolean 
+     */
+    public function getPublier()
+    {
+        return $this->publier;
     }
 }
