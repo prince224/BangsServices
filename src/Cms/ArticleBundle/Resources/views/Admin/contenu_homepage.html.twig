@@ -9,46 +9,83 @@
     </div>
   	
   	<hr>
-	<div class="col-lg-12">
+	<div class="col-lg-12 alert alert-success" >
         {% if contenus is defined %}
         {% if contenus is not empty %}
-        <table class="table responsive alert alert-success">
-            <thead>
-                <th>Nom</th>
-                <th>Publié ?</th>
-                <th>Categorie</th>
-                <th>Auteur</th>
-                <th>Date de création</th>
-                <th>Détails</th>
-                <th>Modifier</th>
-                <th>Supprimer</th>
-            </thead>
-            <tbody>
-        		{% for contenu in contenus %}
-        		{% if contenu is defined and contenu.nompartenaire is empty %}
-                <tr> 
-                    <td>{{ contenu.titre }}</td>
-                    <td>
-                        {% if contenu.publier == true %}
-                            Oui
-                        {% else %}
-                            Non
-                        {% endif %}
-                    </td>
-                    <td>{{ contenu.categorie.nom }} </td>
-                    <td>{{ contenu.auteur }} </td>
-                    <td>{{ contenu.dateCreation|date('d/m/y') }} </td>
-                    <td><a href="{{path('article_admin_voir_un_contenu', {'idcontenu' : contenu.id })}} "><span class="glyphicon glyphicon-eye-open"></span></a></td>
+            <div class="col-lg-12">
+                <div class="col-md-3">Nom</div>
+                <div class="col-md-1">Publié ?</div>
+                <div class="col-md-1">Categorie</div>
+                <div class="col-md-1">Auteur</div>
+                <div class="col-md-1">Date de création</div>
+                <div class="col-md-1">Détails</div>
+                <div class="col-md-1">Modifier</div>
+                <div class="col-md-1">Supprimer</div>
+            </div>
+            
+        	{% for contenu in contenus %}
+                {% if contenu is not empty %}
+                <div class="col-lg-12">
+                    <hr>
+            		{% if contenu is defined and contenu.nompartenaire is empty %}
+     
+                        <div class="col-md-3">{{ contenu.titre }}</div>
+                        <div class="col-md-1">
+                            {% if contenu.publier == true %}
+                                Oui
+                            {% else %}
+                                Non
+                            {% endif %}
+                        </div>
+                        <div class="col-md-1">{{ contenu.categorie.nom }} </div>
+                        <div class="col-md-1">{{ contenu.auteur }} </div>
+                        <div class="col-md-1">{{ contenu.dateCreation|date('d/m/y') }} </div>
+                        <div class="col-md-1">
+                            <a href="{{path('article_admin_voir_un_contenu', {'idcontenu' : contenu.id })}} ">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                        </div>
 
-                    <td><a href="{{path('article_admin_modifier_un_contenu', {'idcontenu' : contenu.id,'idcategorie' : contenu.categorie.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></td>
+                        <div class="col-md-1">
+                            <a href="{{path('article_admin_modifier_un_contenu', {'idcontenu' : contenu.id,'idcategorie' : contenu.categorie.id })}} ">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </div>
 
-                    <td><a href="{{path('article_admin_supprimer_un_contenu', {'idcontenu' : contenu.id })}} "><span class="glyphicon glyphicon-remove"></span></a></td>
-                </tr>
-                {% endif %}
-                    
-                {% endfor %}
-            </tbody>
-        </table>
+                        <div class="col-md-1">
+                            <a href="#" data-toggle="modal" data-target="#suppressionModal{{ contenu.id }}">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </div>
+                 
+                    {% endif %}
+                </div>
+
+                <!-- Modal pour la suppression d'un contenu -->
+                <div class="modal fade" id="suppressionModal{{ contenu.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="myModalLabel" style="text-align:center">Suppression du contenu</h3>
+                      </div>
+                      <div class="modal-body">
+                            <form method="post" action="{{path('article_admin_supprimer_un_contenu', {'idcontenu' : contenu.id })}} " class="alert alert-success" role="alert">
+                            </form>
+                            <p>Voulez-vous supprimer ce contenu ? {{ contenu.titre }}</p>
+                            
+                            <a href="{{path('article_admin_supprimer_un_contenu', {'idcontenu' : contenu.id })}} " style="color : white" class="btn btn-danger">OUI</a>
+                            
+                            
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}    
+            {% endfor %}
         {% endif %}
         {% endif %}
 	</div>
