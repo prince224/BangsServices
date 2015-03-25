@@ -16,7 +16,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Rabot\UserBundle\Form\Type;
+namespace Cms\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,8 +34,8 @@ class RegistrationFormType extends AbstractType
                 'choices' => array(
                     ' ' => ' ',
                     'ROLE_EMPLOYE'      => 'Employe',
+                    'ROLE_REDACTEUR'      => 'Rédacteur',
                     'ROLE_ADMIN'   => 'Administrateur',
-                    'ROLE_INACTIF' => 'DESACTIVER'
                     )
                 ))
           ;
@@ -48,6 +48,6 @@ class RegistrationFormType extends AbstractType
 
     public function getName()
     {
-        return 'Rabot_userbundle_user_registration';
+        return 'cms_userbundle_user_registration';
     }
 }
