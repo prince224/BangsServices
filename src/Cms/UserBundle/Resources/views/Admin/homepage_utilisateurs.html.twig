@@ -1,0 +1,114 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+<h1>Gestion des utilisateurs </h1>
+<hr>
+<div class="col-md-12">
+    <div class="col-md-12">
+        <a href="#" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-plus"></span> Ajouter</a>
+    </div>
+  	
+  	<hr>
+	<div class="col-lg-12 alert alert-success">
+        {% if utilisateurs is defined %}
+	        {% if utilisateurs is not empty %}
+		        <div class="col-lg-12">
+		          <div class="col-md-2">Username</div>
+		          <div class="col-md-2">Email</div>
+		          <div class="col-md-2">Modifier</div>
+		          <div class="col-md-2">Supprimer</div>
+		        </div>
+
+	        		{% for utilisateur in utilisateurs %}
+	                <div class="col-md-12">
+	                  <hr>
+	                    <div class="col-md-2">{{ utilisateur.username }}</div>
+	                    <div class="col-md-2">{{ utilisateur.email }}</div>
+
+	                    <div class="col-md-2"><a href="#" data-toggle="modal" data-target="#modifier{{ utilisateur.id }}"><span class="glyphicon glyphicon-pencil"></span></a></div>
+
+	                    <div class="col-md-2"><a href="#"data-toggle="modal" data-target="#suppressionModal{{ utilisateur.id }}"><span class="glyphicon glyphicon-remove"></span></a></div>
+	                </div>
+	                
+	                <!-- Modifier utilisateur modal -->
+	                <div class="modal fade" id="modifier{{ utilisateur.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                  <div class="modal-dialog">
+	                    <div class="modal-content">
+	                      <div class="modal-header">
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                        <h3 class="modal-title" id="myModalLabel" style="text-align:center">Créer un utilisateur : </h3>
+	                      </div>
+	                      <div class="modal-body">
+	                            
+	                      </div>
+	                      <div class="modal-footer">
+	                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	                       </div>
+	                    </div>
+	                  </div>
+	                </div>
+	                
+	                <!-- Modal pour la suppression d'une utilisateur -->
+	                <div class="modal fade" id="suppressionModal{{ utilisateur.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                  <div class="modal-dialog">
+	                    <div class="modal-content">
+	                      <div class="modal-header">
+	                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                        <h3 class="modal-title" id="myModalLabel" style="text-align:center">Suppression de l'utilisateur</h3>
+	                      </div>
+	                      <div class="modal-body">
+	                            <p>Voulez-vous supprimer cette utilisateur ? {{ utilisateur.username }}</p>
+	                            
+	                            <a href="" style="color : white" class="btn btn-danger">OUI</a>
+	                            
+	                            
+	                      </div>
+	                      <div class="modal-footer">
+	                        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+	                       </div>
+	                    </div>
+	                  </div>
+	                </div> 
+
+	                {% endfor %}
+	            
+	        
+	        {% endif %}
+        {% endif %}
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h3 class="modal-title" id="myModalLabel" style="text-align:center">Créer une catégorie : </h3>
+	      </div>
+	      <div class="modal-body">
+                
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+	       </div>
+	    </div>
+	  </div>
+	</div>
+
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
+{% endblock %}

@@ -1,0 +1,3 @@
+user_homepage:
+    pattern:  /homepage_utilisateurs
+    defaults: { _controller: UserBundle:Admin:homepage_utilisateurs }

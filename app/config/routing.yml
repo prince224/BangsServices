@@ -18,6 +18,10 @@ user:
     resource: "@UserBundle/Resources/config/routing.yml"
     prefix:   /
 
+gestion_user:
+    resource: "@UserBundle/Resources/config/routing_admin.yml"
+    prefix:   /gestion
+
 domaine:
     resource: "@DomaineBundle/Resources/config/routing.yml"
     prefix:   /
