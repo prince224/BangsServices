@@ -5,3 +5,9 @@ user_homepage:
 user_modifier_utilisateur:
     pattern:  /modifier_utilisateur/{idutilisateur}
     defaults: { _controller: UserBundle:Admin:modifier_utilisateur }
+
+user_supprimer_utilisateur:
+    pattern:  /supprimer_utilisateur/{idutilisateur}
+    defaults: { _controller: UserBundle:Admin:supprimer_utilisateur }
+
+

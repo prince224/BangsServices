@@ -91,4 +91,22 @@ class AdminController extends Controller
     }
     /*==============Fin modifier utilisateur ==========================*/
 
+
+    /*=================Supprimer utilisateur ==========================*/
+    public function supprimer_utilisateurAction($idutilisateur)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $em->getRepository('UserBundle:User')->find($idutilisateur);
+        
+        if($utilisateur != null)
+        {
+            $em->remove($utilisateur);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('user_homepage'));
+        }
+        return $this->redirect($this->generateUrl('user_homepage'));
+    }
+    /*=================Fin Supprimer utilisateur ==========================*/
+
 }

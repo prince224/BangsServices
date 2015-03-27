@@ -31,14 +31,13 @@ class User extends BaseUser
      */
     protected $id;
     
-
-
     /**
      * @var string
      * @ORM\Column(name="profil", type="string", length=255, nullable=true)
      *
      */
     private $profil;
+
 
     /**
      * Get id
@@ -73,4 +72,6 @@ class User extends BaseUser
     {
         return $this->profil;
     }
+
+  
 }
