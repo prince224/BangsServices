@@ -1,3 +1,7 @@
 user_homepage:
     pattern:  /homepage_utilisateurs
     defaults: { _controller: UserBundle:Admin:homepage_utilisateurs }
+
+user_modifier_utilisateur:
+    pattern:  /modifier_utilisateur/{idutilisateur}
+    defaults: { _controller: UserBundle:Admin:modifier_utilisateur }

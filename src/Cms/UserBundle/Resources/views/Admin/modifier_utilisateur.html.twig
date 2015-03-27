@@ -1,0 +1,16 @@
+{% block fos_user_content %}
+{% form_theme form 'DomaineBundle:Form:fields.html.twig' %}
+
+<h1 style="text-align : center; margin-bottom : 20px">
+	Modifier l'utilisateur: {{ utilisateur.username }} 
+</h1>
+<form style="margin : 20px" action="{{ path('user_modifier_utilisateur', {'idutilisateur': utilisateur.id }) }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+	<table>
+    	{{ form_widget(form) }}
+    </table>
+    <div>
+        <input type="submit" value="{{ 'registration.submit'|trans }}" />
+    </div>
+</form>
+
+{% endblock fos_user_content %}
