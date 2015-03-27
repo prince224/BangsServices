@@ -75,9 +75,12 @@
                             <a href="{{path('Page_admin_modifier_image_couverture_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn btn-success"> 
                                 Modifier 
                             </a>
+
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
                             <a href=href="{{path('Page_admin_supprimer_image_couverture_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn btn-danger"> 
                                 Supprimer 
                             </a>
+                            {% endif %}
                           </div>
 
                         </div>
@@ -97,7 +100,9 @@
                 <h4>Sous-menu : </h4>
                 {% for sousmenu in sousmenus %}
                     <div class="col-lg-2">
-                       <a href="{{path('Page_admin_voir_sous_menu_page', {'idsousmenu' : sousmenu.id })}} "><strong>{{ sousmenu.nom|upper }}</strong> </a> 
+                       <a href="{{path('Page_admin_voir_sous_menu_page', {'idsousmenu' : sousmenu.id })}} ">
+                            <strong>{{ sousmenu.nom|upper }}</strong>
+                        </a> 
                     </div>
                         
                 {% endfor %}
@@ -140,7 +145,10 @@
                             <hr>
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             <a href="{{path('Page_admin_modifier_image_carousel_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn btn-success"> Modifier </a>
+
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
                             <a href="{{path('Page_admin_supprimer_image_carousel_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn btn-danger"> Supprimer </a>
+                            {% endif %}
                           </div>
 
                         </div>
@@ -171,18 +179,24 @@
                     <a class="col-md-2" href="{{path('Page_admin_modifier_section_page', {'idsection' : section.id })}} ">
                             <span class="glyphicon glyphicon-pencil"></span>
                         </a>
+
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
                         <a class="col-md-2" href="{{path('Page_admin_supprimer_section_page', {'idsection': section.id })}} "> 
                             <span class="glyphicon glyphicon-remove"></span>
                         </a>
+                        {% endif %}
                 </div>
                 {% if section.categories is not empty %}
                          {% for categorie in section.categories %}
                             <div class="row-fluid">
                             <hr>
-                                <li> {{ categorie.nom }} 
+                                <li> {{ categorie.nom }}
+                                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                                    
                                     <a href="{{path('Page_admin_supprimer_categories_section_page', {'idsection' : section.id, 'categorie' : categorie.id })}} "> 
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </a>
+                                    {% endif %}
                                 </li>
                             
                             </div>

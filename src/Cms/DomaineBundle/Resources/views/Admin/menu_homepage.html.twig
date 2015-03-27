@@ -8,6 +8,7 @@
        <p>Pour créer votre menu, veuillez sélectioner les pages que vous souhaitez faire apparaitre.</p>
     </div>
     <hr>
+    {% if menus is empty %}
     <div class="col-md-2">
         {% if pages is defined %}
         {% if pages is not empty %}
@@ -27,7 +28,8 @@
         {% endif %}
         {% endif %}
     </div>
-	
+	{% endif %}
+
     <div class="col-md-8 col-md-offset-2" id="liste_menu">
         {% if menus is defined %}
         {% if menus is not empty %}
@@ -69,9 +71,11 @@
                                 <ul>
                                 {% for page in menu.pages %}
                                    <li> {{ page.nom }} 
+                                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
                                         <a href="{{path('domaine_admin_supprimer_page_menu', {'idmenu' : menu.id, 'page' : page.id })}} "> 
                                             <span class="glyphicon glyphicon-remove"></span>
                                         </a>
+                                    {% endif %}
                                     </li>
                                 {% endfor %}
                                 </ul>

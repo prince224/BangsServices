@@ -12,7 +12,9 @@
             <img class="col-md-4" src="{{asset(logo_site.webPath)}} "> 
             <a href="# "><span class="glyphicon glyphicon-pencil"></span></a>
 
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
             <a href="# "><span class="glyphicon glyphicon-remove"></span></a>
+            {% endif %}
         {% endif %}
     </div>
 
@@ -33,9 +35,11 @@
                 <td>
                     <a href="{{path('domaine_admin_parametre_modifier_contact_contenu', {'idcontenu' : contenu.id })}} "><span class="glyphicon glyphicon-pencil"></span></a>
                 </td>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
                 <td>
                     <a href="{{path('domaine_admin_parametre_supprimer_contact_contenu', {'idcontenu' : contenu.id })}} "><span class="glyphicon glyphicon-remove"></span></a>
-                </td> 
+                </td>
+                {% endif %}
             </tr>  
         {% endif %}
         
@@ -63,17 +67,25 @@
                 <th>Url</th>
                 <th>Image</th>
                 <th>Modifier</th>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
                 <th>Supprimer</th>
+                {% endif %}
             </thead>
         {% for logo in logos %}
             {% if logo is not empty and logo.nom != 'logoSite' %}
             <tr>
-               <td>{{ logo.nom }}</td>
-               <td>{{ logo.url }}</td>
-               <td><img class="col-md-4" src="{{asset(logo.webPath)}} "> </td>
-               <td><a href="{{path('domaine_admin_parametre_modifier_reseaux_sociaux_contenu', {'idlogo' : logo.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></td>
+                <td>{{ logo.nom }}</td>
+                <td>{{ logo.url }}</td>
+                <td><img class="col-md-4" src="{{asset(logo.webPath)}} "> </td>
+                <td><a href="{{path('domaine_admin_parametre_modifier_reseaux_sociaux_contenu', {'idlogo' : logo.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></td>
 
-               <td><a href="{{path('domaine_admin_parametre_supprimer_reseaux_sociaux_contenu', {'idlogo' : logo.id })}} "><span class="glyphicon glyphicon-remove"></span></a></td>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                <td>
+                    <a href="{{path('domaine_admin_parametre_supprimer_reseaux_sociaux_contenu', {'idlogo' : logo.id })}} ">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </td>
+                {% endif %}
             </tr>
             {% endif %}
         {% endfor %}
@@ -90,8 +102,9 @@
             <thead>
                 <th>Nom</th>
                 <th>Image</th>
-              
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
                 <th>Supprimer</th>
+                {% endif %}
             </thead>
         {% for contenu in contenus %}
             {% if contenu is not empty and contenu.nompartenaire is not empty %}
@@ -106,8 +119,13 @@
                         <a href="{{path('domaine_admin_modifier_image_partenaire', {'idpartenaire' : contenu.id })}}"><span class="glyphicon glyphicon-pencil"></span></a> 
                     {% endif %}
                 </td>
-
-                <td><a href="{{path('domaine_admin_supprimer_partenaire', {'idpartenaire' : contenu.id })}}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                <td>
+                    <a href="{{path('domaine_admin_supprimer_partenaire', {'idpartenaire' : contenu.id })}}">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </td>
+                {% endif %}
             </tr>
             {% endif %}
         {% endfor %}

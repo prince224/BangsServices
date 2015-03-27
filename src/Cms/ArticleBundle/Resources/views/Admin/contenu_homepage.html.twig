@@ -20,7 +20,9 @@
                 <div class="col-md-1">Date de création</div>
                 <div class="col-md-1">Détails</div>
                 <div class="col-md-1">Modifier</div>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
                 <div class="col-md-1">Supprimer</div>
+                {% endif %}
             </div>
             
         	{% for contenu in contenus %}
@@ -51,12 +53,13 @@
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </div>
-
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
                         <div class="col-md-1">
                             <a href="#" data-toggle="modal" data-target="#suppressionModal{{ contenu.id }}">
                                 <span class="glyphicon glyphicon-remove"></span>
                             </a>
                         </div>
+                        {% endif %}
                  
                     {% endif %}
                 </div>

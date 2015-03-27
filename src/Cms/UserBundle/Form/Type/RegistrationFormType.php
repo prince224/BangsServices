@@ -34,7 +34,7 @@ class RegistrationFormType extends AbstractType
                 'choices' => array(
                     ' ' => ' ',
                     'ROLE_EMPLOYE'      => 'Employe',
-                    'ROLE_REDACTEUR'      => 'Rédacteur',
+                    'ROLE_GESTIONNAIRE'      => 'Gestionnaire',
                     'ROLE_ADMIN'   => 'Administrateur',
                     )
                 ))

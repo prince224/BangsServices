@@ -52,20 +52,58 @@
       <div class="col-md-3" id="gestion_activites">
         <h2> <a href="{{path('domaine_admin_homepage')}} ">Gestions</a> </h2>
         {% block menu_gestion %}
-          <div><p><a href="{{path('Page_admin_homepage')}} "><strong>Pages</strong></a></p></div>
-          <div><p><a href="{{path('article_admin_homepage')}} "><strong>Autre contenu</strong></a></p></div>
-          <div><p><a href="{{path('article_admin_page_categorie')}} "><strong>Categories</strong></a></p></div>
+          <div>
+            <p>
+              <a href="{{path('Page_admin_homepage')}} ">
+                <strong>Pages</strong>
+              </a>
+            </p>
+          </div>
+          <div>
+            <p>
+              <a href="{{path('article_admin_homepage')}} ">
+                <strong>Autre contenu</strong>
+              </a>
+            </p>
+          </div>
+          {% if is_granted('ROLE_ADMIN') %}
+          <div>
+            <p>
+              <a href="{{path('article_admin_page_categorie')}} ">
+                <strong>Categories</strong>
+              </a>
+            </p>
+          </div>
+          {% endif %}
           <hr>
           <div>
-            <p><a href="{{path('domaine_admin_menu_homepage')}} "><strong>Menus</strong></a></p>
+            <p>
+              <a href="{{path('domaine_admin_menu_homepage')}} ">
+                <strong>Menus</strong>
+              </a>
+            </p>
           </div>
           <hr>
 
-          <div><p><a href="{{path('domaine_admin_parametre_homepage')}} "><strong>Paramètres</strong></a></p></div>
+          <div>
+            <p>
+              <a href="{{path('domaine_admin_parametre_homepage')}} ">
+                <strong>Paramètres</strong>
+              </a>
+            </p>
+          </div>
 
           <hr>
 
-          <div><p><a href="{{path('user_homepage')}} " ><strong>Utilisateurs</strong></a></p></div>
+          {% if is_granted('ROLE_ADMIN') %}
+          <div>
+            <p>
+              <a href="{{path('user_homepage')}} " >
+                <strong>Utilisateurs</strong>
+              </a>
+            </p>
+          </div>
+          {% endif %}
         {% endblock %}
         
 

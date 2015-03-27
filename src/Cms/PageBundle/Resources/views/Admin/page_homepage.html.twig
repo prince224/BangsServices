@@ -16,7 +16,10 @@
                 <div class="col-md-2">Etat</div>
                 <div class="col-md-2">Détails</div>
                 <div class="col-md-2">Modifier</div>
-                <div class="col-md-2">Supprimer</div>
+
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                    <div class="col-md-2">Supprimer</div>
+                {% endif %}
             </div>
             
         	{% for page in pages %}
@@ -32,9 +35,20 @@
                     </div>
                     <div class="col-md-2"><a href="{{path('Page_admin_voir_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-eye-open"></span></a></div>
 
-                    <div class="col-md-2"><a href="{{path('Page_admin_modifier_une_page',{'idpage' : page.id })}} "><span class="glyphicon glyphicon-pencil"></span></a></div>
+                    <div class="col-md-2">
+                        <a href="{{path('Page_admin_modifier_une_page',{'idpage' : page.id })}} ">
+                            <span class="glyphicon glyphicon-pencil">
+                            </span>
+                        </a>
+                    </div>
 
-                    <div class="col-md-2"><a href="#" data-toggle="modal" data-target="#suppressionModal{{ page.id }}"><span class="glyphicon glyphicon-remove"></span></a></div>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                    <div class="col-md-2">
+                        <a href="#" data-toggle="modal" data-target="#suppressionModal{{ page.id }}">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </a>
+                    </div>
+                    {% endif %}
                 </div>
 
                 <!-- Modal pour la suppression d'un contenu -->
