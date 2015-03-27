@@ -17,7 +17,9 @@
 		          <div class="col-md-2">Email</div>
 		          <div class="col-md-3">Profil</div>
 		          <div class="col-md-1">Modifier</div>
+		          {% if is_granted('ROLE_ADMIN') %}
 		          <div class="col-md-1">Supprimer</div>
+		          {% endif %}
 		        </div>
 
 	        		{% for utilisateur in utilisateurs %}
@@ -32,11 +34,13 @@
 	                    	</a>
 	                    </div>
 
+	                    {% if is_granted('ROLE_ADMIN') %}
 	                    <div class="col-md-1">
 	                    	<a href="#"data-toggle="modal" data-target="#suppressionModal{{ utilisateur.id }}">
 	                    		<span class="glyphicon glyphicon-remove"></span>
 	                    	</a>
 	                    </div>
+	                    {% endif %}
 	                </div>
 	                
 	                <!-- Modifier utilisateur modal -->
