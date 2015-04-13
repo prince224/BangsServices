@@ -12,6 +12,7 @@ namespace Cms\DomaineBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cms\DomaineBundle\Entity\Menu;
+
 use Cms\DomaineBundle\Entity\Photo;
 use Cms\PageBundle\Entity\Page;
 use Cms\ArticleBundle\Entity\Contenu;
@@ -24,13 +25,35 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         
+        $menus = $em->getRepository('DomaineBundle:Menu')->findAll();
+
         $page_index = $em->getRepository('PageBundle:Page')->findOneBy(array(
             'nom' => 'index'));
 
+        //on récupères les sections de la page
+        $sections = $page_index->getSections();
+
         return $this->render('DomaineBundle:Default:index.html.twig',array(
-            'page_index' => $page_index,
+            'page' => $page_index,
+            'menus' => $menus,
+            'sections' => $sections,
             ));
     }
+
+    /*================================ inserer inserer_logo_site==========================================*/
+    public function inserer_logo_siteAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $logo_site = $em->getRepository('DomaineBundle:Logos')->findOneBy(array(
+            'nom' => 'logoSite'));
+
+        return $this->render('DomaineBundle:Default:inserer_logo_site.html.twig',array(
+            'logo_site' => $logo_site,
+            ));
+    }
+    /*===================Fin inserer logo =============================================== */ 
 
 
     /*================================ inserer menu ==========================================*/
@@ -99,13 +122,25 @@ class DefaultController extends Controller
         $menus = $em->getRepository('DomaineBundle:Menu')->findAll();
 
         $page = $em->getRepository('PageBundle:Page')->find($idpage);
-        $sous_menu = $page->getSousmenus();
         
+        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+
+        $sous_menu = $page->getSousmenus();
+
         if($page != null)
         {
-           return $this->render('DomaineBundle:Default:consulter_page.html.twig',array(
-            'menus' => $menus,
+            $sections = $page->getSections();
+
+            //$articles = $em->getRepository('ArticleBundle:Article')->getArticlesPublies();
+
+            return $this->render('DomaineBundle:Default:consulter_page.html.twig',array(
             'page' => $page,
+            'page_courant' => $page,
+            'menus' => $menus,
+            'sections' => $sections,
+            //'articles' => $articles,
+            'partenaires' => $partenaires,
+            //'autres_articles' =>$autres_articles,
             'sous_menu' => $sous_menu,
             )); 
         }

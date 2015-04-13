@@ -1,0 +1,108 @@
+{% extends "::layout_stone.html.twig" %}
+
+{% block menu %}
+  {% for menu in menus %}
+    {% if menu.pages is defined %}
+      {% if menu.pages is not empty %}
+        {% for page in menu.pages %}
+          {% if page.nom == page_courant.nom %}
+          <li class="active"> 
+          {% else %}
+          <li>
+          {% endif %}
+            {% if page.url is not empty %}
+                   <a href="{{ page.url }}" target="_blank" >   
+                      {{ page.nom|upper }} 
+                   </a>
+                {% else %}
+                    <a  href="{{path('domaine_voir_page', {'idpage': page.id })}} " >
+                      {{ page.nom|upper }} 
+                    </a>
+                 {% endif %}
+          </li>
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+
+{% block content_article %}
+
+  <h1>{{ article.titre }} </h1>
+  <div id="contenu_article">
+    <img class="col-lg-6 col-xs-6" src="{{asset(article.photo.webPath)}} " style="padding-right : 10px" alt="" title="">
+  </div>
+  <p>{{ article.contenu|raw }}</p>
+    
+{% endblock %}
+
+
+{% block cote_gauche_article %}
+<div class="col-lg-12">
+  <p class="titre"><strong>Partenaires</strong></p>
+  <div id="myCarousel_partenaire" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel_partenaire" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel_partenaire" data-slide-to="1"></li>
+      <li data-target="#myCarousel_partenaire" data-slide-to="2"></li>
+    </ol>
+                          
+    <div class="carousel-inner" role="listbox">
+      {% for partenaire in partenaires %}
+        {% if partenaire is not empty and partenaire.nompartenaire is not empty %}
+          {% if partenaire.photo is not empty %}
+            <div class="item">
+              <img src="{{asset(partenaire.photo.webPath)}} " alt="{{ partenaire.titre }}" title="{{ partenaire.titre }}">
+              <div class="container">
+                <div class="carousel-caption">
+                </div>
+              </div>
+            </div>
+          {% endif %}  
+        {% endif %}                
+      {% endfor %}
+    </div>
+                         
+  </div><!-- /.carousel -->
+</div>
+
+<div class="col-lg-12">
+  <p class="titre"><strong>Contribution</strong></p>
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_s-xclick">
+    <input type="hidden" name="hosted_button_id" value="ZPJR3Y8BENJXG">
+    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+  </form>
+</div>
+
+<div class="col-lg-12">
+  <p class="titre"><strong>Facebook</strong></p>
+  <div class="fb-page" data-href="https://www.facebook.com/pages/Radio-Basse-Cote-Internationale/371528622988973?fref=ts" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"></div>
+</div>
+{% endblock %}
+
+{% block script %}
+ <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.3";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      
+      //$('.carousel-inner div').first().addClass('active');
+      $(".carousel-inner div:nth-child(1)").addClass('active');
+
+      $(".liste_articles div:nth-child(2)").addClass('article');
+
+    });
+  </script>
+{% endblock %}

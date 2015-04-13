@@ -29,13 +29,41 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+<<<<<<< HEAD
+=======
+    <!-- Custom styles for this template -->
+
+    <link href="{{asset('bundles/domaine/css/carousel.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('bundles/domaine/css/stone.css')}}" rel="stylesheet" type="text/css">
+
+>>>>>>> dev_3
 </head>
 
 <body>
 
     <!-- Navigation -->
+<<<<<<< HEAD
     <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
         <div class="container topnav">
+=======
+    <nav class="navbar navbar-default navbar-top topnav" role="navigation">
+        
+        <div class="col-lg-12" id="logo">
+            <div class="col-lg-8">
+                {{ render(controller('DomaineBundle:Default:inserer_logo_site'))}}
+            </div>
+            <div class="col-lg-2">
+                <span class="titre">Radio b.c.i - N.York</span>
+                <p>
+                <iframe src="http://cdn.voscast.com/player/player.php?host=s3.voscast.com&amp;port=8740" width="150" height="30" frameborder="0" scrolling="no"></iframe>
+                </p>
+            </div>
+            <div class="col-lg-2" id="reseaux_sociaux">
+                {{ render(controller('DomaineBundle:Default:inserer_reseaux_sociaux'))}}
+            </div>
+        </div>
+        <div class="topnav" id="menu">
+>>>>>>> dev_3
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -44,18 +72,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+<<<<<<< HEAD
                 <a class="navbar-brand topnav" href="#">Start Bootstrap</a>
+=======
+>>>>>>> dev_3
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+<<<<<<< HEAD
                     {{ render(controller('DomaineBundle:Default:inserer_menu_page'))}}
+=======
+                    {% block menu %}
+                   
+                    {% endblock %}
+>>>>>>> dev_3
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
+<<<<<<< HEAD
 
 
     <!-- Header -->
@@ -157,12 +195,64 @@
 
     </div>
     <!-- /.content-section-a -->
+=======
+<!--
+    <div class="col-lg-12" id="banner_top">
+    </div>
+-->
+    <!-- Carousel
+    ================================================== -->
+    <!-- Content page accueil -->
+    <div class="col-lg-12">
+        <div class="col-lg-6">
+            {% block a_la_une %}
+      
+            {% endblock %}
+
+            {% block content %}
+
+            {% endblock %}
+        </div>
+        
+        <div class="col-lg-3">
+            {% block autres_actualites %}
+
+            {% endblock %}
+        </div>
+
+        <div class="col-lg-3">
+            {% block cote_gauche %}
+               
+            {% endblock %}
+        </div>
+    </div>
+    <!-- END content page accueil -->
+
+    <!-- content consultation page -->
+    <div class="col-lg-12">
+        <div class="col-lg-9" >
+            {% block content_article %}
+
+            {% endblock %}
+        </div>
+
+
+        <div class="col-lg-3">
+            {% block cote_gauche_article %}
+               
+            {% endblock %}
+        </div>
+
+    </div>
+    <!-- END content consultation page -->
+>>>>>>> dev_3
 
 	<a  name="contact"></a>
     <div class="banner">
 
         <div class="container">
 
+<<<<<<< HEAD
             <div class="row">
                 <div class="col-lg-6">
                     <h2>Connect to Start Bootstrap:</h2>
@@ -182,6 +272,8 @@
                 </div>
             </div>
 
+=======
+>>>>>>> dev_3
         </div>
         <!-- /.container -->
 
@@ -192,7 +284,13 @@
     <footer>
         <div class="container">
             <div class="row">
+<<<<<<< HEAD
                 <div class="col-lg-12">
+=======
+                
+                <div class="col-lg-12">
+                    <!--
+>>>>>>> dev_3
                     <ul class="list-inline">
                         <li>
                             <a href="#">Home</a>
@@ -210,12 +308,27 @@
                             <a href="#contact">Contact</a>
                         </li>
                     </ul>
+<<<<<<< HEAD
                     <p class="copyright text-muted small">Copyright &copy; Your Company 2014. All Rights Reserved</p>
                 </div>
             </div>
         </div>
     </footer>
     
+=======
+                    -->
+                    <p class="copyright text-muted small">Copyright &copy; <a href="http://www.bangs-services.fr/">Bangs-Services</a>. All Rights Reserved</p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+        
+    {% block script %}
+
+    {% endblock %}
+
+>>>>>>> dev_3
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

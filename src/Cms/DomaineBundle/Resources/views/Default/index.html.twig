@@ -1,7 +1,7 @@
 {% extends "::layout_stone.html.twig" %}
 
 {% block section %}
-	{% if page_index is not empty %}
-		{{ page_index.contenu|raw }}
+	{% if page is defined %}
+		{{ page.contenu|raw }}
 	{% endif %}
 {% endblock %}

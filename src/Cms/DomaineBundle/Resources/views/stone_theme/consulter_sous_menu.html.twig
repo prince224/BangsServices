@@ -1,0 +1,483 @@
+{% extends "::layoutBSCms_balltrap2.html.twig" %}
+
+{% block sousmenu %}
+  {% if sous_menu is not empty %}
+    <nav class="navbar">
+      <div  >
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header" style="color:white">
+          <button type="button"class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            <span class="sr-only" >Toggle navigation</span>
+            <span class="icon-bar" ></span>
+            <span class="icon-bar" ></span>
+            <span class="icon-bar" ></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+          <ul>
+            {% for sousmenu in sous_menu %}
+              {% if sousmenu.nom == sous_menu_a_voir.nom %}
+                <li class="col-md-2 active" id="{{ sousmenu.nom }}" style="text-align:center">
+              {% else %}
+                <li class="col-md-2" id="{{ sousmenu.nom }}" style="text-align:center">
+              {% endif %}
+                {% if sousmenu.nom == 'Installations' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/nos_instalations_2.png')}} " title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+
+                {% if sousmenu.nom == 'Club House' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/club_house.png')}} "  title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+
+                {% if sousmenu.nom == 'Tarifs' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/nos_prix_euro.png')}} " title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+
+                {% if sousmenu.nom == 'Calendrier' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/calendrier.png')}} " title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+
+                {% if sousmenu.nom == 'Nous Connaitre' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/nous.png')}} " title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+
+                {% if sousmenu.nom == 'Club' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/membre.png')}} " title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+                <a href="{{path('domaine_voir_sous_menu', {'idsousmenu' : sousmenu.id })}} ">
+                  {{ sousmenu.nom|upper }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+                  
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+  {% endif %}
+{% endblock %}
+
+{% block carousel %}
+{% if sous_menu_a_voir.photos is not empty %}
+	<div id="myCarousel{{ sous_menu_a_voir.id }}" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel{{ sous_menu_a_voir.id }}" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel{{ sous_menu_a_voir.id }}" data-slide-to="1"></li>
+          <li data-target="#myCarousel{{ sous_menu_a_voir.id }}" data-slide-to="2"></li>
+        </ol>
+              
+    <div class="carousel-inner" role="listbox">
+
+        {% for photo in sous_menu_a_voir.photos %}
+        {% if photo.numero == 1 %}
+        <div class="item">
+          <img src="{{asset(photo.webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
+          <div class="container">
+            <div class="carousel-caption">
+            </div>
+          </div>
+        </div>
+                  
+        {% endif %}
+        {% endfor %}
+    </div>
+    <a class="left carousel-control" href="#myCarousel{{ sous_menu_a_voir.id }}" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel{{ sous_menu_a_voir.id }}" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    {{ render(controller('DomaineBundle:Default:inserer_logo_site'))}}           
+  </div><!-- /.carousel -->
+{% endif %}
+
+{% endblock %}
+
+{% block section %}
+  
+  {% if sous_menu_a_voir.nom == 'Club House' %}
+    <div class="col-lg-9">
+      <div class="col-lg-12">
+        {{ sous_menu_a_voir.contenu|raw }}
+      </div>
+     
+    </div>
+    <div class="col-lg-3">
+        <!--==================Zone affichage partenaires ====================-->
+        <div class="row-fluid">
+          <h3 class="titre_cote"> Partenaires </h3>
+                <hr>
+                <div id="myCarousel_partenaire" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                      <li data-target="#myCarousel_partenaire" data-slide-to="0" class="active"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="1"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="2"></li>
+                    </ol>
+                          
+                  <div class="carousel-inner" role="listbox">
+                  {% for partenaire in partenaires %}
+                  {% if partenaire is not empty and partenaire.nompartenaire is not empty %}
+                    {% if partenaire.photo is not empty %}
+                      <div class="item">
+                        <img src="{{asset(partenaire.photo.webPath)}} " alt="{{ partenaire.titre }}" title="{{ partenaire.titre }}">
+                        <div class="container">
+                          <div class="carousel-caption">
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}  
+                  {% endif %}                
+                  {% endfor %}
+                  </div>
+                     
+                </div><!-- /.carousel -->
+        </div>
+        <!--==================Fin Zone affichage partenaires ====================-->
+    </div>
+
+  {% elseif sous_menu_a_voir.nom == 'Tarifs' %}
+    <div class="col-lg-9">
+      <div class="col-lg-12">
+        {{ sous_menu_a_voir.contenu|raw }}
+      </div>
+      <div class="col-lg-12" id="form_club_house">
+        <hr>
+
+        <form class="form-horizontal">
+          <p>Demandez plus d ' informations en remplissant ce formulaire</p>
+          <div class="form-group">
+            <label for="nom_prenom" class="col-sm-2 control-label">Nom & prénom*</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="nom_prenom" placeholder="Nom et Prénom">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email*</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="telephone" class="col-sm-2 control-label">Téléphone</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="telephone" placeholder="Téléphone">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message" class="col-sm-2 control-label">Message</label>
+            <div class="col-sm-10">
+              <textarea name="message" id="message" rows="5" cols="30">Saisir un message.</textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Envoyer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-3">
+        <!--==================Zone affichage partenaires ====================-->
+        <div class="row-fluid">
+          <h3 class="titre_cote"> Partenaires </h3>
+                <hr>
+                <div id="myCarousel_partenaire" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                      <li data-target="#myCarousel_partenaire" data-slide-to="0" class="active"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="1"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="2"></li>
+                    </ol>
+                          
+                  <div class="carousel-inner" role="listbox">
+                  {% for partenaire in partenaires %}
+                  {% if partenaire is not empty and partenaire.nompartenaire is not empty %}
+                    {% if partenaire.photo is not empty %}
+                      <div class="item">
+                        <img src="{{asset(partenaire.photo.webPath)}} " alt="{{ partenaire.titre }}" title="{{ partenaire.titre }}">
+                        <div class="container">
+                          <div class="carousel-caption">
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}  
+                  {% endif %}                
+                  {% endfor %}
+                  </div>
+                     
+                </div><!-- /.carousel -->
+        </div>
+        <!--==================Fin Zone affichage partenaires ====================-->
+    </div>
+  {% elseif sous_menu_a_voir.nom == 'Calendrier' %}
+    <div class="col-lg-9">
+      <div class="col-lg-6">
+        {{ sous_menu_a_voir.contenu|raw }}
+      </div>
+
+      <div class="col-md-6">
+        <h3 class="titre_cote">Calendrier FFBT</h3>
+        <h4 style="text-align : center"><em>Section en construction ... </em></h4>
+      </div>
+
+      <div class="col-lg-12" id="form_club_house">
+        <hr>
+          <form class="form-horizontal">
+          <p>Demandez plus d ' informations en remplissant ce formulaire</p>
+          <div class="form-group">
+            <label for="nom_prenom" class="col-sm-2 control-label">Nom & prénom*</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="nom_prenom" placeholder="Nom et Prénom">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email*</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="email" placeholder="Email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="telephone" class="col-sm-2 control-label">Téléphone</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="telephone" placeholder="Téléphone">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message" class="col-sm-2 control-label">Message</label>
+            <div class="col-sm-10">
+              <textarea name="message" id="message" rows="5" cols="30">Saisir un message.</textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Envoyer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+        <!--==================Zone affichage partenaires ====================-->
+        <div class="row-fluid">
+                <h3 class="titre_cote"> Partenaires </h3>
+                <div id="myCarousel_partenaire" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                      <li data-target="#myCarousel_partenaire" data-slide-to="0" class="active"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="1"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="2"></li>
+                    </ol>
+                          
+                  <div class="carousel-inner" role="listbox">
+                  {% for partenaire in partenaires %}
+                  {% if partenaire is not empty and partenaire.nompartenaire is not empty %}
+                    {% if partenaire.photo is not empty %}
+                      <div class="item">
+                        <img src="{{asset(partenaire.photo.webPath)}} " alt="{{ partenaire.titre }}" title="{{ partenaire.titre }}">
+                        <div class="container">
+                          <div class="carousel-caption">
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}  
+                  {% endif %}                
+                  {% endfor %}
+                  </div>
+                 
+                            
+                </div><!-- /.carousel -->
+        </div>
+        <!--==================Fin Zone affichage partenaires ====================-->
+    </div>
+  {% else %}  
+
+    {% if sections is defined and sections is not empty %}
+      <div class="col-md-3">
+        {% for section in sections %}
+        {% if section.numero == 0 %}
+          {% block section_0 %}
+            {% if section.categories is defined and section.categories is not empty %}
+              {% for categorie in section.categories %}
+                <div class="row-fluid">
+                  <h3 class="titre_cote"> {{ categorie.nom }} </h3>
+                      {% if categorie.contenus is not empty %}
+                        {% for contenu in categorie.contenus %}
+                        <div class="row-fluid">
+                          <hr>
+                          <h4>{{ contenu.titre }}</h4>
+                          {{ contenu.contenu|raw }}
+                        </div>
+                        {% endfor %}
+                      {% endif %}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endblock %}
+        {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="col-md-6">
+        {% for section in sections %}
+        {% if section.numero == 1 %}
+          {% block section_1 %}
+            {% if section.categories is defined and section.categories is not empty %}
+              {% for categorie in section.categories %}
+                <div class="row-fluid">
+                  <h3 class="titre_cote"> {{ categorie.nom }} </h3>
+                      {% if categorie.contenus is not empty %}
+                        {% for contenu in categorie.contenus %}
+                        <div class="row-fluid">
+                          <hr>
+                          {{ contenu.titre }}
+                        </div>
+                        {% endfor %}
+                      {% endif %}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endblock %}
+        {% endif %}
+        {% endfor %}
+
+        {{ sous_menu_a_voir.contenu|raw}}
+      </div>
+
+      <div class="col-md-3">
+        {% for section in sections %}
+        {% if section.numero == 2 %}
+          {% block section_2 %}
+            {% if section.categories is defined and section.categories is not empty %}
+              {% for categorie in section.categories %}
+                <div class="row-fluid">
+                  <h3 class="titre_cote"> {{ categorie.nom }} </h3>
+                      {% if categorie.contenus is not empty %}
+                        {% for contenu in categorie.contenus %}
+                        <div class="row-fluid">
+                          <hr>
+                          {{ contenu.titre }}
+                        </div>
+                        {% endfor %}
+                      {% endif %}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endblock %}
+        {% endif %}
+        {% endfor %}
+
+        <!--==================Zone affichage partenaires ====================-->
+        <div class="row-fluid">
+                <h3 class="titre_cote"> Partenaires </h3>
+                <hr>
+                <div id="myCarousel_partenaire" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                      <li data-target="#myCarousel_partenaire" data-slide-to="0" class="active"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="1"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="2"></li>
+                    </ol>
+                          
+                  <div class="carousel-inner" role="listbox">
+                  {% for partenaire in partenaires %}
+                  {% if partenaire is not empty and partenaire.nompartenaire is not empty %}
+                    {% if partenaire.photo is not empty %}
+                      <div class="item">
+                        <img src="{{asset(partenaire.photo.webPath)}} " alt="{{ partenaire.titre }}" title="{{ partenaire.titre }}">
+                        <div class="container">
+                          <div class="carousel-caption">
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}  
+                  {% endif %}                
+                  {% endfor %}
+                  </div>
+                 
+                            
+                </div><!-- /.carousel -->
+        </div>
+        <!--==================Fin Zone affichage partenaires ====================-->
+
+      </div>
+
+    <!-- =================Si dans la page aucune section n'est définie ===================== -->
+    {% else %}
+      <div class="col-lg-9">
+        {{ sous_menu_a_voir.contenu|raw }}
+      </div>
+
+      <div class="col-lg-3">
+        <!--==================Zone affichage partenaires ====================-->
+        <div class="row-fluid">
+                <h3 class="titre_cote"> Partenaires </h3>
+                <div id="myCarousel_partenaire" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                      <li data-target="#myCarousel_partenaire" data-slide-to="0" class="active"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="1"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="2"></li>
+                    </ol>
+                          
+                  <div class="carousel-inner" role="listbox">
+                  {% for partenaire in partenaires %}
+                  {% if partenaire is not empty and partenaire.nompartenaire is not empty %}
+                    {% if partenaire.photo is not empty %}
+                      <div class="item">
+                        <img src="{{asset(partenaire.photo.webPath)}} " alt="{{ partenaire.titre }}" title="{{ partenaire.titre }}">
+                        <div class="container">
+                          <div class="carousel-caption">
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}  
+                  {% endif %}                
+                  {% endfor %}
+                  </div>
+                      
+                </div><!-- /.carousel -->
+        </div>
+        <!--==================Fin Zone affichage partenaires ====================-->
+
+      </div>
+    {% endif %}
+
+  {% endif %}
+  
+{% endblock %}
+
+
+{% block script %}
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      
+      //$('.carousel-inner div').first().addClass('active');
+      $(".carousel-inner div:nth-child(1)").addClass('active');
+
+      
+    });
+  </script>
+{% endblock %}

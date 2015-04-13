@@ -1,0 +1,191 @@
+{% extends "::layout_stone.html.twig" %}
+
+{% block menu %}
+  {% for menu in menus %}
+    {% if menu.pages is defined %}
+      {% if menu.pages is not empty %}
+        {% for page in menu.pages %}
+          {% if page.nom == page_courant.nom %}
+          <li class="active"> 
+          {% else %}
+          <li>
+          {% endif %}
+            {% if page.url is not empty %}
+                   <a href="{{ page.url }}" target="_blank" >   
+                      {{ page.nom|upper }} 
+                   </a>
+                {% else %}
+                    <a  href="{{path('domaine_voir_page', {'idpage': page.id })}} " >
+                      {{ page.nom|upper }} 
+                    </a>
+                 {% endif %}
+          </li>
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+
+
+{% block a_la_une %}
+  <p class="titre"><strong>A la une</strong></p>
+  <div id="myCarousel{{ page.id }}" class="carousel slide page_carousel" data-ride="carousel">    
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel{{ page.id }}" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel{{ page.id }}" data-slide-to="1"></li>
+          <li data-target="#myCarousel{{ page.id }}" data-slide-to="2"></li>
+        </ol>
+     
+    <div class="carousel-inner" role="listbox">
+     
+      {% for section in sections %}
+          {% if section.categories is defined and section.categories is not empty %}
+              {% for categorie in section.categories %}
+                  {% if categorie.articles is defined %}
+                    {% for article in categorie.articles %}
+                      <div class="item">
+                        <a href="{{path('domaine_lire_article', {'idarticle' : article.id, 'page' : page.id })}} ">
+                          <img class="col-lg-12 col-xs-12" src="{{asset(article.photo.webPath)}} " alt="" title="">
+                        </a>
+                        <div class="container">
+                          <div class="carousel-caption">
+                            <a href="{{path('domaine_lire_article', {'idarticle' : article.id, 'page' : page.id })}} ">
+                              {{ article.titre }}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
+      {% endfor %}
+
+    </div>
+    <a class="left carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>       
+  </div><!-- /.carousel -->
+{% endblock %}
+
+{% block autres_actualites %}
+  {% if autres_articles is defined %}
+    <p class="titre"><strong>Autres actualités</strong></p>
+    <div class="liste_articles" id="autres_articles">
+      {% for article in autres_articles %}
+      <div class="col-lg-12">
+        <div class="row-fluid">
+          <a href="{{path('domaine_lire_article', {'idarticle' : article.id, 'page' : page.id })}} ">
+            <img class="col-lg-12 col-xs-12" src="{{asset(article.photo.webPath)}} " alt="" title="">
+          </a>
+        </div>
+        <div class="row-fluid">
+          <span> {{ article.titre }} </span> <br>
+          <a href="{{path('domaine_lire_article', {'idarticle' : article.id, 'page' : page.id })}} ">
+            <span class="suite_article">Lire la suite ...</span>
+          </a>
+        </div>
+      </div>
+      {% endfor%}
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block cote_gauche %}
+<div class="col-lg-12">
+  {% if partenaires is defined %}
+  <p class="titre"><strong>Partenaires</strong></p>
+  <div id="myCarousel_partenaire" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel_partenaire" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel_partenaire" data-slide-to="1"></li>
+      <li data-target="#myCarousel_partenaire" data-slide-to="2"></li>
+    </ol>
+                          
+    <div class="carousel-inner" role="listbox">
+      {% for partenaire in partenaires %}
+        {% if partenaire is not empty and partenaire.nompartenaire is not empty %}
+          {% if partenaire.photo is not empty %}
+            <div class="item">
+              <img src="{{asset(partenaire.photo.webPath)}} " alt="{{ partenaire.titre }}" title="{{ partenaire.titre }}">
+              <div class="container">
+                <div class="carousel-caption">
+                </div>
+              </div>
+            </div>
+          {% endif %}  
+        {% endif %}                
+      {% endfor %}
+    </div>
+                         
+  </div><!-- /.carousel -->
+  {% endif %}
+</div>
+<div class="col-lg-12">
+  <p class="titre"><strong>Contribution</strong></p>
+  <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+    <input type="hidden" name="cmd" value="_s-xclick">
+    <input type="hidden" name="hosted_button_id" value="ZPJR3Y8BENJXG">
+    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+  </form>
+</div>
+
+<div class="col-lg-12">
+  <p class="titre"><strong>Facebook</strong></p>
+  <div class="fb-page" data-href="https://www.facebook.com/pages/Radio-Basse-Cote-Internationale/371528622988973?fref=ts" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"></div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="liste_articles" id="contenu_page_articles">
+  {% if articles is defined %}
+  {% for article in articles %}
+  <div class="col-lg-12">
+    <div class="col-lg-7">
+      <a href="{{path('domaine_lire_article', {'idarticle' : article.id, 'page' : page.id })}} ">
+        <img class="col-lg-12 col-xs-12" src="{{asset(article.photo.webPath)}} " alt="" title="">
+      </a>
+    </div>
+    <div class="col-lg-4">
+      <span> {{ article.titre }} </span> <br>
+      <a href="{{path('domaine_lire_article', {'idarticle' : article.id, 'page' : page.id })}} ">
+        <span class="suite_article">Lire la suite ...</span>
+      </a>
+    </div>
+  </div>
+  {% endfor%}
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+ <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.3";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      
+      //$('.carousel-inner div').first().addClass('active');
+      $(".carousel-inner div:nth-child(1)").addClass('active');
+
+      //$(".liste_articles div:nth-child(2)").addClass('article');
+
+    });
+  </script>
+{% endblock %}
