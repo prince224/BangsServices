@@ -2,6 +2,9 @@ domaine_homepage:
     pattern:  /
     defaults: { _controller: DomaineBundle:Default:index }
 
+domaine_homepage_inserer_logo_site:
+    pattern: /inserer-logo_site
+    defaults: { _controller: DomaineBundle:Default:inserer_logo_site}
 
 domaine_homepage_inserer_menu:
     pattern: /inserer-menu

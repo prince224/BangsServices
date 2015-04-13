@@ -1,0 +1,7 @@
+{% for reseau_logo in reseaux_sociaux %}
+	{% if reseau_logo is not empty  and reseau_logo.nom != 'logoSite' %}
+		<a  href="{{ reseau_logo.url }} " class="col-lg-2">
+            <img src="{{asset(reseau_logo.webPath)}} " alt="{{ reseau_logo.nom }} " title="{{ reseau_logo.nom }} ">
+        </a>
+	{% endif %}
+{% endfor %}
