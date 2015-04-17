@@ -6,6 +6,7 @@ domaine_homepage_inserer_logo_site:
     pattern: /inserer-logo_site
     defaults: { _controller: DomaineBundle:Default:inserer_logo_site}
 
+
 domaine_homepage_inserer_menu:
     pattern: /inserer-menu
     defaults: { _controller: DomaineBundle:Default:inserer_menu}
@@ -25,3 +26,15 @@ domaine_homepage_inserer_reseaux_sociaux:
 domaine_voir_page:
     pattern: /consulter-page/{idpage}
     defaults: { _controller: DomaineBundle:Default:consulter_page}
+
+domaine_voir_sous_menu:
+    pattern: /consulter-sous-menu/{idsousmenu}
+    defaults: { _controller: DomaineBundle:Default:consulter_sous_menu}
+
+domaine_voir_evenement:
+    pattern: /consulter-evenement/{idevenement}
+    defaults: { _controller: DomaineBundle:Default:consulter_evenement}
+
+domaine_voir_article:
+    pattern: /consulter-article/{idarticle}
+    defaults: { _controller: DomaineBundle:Default:consulter_article}

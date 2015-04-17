@@ -41,6 +41,20 @@ class Photo
 
     /**
     *
+    * @ORM\ManyToOne(targetEntity="Cms\ArticleBundle\Entity\Article", inversedBy="photos")
+    *
+    */
+    private $article;
+
+    /**
+    *
+    * @ORM\ManyToOne(targetEntity="Cms\ContenuBundle\Entity\Evenement", inversedBy="photos")
+    *
+    */
+    private $evenement;
+
+    /**
+    *
     * @ORM\ManyToOne(targetEntity="Cms\DomaineBundle\Entity\SousMenu", inversedBy="photos")
     *
     */
@@ -349,4 +363,50 @@ class Photo
     }
 
    
+
+    /**
+     * Set article
+     *
+     * @param \Cms\ArticleBundle\Entity\Article $article
+     * @return Photo
+     */
+    public function setArticle(\Cms\ArticleBundle\Entity\Article $article = null)
+    {
+        $this->article = $article;
+    
+        return $this;
+    }
+
+    /**
+     * Get article
+     *
+     * @return \Cms\ArticleBundle\Entity\Article 
+     */
+    public function getArticle()
+    {
+        return $this->article;
+    }
+
+    /**
+     * Set evenement
+     *
+     * @param \Cms\ContenuBundle\Entity\Evenement $evenement
+     * @return Photo
+     */
+    public function setEvenement(\Cms\ContenuBundle\Entity\Evenement $evenement = null)
+    {
+        $this->evenement = $evenement;
+    
+        return $this;
+    }
+
+    /**
+     * Get evenement
+     *
+     * @return \Cms\ContenuBundle\Entity\Evenement 
+     */
+    public function getEvenement()
+    {
+        return $this->evenement;
+    }
 }

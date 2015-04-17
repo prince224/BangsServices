@@ -1,10 +1,6 @@
 article_admin_homepage:
-    pattern:  /contenu_homepage
-    defaults: { _controller: ArticleBundle:Admin:contenu_homepage }
-
-article_admin_choix_categorie:
-    pattern:  /choix_categorie
-    defaults: { _controller: ArticleBundle:Admin:choix_categorie }
+    pattern:  /article_homepage
+    defaults: { _controller: ArticleBundle:Admin:article_homepage }
 
 article_admin_page_categorie:
    pattern: /page_categorie
@@ -23,35 +19,40 @@ article_admin_supprimer_une_categorie:
    defaults: { _controller: ArticleBundle:Admin:supprimer_une_categorie}
 
 
+article_admin_choix_categorie:
+    pattern:  /choix_categorie/{idarticle}
+    defaults: { _controller: ArticleBundle:Admin:choix_categorie }
 
 
-article_admin_voir_un_contenu:
-    pattern:  /voir_un_contenu/{idcontenu}
-    defaults: { _controller: ArticleBundle:Admin:voir_un_contenu }
 
-article_admin_ajouter_un_contenu:
-    pattern:  /ajouter_un_contenu
-    defaults: { _controller: ArticleBundle:Admin:ajouter_un_contenu }
+article_admin_voir_un_article:
+    pattern:  /voir_un_article/{idarticle}
+    defaults: { _controller: ArticleBundle:Admin:voir_un_article }
 
-article_admin_modifier_un_contenu:
-    pattern:  /modifier_un_contenu/{idcontenu}
-    defaults: { _controller: ArticleBundle:Admin:modifier_un_contenu }
+article_admin_ajouter_un_article:
+    pattern:  /ajouter_un_article
+    defaults: { _controller: ArticleBundle:Admin:ajouter_un_article }
 
-article_admin_supprimer_un_contenu:
-    pattern:  /supprimer_un_contenu/{idcontenu}
-    defaults: { _controller: ArticleBundle:Admin:supprimer_un_contenu }
+article_admin_modifier_un_article:
+    pattern:  /modifier_un_article/{idarticle}
+    defaults: { _controller: ArticleBundle:Admin:modifier_un_article }
 
-article_admin_ajouter_photo_contenu:
-    pattern:  /ajouter_photo_contenu/{idcontenu}
-    defaults: { _controller: ArticleBundle:Admin:ajouter_photo_contenu }
+article_admin_supprimer_un_article:
+    pattern:  /supprimer_un_article/{idarticle}
+    defaults: { _controller: ArticleBundle:Admin:supprimer_un_article }
 
-article_admin_modifier_photo_contenu:
-    pattern:  /modifier_photo_contenu/{idphoto}
-    defaults: { _controller: ArticleBundle:Admin:modifier_photo_contenu }
 
-article_admin_supprimer_photo_contenu:
-    pattern:  /supprimer_photo_contenu/{idphoto}
-    defaults: { _controller: ArticleBundle:Admin:supprimer_photo_contenu }
+article_admin_ajouter_photo_article:
+    pattern:  /ajouter_photo_article/{idarticle}
+    defaults: { _controller: ArticleBundle:Admin:ajouter_photo_article }
+
+article_admin_modifier_photo_article:
+    pattern:  /modifier_photo_article/{idphoto}
+    defaults: { _controller: ArticleBundle:Admin:modifier_photo_article }
+
+article_admin_supprimer_photo_article:
+    pattern:  /supprimer_photo_article/{idphoto}
+    defaults: { _controller: ArticleBundle:Admin:supprimer_photo_article }
 
 
 

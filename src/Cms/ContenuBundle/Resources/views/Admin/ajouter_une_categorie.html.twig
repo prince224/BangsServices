@@ -1,0 +1,16 @@
+{% form_theme form 'DomaineBundle:Form:fields.html.twig' %}
+
+{% block section %}
+<h3>Créer une nouvelle catégorie : </h3>
+<div class="well">
+  <form action="{{path('article_admin_ajouter_une_categorie')}} " method="post" {{ form_enctype(form) }}>
+  	<table class="table responsive">
+  		<tbody>
+  			{{ form_widget(form) }}
+  		</tbody>
+  	</table>
+   
+    <input type="submit" class="btn btn-success" />
+  </form>
+</div>
+{% endblock %}

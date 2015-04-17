@@ -57,7 +57,7 @@
                     -->
                     </div>
 
-                   <!-- Modal -->
+                    <!-- Modal -->
                     <div class="modal fade" id="Photo_couvertureModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
@@ -77,7 +77,7 @@
                             </a>
 
                             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
-                            <a href=href="{{path('Page_admin_supprimer_image_couverture_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn btn-danger"> 
+                            <a href="{{path('Page_admin_supprimer_image_couverture_page', {'idphoto': photo.id, 'idpage' : page.id })}} " class="btn btn-danger"> 
                                 Supprimer 
                             </a>
                             {% endif %}

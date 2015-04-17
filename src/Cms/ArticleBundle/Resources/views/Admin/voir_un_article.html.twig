@@ -1,0 +1,161 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+    <h1>Gestion des articles </h1>
+   
+    <hr>
+    
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="{{path('article_admin_homepage')}} "><span class="glyphicon glyphicon-arrow-left"> RETOUR</span></a>
+            </div>
+           
+
+            <div class="col-md-4">
+                {% if categorie_article is not empty %}
+                <p>Catégories de l'article : </p>
+                    {% for c in categorie_article %}
+                    <p><strong> {{ c.nom }} </strong></p>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+            <br>
+            
+            <hr>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-12">
+                {% if article.titre is not empty %}
+                    <p><strong>Titre : </strong>{{ article.titre }} </p>
+                {% endif %}
+
+                {% if article.dateCreation is not empty %}
+                    <p><strong>Date de création : </strong>{{ article.dateCreation|date('d/m/y') }}</p>
+                {% endif %}
+
+              
+
+                {% if article.publier == true %}
+                    <p><strong>Publier ? :</strong> Oui </p>
+                {% else %}
+                    <p><strong>Publier ? :</strong> Non </p>
+                {% endif %}
+
+               
+                {% if article.photo is not empty %}
+                        <div class="col-md-5">
+                            <a href="{{path('article_admin_modifier_photo_article', {'idphoto' : article.photo.id, 'article' : article.id })}} " class="btn-success"> Modifier photo</a> 
+
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                            <a href="{{path('article_admin_supprimer_photo_article', {'idphoto' : article.photo.id, 'article' : article.id })}} " class="btn-danger"> Supprimer photo</a>
+                            {% endif %}
+                            <img class="col-lg-12" src="{{asset(article.photo.webPath)}} "title=" {{ article.photo.url }} " alt="{{ article.photo.alt }} ">
+                            
+                        </div>
+                {% endif %}
+                <p><strong>article :</strong> <br>
+                   
+
+                    {% if article.contenu is not empty %}
+                        {{ article.contenu|raw }}
+                    {% endif %}
+                </p>
+            </div>        
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <p>
+                <a href="{{path('article_admin_modifier_un_article', {'idarticle' : article.id})}} " class="btn btn-success">Modifier</a>
+            </p>
+        </div>
+
+        
+        <div class="col-md-2">
+            <a href="{{path('article_admin_ajouter_photo_article', {'idarticle' : article.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter des photos</a>
+            <hr>
+        </div>
+        
+
+        {% if article.photos is not empty %}
+        <div class="col-lg-12">
+            <p><strong>Les images liées à l'article : </strong></p>
+            {% for p in article.photos %}
+                {% if p.numero == 2 %}
+                    <div class="col-md-2">
+                        <a data-target="#images_articleModal{{ p.id }}" data-toggle="modal" href="#">
+                            <img class="col-lg-12" src="{{asset(p.webPath)}} " title=" {{ p.url }} " alt="{{ p.alt }} ">
+                        </a>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="images_articleModal{{ p.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close btn btn-default" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Images liées à l'article : </h4>
+                          </div>
+                          <div class="modal-body">
+                             <img class="col-lg-12" src="{{asset(p.webPath)}} ">
+                          </div>
+
+                          <div class="modal-footer">
+                            <hr>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <a href="{{path('article_admin_modifier_photo_article', {'idphoto' : p.id, 'article' : article.id })}} " class="btn btn-success"> 
+                                Modifier 
+                            </a>
+
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                            <a href="{{path('article_admin_modifier_photo_article', {'idphoto' : p.id})}} " class="btn btn-danger"> 
+                                Supprimer 
+                            </a>
+                            {% endif %}
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+    
+    <div class="row-fluid">
+
+        <p><strong>Choisir une catégorie : </strong></p>
+        <form method="post" action="{{path('article_admin_choix_categorie', {'idarticle' : article.id })}} ">
+            {% for categorie in categories %}
+            <div class="col-lg-12">
+                <div class="col-lg-2">
+                    <input type="checkbox" name="choix[]" value="{{ categorie.id }}">
+                </div>
+                <div class="col-lg-4">
+                    <label> {{ categorie.nom }} </label>
+                </div>
+            </div>
+            {% endfor %}
+            <input type="submit" value="Envoyer">
+        </form>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
+{% endblock %}

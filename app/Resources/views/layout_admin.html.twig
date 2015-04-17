@@ -59,6 +59,23 @@
               </a>
             </p>
           </div>
+
+          <div>
+            <p>
+              <a href="{{path('article_admin_homepage')}} ">
+                <strong>Article</strong>
+              </a>
+            </p>
+          </div>
+
+          <div>
+            <p>
+              <a href="{{path('evenement_admin_homepage')}} ">
+                <strong>Evénement</strong>
+              </a>
+            </p>
+          </div>
+        <!--
           <div>
             <p>
               <a href="{{path('article_admin_homepage')}} ">
@@ -66,6 +83,7 @@
               </a>
             </p>
           </div>
+        -->
           {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
           <div>
             <p>

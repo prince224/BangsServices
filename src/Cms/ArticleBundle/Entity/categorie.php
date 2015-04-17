@@ -29,6 +29,12 @@ class Categorie
      */
     private $id;
 
+    /**
+    *
+    * @ORM\ManyToMany(targetEntity="Cms\ArticleBundle\Entity\Article", cascade="persist")
+    *
+    */
+    private $articles;
 
     /**
     *
@@ -116,5 +122,40 @@ class Categorie
     public function getContenus()
     {
         return $this->contenus;
+    }
+
+   
+
+    /**
+     * Add articles
+     *
+     * @param \Cms\ArticleBundle\Entity\Article $articles
+     * @return Categorie
+     */
+    public function addArticle(\Cms\ArticleBundle\Entity\Article $articles)
+    {
+        $this->articles[] = $articles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove articles
+     *
+     * @param \Cms\ArticleBundle\Entity\Article $articles
+     */
+    public function removeArticle(\Cms\ArticleBundle\Entity\Article $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getArticles()
+    {
+        return $this->articles;
     }
 }

@@ -1,0 +1,7 @@
+parameters:
+#    contenu.example.class: Cms\ContenuBundle\Example
+
+services:
+#    contenu.example:
+#        class: %contenu.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,7 @@
+{% for contenu in contenus %}
+	{% if contenu.telephone is not empty %}
+       	<span class="glyphicon glyphicon-phone-alt"></span>
+    	<a href=""><strong>Contact</strong></a> 
+    	{{ contenu.telephone }} 
+    {% endif %}
+{% endfor %}
