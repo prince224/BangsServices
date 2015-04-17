@@ -1,0 +1,36 @@
+evenement_admin_homepage:
+    pattern:  /evenement_homepage
+    defaults: { _controller: ContenuBundle:Admin:evenement_homepage }
+
+
+evenement_admin_voir_un_evenement:
+    pattern:  /voir_un_evenement/{idevenement}
+    defaults: { _controller: ContenuBundle:Admin:voir_un_evenement }
+
+evenement_admin_ajouter_un_evenement:
+    pattern:  /ajouter_un_evenement
+    defaults: { _controller: ContenuBundle:Admin:ajouter_un_evenement }
+
+evenement_admin_modifier_un_evenement:
+    pattern:  /modifier_un_evenement/{idevenement}
+    defaults: { _controller: ContenuBundle:Admin:modifier_un_evenement }
+
+evenement_admin_supprimer_un_evenement:
+    pattern:  /supprimer_un_evenement/{idevenement}
+    defaults: { _controller: ContenuBundle:Admin:supprimer_un_evenement }
+
+
+evenement_admin_ajouter_photo_evenement:
+    pattern:  /ajouter_photo_evenement/{idevenement}
+    defaults: { _controller: ContenuBundle:Admin:ajouter_photo_evenement }
+
+evenement_admin_modifier_photo_evenement:
+    pattern:  /modifier_photo_evenement/{idphoto}
+    defaults: { _controller: ContenuBundle:Admin:modifier_photo_evenement }
+
+evenement_admin_supprimer_photo_evenement:
+    pattern:  /supprimer_photo_evenement/{idphoto}
+    defaults: { _controller: ContenuBundle:Admin:supprimer_photo_evenement }
+
+
+

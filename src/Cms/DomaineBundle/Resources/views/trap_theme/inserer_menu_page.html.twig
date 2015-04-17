@@ -1,0 +1,23 @@
+{% for menu in menus %}
+    {% if menu.pages is defined %}
+      {% if menu.pages is not empty %}
+      	{% for page in menu.pages %}
+          {% if page.nom == 'Ball-trap' %}
+      		<li class="active"> 
+          {% else %}
+          <li>
+          {% endif %}
+      			{% if page.url is not empty %}
+                   <a href="{{ page.url }}" target="_blank" > 	
+                   		{{ page.nom|upper }} 
+                   </a>
+                {% else %}
+                    <a  href="{{path('domaine_voir_page', {'idpage': page.id })}} " >
+                    	{{ page.nom|upper }} 
+                  	</a>
+                 {% endif %}
+          </li>
+      	{% endfor %}
+      {% endif %}
+    {% endif %}
+{% endfor %}

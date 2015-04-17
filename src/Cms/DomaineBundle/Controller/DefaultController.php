@@ -22,21 +22,29 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $$em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         
-        $menus = $em->getRepository('DomaineBundle:Menu')->findAll();
-
         $page_index = $em->getRepository('PageBundle:Page')->findOneBy(array(
-            'nom' => 'index'));
+            'nom' => 'Ball-trap'));
 
-        //on récupères les sections de la page
+        $evenements = $em->getRepository('ContenuBundle:Evenement')->findAll();
+
+        $sous_menu = $page_index->getSousmenus();
+
         $sections = $page_index->getSections();
 
-        return $this->render('DomaineBundle:Default:index.html.twig',array(
+        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+
+        $date_jour = new \Datetime();
+
+        return $this->render('DomaineBundle:trap_theme:index.html.twig',array(
             'page' => $page_index,
-            'menus' => $menus,
+            'evenements' => $evenements,
+            'sous_menu' => $sous_menu,
             'sections' => $sections,
+            'partenaires' => $partenaires,
+            'date_jour' => $date_jour,
             ));
     }
 
@@ -49,7 +57,7 @@ class DefaultController extends Controller
         $logo_site = $em->getRepository('DomaineBundle:Logos')->findOneBy(array(
             'nom' => 'logoSite'));
 
-        return $this->render('DomaineBundle:Default:inserer_logo_site.html.twig',array(
+        return $this->render('DomaineBundle:trap_theme:inserer_logo_site.html.twig',array(
             'logo_site' => $logo_site,
             ));
     }
@@ -64,7 +72,7 @@ class DefaultController extends Controller
 
         $menus = $em->getRepository('DomaineBundle:Menu')->findAll();
 
-        return $this->render('DomaineBundle:Default:inserer_menu.html.twig',array(
+        return $this->render('DomaineBundle:trap_theme:inserer_menu.html.twig',array(
             'menus' => $menus,
             ));
     }
@@ -78,7 +86,7 @@ class DefaultController extends Controller
 
         $menus = $em->getRepository('DomaineBundle:Menu')->findAll();
 
-        return $this->render('DomaineBundle:Default:inserer_menu_page.html.twig',array(
+        return $this->render('DomaineBundle:trap_theme:inserer_menu_page.html.twig',array(
             'menus' => $menus,
             ));
     }
@@ -93,7 +101,7 @@ class DefaultController extends Controller
 
         $contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
 
-        return $this->render('DomaineBundle:Default:inserer_contact.html.twig',array(
+        return $this->render('DomaineBundle:trap_theme:inserer_contact.html.twig',array(
             'contenus' => $contenus,
             ));
     }
@@ -107,7 +115,7 @@ class DefaultController extends Controller
 
         $reseaux_sociaux = $em->getRepository('DomaineBundle:Logos')->findAll();
 
-        return $this->render('DomaineBundle:Default:inserer_reseaux_sociaux.html.twig',array(
+        return $this->render('DomaineBundle:trap_theme:inserer_reseaux_sociaux.html.twig',array(
             'reseaux_sociaux' => $reseaux_sociaux,
             ));
     }
@@ -133,7 +141,7 @@ class DefaultController extends Controller
 
             //$articles = $em->getRepository('ArticleBundle:Article')->getArticlesPublies();
 
-            return $this->render('DomaineBundle:Default:consulter_page.html.twig',array(
+            return $this->render('DomaineBundle:trap_theme:consulter_page.html.twig',array(
             'page' => $page,
             'page_courant' => $page,
             'menus' => $menus,
@@ -147,4 +155,103 @@ class DefaultController extends Controller
         
         return $this->redirect($this->generateUrl('domaine_homepage'));
     }
+
+
+    /*============================consulter_sous_menu=======================================*/
+    public function consulter_sous_menuAction($idsousmenu)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $sous_menu_a_voir = $em->getRepository('DomaineBundle:SousMenu')->find($idsousmenu);
+        
+        $sections = $sous_menu_a_voir->getSections();
+        $evenements = $em->getRepository('ContenuBundle:Evenement')->findAll();
+
+        $page = $sous_menu_a_voir->getPage();
+        $sous_menu = $page->getSousmenus();
+        
+        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+        $date_jour = new \Datetime();
+
+        if($sous_menu_a_voir != null)
+        {
+           return $this->render('DomaineBundle:trap_theme:consulter_sous_menu.html.twig',array(
+            'sous_menu_a_voir' => $sous_menu_a_voir,
+            'page' => $page,
+            'evenements' => $evenements,
+            'sous_menu' => $sous_menu,
+            'sections' => $sections,
+            'partenaires' => $partenaires,
+            'date_jour' => $date_jour,
+            )); 
+        }
+        
+        return $this->redirect($this->generateUrl('domaine_homepage'));
+    }
+    /*================= Fin consulter_sous_menu ============================================*/
+
+     /*============================consulter_evenement=======================================*/
+    public function consulter_evenementAction($idevenement)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $page_index = $em->getRepository('PageBundle:Page')->findOneBy(array(
+            'nom' => 'Ball-trap'));
+
+        $evenement = $em->getRepository('ContenuBundle:Evenement')->find($idevenement);
+
+        $sous_menu = $page_index->getSousmenus();
+
+        $sections = $page_index->getSections();
+
+        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+
+        if($evenement != null)
+        {
+           return $this->render('DomaineBundle:trap_theme:consulter_evenement.html.twig',array(
+            'page' => $page_index,
+            'evenement' => $evenement,
+            'sous_menu' => $sous_menu,
+            'sections' => $sections,
+            'partenaires' => $partenaires,
+            )); 
+        }
+        
+        return $this->redirect($this->generateUrl('domaine_homepage'));
+    }
+    /*================= Fin consulter_evenement ============================================*/
+
+    /*============================consulter_article=======================================*/
+    public function consulter_articleAction($idarticle)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $page_index = $em->getRepository('PageBundle:Page')->findOneBy(array(
+            'nom' => 'Ball-trap'));
+
+        $article = $em->getRepository('ArticleBundle:Article')->find($idarticle);
+
+        $sous_menu = $page_index->getSousmenus();
+
+        $sections = $page_index->getSections();
+
+        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+
+        if($article != null)
+        {
+           return $this->render('DomaineBundle:Default:consulter_article.html.twig',array(
+            'page' => $page_index,
+            'article' => $article,
+            'sous_menu' => $sous_menu,
+            'sections' => $sections,
+            'partenaires' => $partenaires,
+            )); 
+        }
+        
+        return $this->redirect($this->generateUrl('domaine_homepage'));
+    }
+    /*================= Fin consulter_article ===========================================*/
 }

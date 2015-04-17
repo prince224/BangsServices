@@ -1,0 +1,7 @@
+{% if logo_site is not empty %}
+<div id="logo_site">
+	<a class="col-lg-12" href="#">
+        <img class="col-xs-12" src="{{asset(logo_site.webPath)}} " alt="{{ logo_site.nom }} " title="{{ logo_site.nom }} ">
+    </a>
+</div>
+{% endif %}

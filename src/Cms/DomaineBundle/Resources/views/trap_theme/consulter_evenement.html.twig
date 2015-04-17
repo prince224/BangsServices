@@ -1,0 +1,256 @@
+{% extends "::layoutBSCms_balltrap2.html.twig" %}
+
+{% block sousmenu %}
+  {% if sous_menu is not empty %}
+    <nav class="navbar">
+      <div  >
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header" style="color:white">
+          <button type="button"class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+            <span class="sr-only" >Toggle navigation</span>
+            <span class="icon-bar" ></span>
+            <span class="icon-bar" ></span>
+            <span class="icon-bar" ></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+          <ul>
+            {% for sousmenu in sous_menu %}
+              <li class="col-md-2" id="{{ sousmenu.nom }}" style="text-align:center">
+             
+                {% if sousmenu.nom == 'Installations' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/nos_instalations_2.png')}} " title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+
+                {% if sousmenu.nom == 'Club House' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/club_house.png')}} "  title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+
+                {% if sousmenu.nom == 'Tarifs' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/nos_prix_euro.png')}} " title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+
+                {% if sousmenu.nom == 'Calendrier' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/calendrier.png')}} " title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+
+                {% if sousmenu.nom == 'Nous Connaitre' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/nous.png')}} " title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+
+                {% if sousmenu.nom == 'Club' %}
+                  <p>
+                    <img src="{{asset('bundles/domaine/images/membre.png')}} " title="logo activite le rabot" alt="activites le rabot">
+                  </p>
+                {% endif %}
+                <a href="{{path('domaine_voir_sous_menu', {'idsousmenu' : sousmenu.id })}} ">
+                  {{ sousmenu.nom|upper }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+                  
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+  {% endif %}
+{% endblock %}
+
+{% block carousel %}
+  <div id="myCarousel{{ page.id }}" class="carousel slide" data-ride="carousel">    
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel{{ page.id }}" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel{{ page.id }}" data-slide-to="1"></li>
+          <li data-target="#myCarousel{{ page.id }}" data-slide-to="2"></li>
+        </ol>
+     
+    <div class="carousel-inner" role="listbox">
+     
+      {% if page.photos is not empty %}
+        {% for photo in page.photos %}
+        {% if photo.numero == 1 %}
+        <div class="item">
+          <img src="{{asset(photo.webPath)}} " alt="ball trap du rabot" title="evenement le rabot balltrap">
+          <div class="container">
+            <div class="carousel-caption">
+            </div>
+          </div>
+        </div>
+                  
+        {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+    <a class="left carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+    {{ render(controller('DomaineBundle:Default:inserer_logo_site'))}}         
+  </div><!-- /.carousel -->
+
+{% endblock %}
+
+{% block section %}
+
+
+      <div class="col-lg-9">
+        <h2>Evénement : {{ evenement.titre }} </h2>
+        <p>{{ evenement.contenu|raw}} </p>
+        <p>Date de l'événement : <strong> {{ evenement.dateEvenement|date('d/m/Y') }} </strong></p>
+
+        <div class="col-lg-12">
+          <h3>Images de l'événement : </h3>
+          {% if evenement.photos is empty %}
+            <p><em>Les photos sont à venir.</em></p>
+          {% else %}
+            {% for photo in evenement.photos %}
+              {% if photo.numero == 2 %}
+                <div class="col-lg-12 image_evenement">
+                  <a data-target="#images_Modal{{ photo.id }}" data-toggle="modal">
+                    <img class="col-lg-12 col-xs-8" src="{{asset(photo.webPath)}} "title=" {{ photo.url }} " alt="{{ photo.alt }} ">
+                  </a>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="images_Modal{{ photo.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+
+                      <div class="modal-header">
+                        <button type="button" class="close btn btn-default" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      </div>
+
+                      <div class="modal-body">
+                        <img class="col-lg-12" src="{{asset(photo.webPath)}} " title=" {{ photo.url }} " alt="{{ photo.alt }} ">
+                      </div>
+
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="col-lg-3">
+        {% if sections is defined and sections is not empty %}
+          {% for section in sections %}
+            {% if section.numero == 2 %}
+              
+                {% if section.categories is defined and section.categories is not empty %}
+                
+                    {% for categorie in section.categories %}
+                      {% if categorie is not empty %}
+                        <div class="row-fluid">
+                          <h3 class="titre_cote"> {{ categorie.nom }} </h3>
+                              {% if categorie.articles is not empty %}
+                                <div id="myCarousel_article{{ categorie.id }}" class="carousel slide carousel_article" data-ride="carousel">
+                                  <!-- Indicators -->
+                                  <ol class="carousel-indicators">
+                                    <li data-target="#myCarousel_article{{ categorie.id }}" data-slide-to="0" class="active"></li>
+                                    <li data-target="#myCarousel_article{{ categorie.id }}" data-slide-to="1"></li>
+                                    <li data-target="#myCarousel_article{{ categorie.id }}" data-slide-to="2"></li>
+                                  </ol>
+                                              
+                                  <div class="carousel-inner" role="listbox">
+                                  {% for article in categorie.articles %}
+                                    {% if article.photo is not empty %}
+                                      <div class="item">
+                                        <img src="{{asset(article.photo.webPath)}} " alt="{{ article.photo.url }}" title="{{ article.photo.alt }}">
+                                        <div class="container">
+                                          <div class="carousel-caption">
+                                           <a href=""> {{ article.titre }}</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    {% endif %}
+                                  {% endfor %}
+                                </div>
+                           
+                              </div><!-- /.carousel -->
+                              {% endif %}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  
+                {% endif %}
+              
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+
+        <!--==================Zone affichage partenaires ====================-->
+        <div class="row-fluid">
+                <h3 class="titre_cote"> Partenaires </h3>
+                <hr>
+                <div id="myCarousel_partenaire" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                      <li data-target="#myCarousel_partenaire" data-slide-to="0" class="active"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="1"></li>
+                      <li data-target="#myCarousel_partenaire" data-slide-to="2"></li>
+                    </ol>
+                          
+                  <div class="carousel-inner" role="listbox">
+                  {% for partenaire in partenaires %}
+                  {% if partenaire is not empty and partenaire.nompartenaire is not empty %}
+                    {% if partenaire.photo is not empty %}
+                      <div class="item">
+                        <img src="{{asset(partenaire.photo.webPath)}} " alt="{{ partenaire.titre }}" title="{{ partenaire.titre }}">
+                        <div class="container">
+                          <div class="carousel-caption">
+                          </div>
+                        </div>
+                      </div>
+                    {% endif %}  
+                  {% endif %}                
+                  {% endfor %}
+                  </div>
+                 
+                            
+                </div><!-- /.carousel -->
+        </div>
+        <!--==================Fin Zone affichage partenaires ====================-->
+      </div>
+{% endblock %}
+
+
+{% block script %}
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      
+      //$('.carousel-inner div').first().addClass('active');
+      $(".carousel-inner div:nth-child(1)").addClass('active');
+
+      
+    });
+  </script>
+{% endblock %}

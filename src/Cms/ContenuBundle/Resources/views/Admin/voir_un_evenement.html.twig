@@ -1,0 +1,131 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+    <h1>Gestion des evenements </h1>
+   
+    <hr>
+    
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="{{path('evenement_admin_homepage')}} "><span class="glyphicon glyphicon-arrow-left"> RETOUR</span></a>
+            </div>
+
+            <hr>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-12">
+                {% if evenement.titre is not empty %}
+                    <p><strong>Titre : </strong>{{ evenement.titre }} </p>
+                {% endif %}
+
+                {% if evenement.dateCreation is not empty %}
+                    <p><strong>Date de création : </strong>{{ evenement.dateCreation|date('d/m/y') }}</p>
+                {% endif %}
+
+                    <p><strong>Date de l'événement : </strong>{{ evenement.dateEvenement|date('d/m/y') }} </p>
+
+                {% if evenement.publier == true %}
+                    <p><strong>Publier ? :</strong> Oui </p>
+                {% else %}
+                    <p><strong>Publier ? :</strong> Non </p>
+                {% endif %}
+
+               
+                {% if evenement.photo is not empty %}
+                        <div class="col-md-5">
+                            <a href="{{path('evenement_admin_modifier_photo_evenement', {'idphoto' : evenement.photo.id, 'evenement' : evenement.id })}} " class="btn-success"> Modifier photo</a> 
+
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                            <a href="{{path('evenement_admin_supprimer_photo_evenement', {'idphoto' : evenement.photo.id, 'evenement' : evenement.id })}} " class="btn-danger"> Supprimer photo</a>
+                            {% endif %}
+                            <img class="col-lg-12" src="{{asset(evenement.photo.webPath)}} "title=" {{ evenement.photo.url }} " alt="{{ evenement.photo.alt }} ">
+                            
+                        </div>
+                {% endif %}
+                <p><strong>evenement :</strong> <br>
+                   
+
+                    {% if evenement.contenu is not empty %}
+                        {{ evenement.contenu|raw }}
+                    {% endif %}
+                </p>
+            </div>        
+        </div>
+        <hr>
+        <div class="col-md-12">
+            <p>
+                <a href="{{path('evenement_admin_modifier_un_evenement', {'idevenement' : evenement.id})}} " class="btn btn-success">Modifier</a>
+            </p>
+        </div>
+
+        
+        <div class="col-md-2">
+            <a href="{{path('evenement_admin_ajouter_photo_evenement', {'idevenement' : evenement.id })}} "><span class="glyphicon glyphicon-plus"></span> Ajouter des photos</a>
+            <hr>
+        </div>
+        
+
+        {% if evenement.photos is not empty %}
+        <div class="col-lg-12">
+            <p><strong>Les images liées à l'evenement : </strong></p>
+            {% for p in evenement.photos %}
+                {% if p.numero == 2 %}
+                    <div class="col-md-2">
+                        <a data-target="#images_evenementModal{{ p.id }}" data-toggle="modal" href="#">
+                            <img class="col-lg-12" src="{{asset(p.webPath)}} " title=" {{ p.url }} " alt="{{ p.alt }} ">
+                        </a>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="images_evenementModal{{ p.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close btn btn-default" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Images liées à l'evenement : </h4>
+                          </div>
+                          <div class="modal-body">
+                             <img class="col-lg-12" src="{{asset(p.webPath)}} ">
+                          </div>
+
+                          <div class="modal-footer">
+                            <hr>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <a href="{{path('evenement_admin_modifier_photo_evenement', {'idphoto' : p.id, 'evenement' : evenement.id })}} " class="btn btn-success"> 
+                                Modifier 
+                            </a>
+
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                            <a href="{{path('evenement_admin_modifier_photo_evenement', {'idphoto' : p.id})}} " class="btn btn-danger"> 
+                                Supprimer 
+                            </a>
+                            {% endif %}
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
+{% endblock %}

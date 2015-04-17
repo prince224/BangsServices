@@ -1,15 +1,12 @@
-{% extends "::layout_admin.html.twig" %}
-
 {% form_theme form 'DomaineBundle:Form:fields.html.twig' %}
 
-
 {% block section %}
-<h1>Modifier le contenu de type : <em>{{ categorie.nom }} </em></h1>
+<h3>Modifier une catégorie : </h3>
 <div class="well">
-  <form action="#" method="post" {{ form_enctype(form) }}>
+  <form action="{{path('article_admin_modifier_une_categorie', {'idCategorie' : categorie.id })}} " method="post" {{ form_enctype(form) }}>
   	<table class="table responsive">
   		<tbody>
-  			{{ form(form) }}
+  			{{ form_widget(form) }}
   		</tbody>
   	</table>
    

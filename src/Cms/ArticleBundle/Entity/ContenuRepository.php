@@ -19,4 +19,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class ContenuRepository extends EntityRepository
 {
+	public function getArticlesPublies()
+	{
+		$publier = 1;
+
+		$qb = $this->createQueryBuilder('c')
+				   ->Where('c.publier = :publier')
+				   ->setParameter('publier', $publier)
+
+				   ;
+
+		return $qb->getQuery()
+            	  ->getResult();
+
+	}
 }

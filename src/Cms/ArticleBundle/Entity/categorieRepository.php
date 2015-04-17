@@ -19,4 +19,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategorieRepository extends EntityRepository
 {
+	public function getCategorie_article($idarticle)
+	{
+		$publier = 1;
+		
+		$qb = $this->createQueryBuilder('c')
+				   ->leftJoin('c.articles', 'a')
+				   ->Where('a.id = :idarticle')
+				   ->setParameter('idarticle', $idarticle)
+
+
+				   ;
+
+		return $qb->getQuery()
+            	  ->getResult();
+
+	}
 }

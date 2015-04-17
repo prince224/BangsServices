@@ -4,9 +4,9 @@
 
 
 {% block section %}
-<h1>Créer un nouveau contenu de type : <em>{{ categorie.nom }} </em></h1>
+<h1>Modifier l'événement :</h1>
 <div class="well">
-  <form action="{{path('article_admin_ajouter_un_contenu', {'categorie' : categorie.id })}} " method="post" {{ form_enctype(form) }}>
+  <form action="#" method="post" {{ form_enctype(form) }}>
   	<table class="table responsive">
   		<tbody>
   			{{ form(form) }}

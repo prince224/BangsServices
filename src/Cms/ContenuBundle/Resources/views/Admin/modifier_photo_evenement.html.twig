@@ -1,0 +1,20 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% form_theme form 'DomaineBundle:Form:fields.html.twig' %}
+
+
+{% block section %}
+<h1>Modification de la photo de l'evenement : {{ evenement.titre }}  </h1>
+
+<div class="well">
+  <form action="#" method="post" {{ form_enctype(form) }}>
+  	<table class="table responsive">
+  		<tbody>
+  			{{ form(form) }}
+  		</tbody>
+  	</table>
+   
+    <input type="submit" class="btn btn-success" />
+  </form>
+</div>
+{% endblock %}

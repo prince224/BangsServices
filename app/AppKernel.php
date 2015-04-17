@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Cms\PageBundle\PageBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Cms\ArticleBundle\ArticleBundle(),
+            new Cms\ContenuBundle\ContenuBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

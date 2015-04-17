@@ -12,8 +12,8 @@ namespace Cms\ArticleBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-use Cms\ArticleBundle\Entity\Contenu;
-use Cms\ArticleBundle\Form\ContenuType;
+use Cms\ArticleBundle\Entity\Article;
+use Cms\ArticleBundle\Form\ArticleType;
 
 use Cms\ArticleBundle\Entity\Categorie;
 use Cms\ArticleBundle\Form\CategorieType;
@@ -26,44 +26,22 @@ use Cms\DomaineBundle\Form\LogosType;
 
 class AdminController extends Controller
 {
-	/*===========contenu homepage ==========================*/
-    public function contenu_homepageAction()
+	/*===========article homepage ==========================*/
+    public function article_homepageAction()
     {
     	$em = $this->getDoctrine()->getManager();
     	$request = $this->getRequest();
 
-    	$contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
+    	$articles = $em->getRepository('ArticleBundle:Article')->findAll();
     	$categories = $em->getRepository('ArticleBundle:Categorie')->findAll();
 
-        return $this->render('ArticleBundle:Admin:contenu_homepage.html.twig',array(
-        	'contenus' => $contenus,
+        return $this->render('ArticleBundle:Admin:article_homepage.html.twig',array(
+        	'articles' => $articles,
         	'categories' => $categories
         	));
     }
 
-    /*===========Fin contenu homepage ==========================*/
-
-    /*===========choix_categorie ==========================*/
-    public function choix_categorieAction()
-    {
-    	$em = $this->getDoctrine()->getManager();
-    	$request = $this->getRequest();
-
-    	if($request->getMethod() == 'POST')
-    	{
-  
-    		$idcategorie = $_POST['categorie'];
-   			$categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
-
-   			return $this->redirect($this->generateUrl('article_admin_ajouter_un_contenu',array(
-    		'categorie' => $categorie->getId(),
-    		)));
-    	}
-
-    	return $this->redirect($this->generateUrl('article_admin_homepage'));
-
-    }
-    /*===========Fin choix_categorie ==========================*/
+    /*===========Fin article homepage ==========================*/
 
     /*===========Page categorie ===============================*/
     public function page_categorieAction()
@@ -167,262 +145,143 @@ class AdminController extends Controller
     }
     /*=========== Fin supprimer_une_categorie =========================*/
 
-
-
-    /*=========== voir_un_contenu ==========================*/
-    public function voir_un_contenuAction($idcontenu)
+    /*=========== Choix_categorie ======================================*/
+    public function choix_categorieAction($idarticle)
     {
-    	$em = $this->getDoctrine()->getManager();
-    	$request = $this->getRequest();
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
 
-    	$contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+        //$idarticle = $request->query->get('idarticle');
+        $article = $em->getRepository('ArticleBundle:Article')->find($idarticle);
 
-    	if($contenu != null)
-    	{
-    		return $this->render('ArticleBundle:Admin:voir_un_contenu.html.twig',array(
-        	'contenu' => $contenu,
-        	));
-    	}
+        if($request->getMethod() == 'POST')
+        {
+            $categories = $_POST['choix'];
+
+            foreach ($categories as $idcategorie) {
+                $categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
+
+                $categorie->addArticle($article);
+
+                $em->persist($categorie);
+            }
+
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('article_admin_voir_un_article',array(
+            'idarticle' => $article->getId(),
+            )));
+        }
+
+        return $this->redirect($this->generateUrl('article_admin_homepage'));
+
+    }
+    /*===========Fin choix_categorie ==========================*/
+
+    /*=========== voir_un_article ==========================*/
+    public function voir_un_articleAction($idarticle)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $article = $em->getRepository('ArticleBundle:Article')->find($idarticle);
+
+        $categorie_article = $em->getRepository('ArticleBundle:Categorie')->getCategorie_article($article->getId());
+
+        $categories = $em->getRepository('ArticleBundle:Categorie')->findAll();
+
+        if($article != null)
+        {
+            return $this->render('ArticleBundle:Admin:voir_un_article.html.twig',array(
+            'article' => $article,
+            'categories' => $categories,
+            'categorie_article' => $categorie_article,
+            ));
+        }
         return $this->redirect($this->generateUrl('article_admin_homepage'));
     }
 
-    /*===========Fin  voir_un_contenu ==========================*/
+    /*===========Fin  voir_un_article ==========================*/
 
-    /*===========ajouter_un_contenu ==========================*/
-    public function ajouter_un_contenuAction()
+    /*===========ajouter_un_article ==========================*/
+    public function ajouter_un_articleAction()
     {
         $em = $this->getDoctrine()->getManager();
         
         $request = $this->getRequest();
-        $idcategorie = $request->query->get('categorie');
 
-        $categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
-
-        $contenu = new Contenu();
-        $form = $this->createForm(new ContenuType, $contenu);
-
-        if ($categorie->getNom() == 'Actualite')
-        {
-           $form = $this->get('form.factory')->createBuilder('form', $contenu)
-                        ->add('titre','text', array('label' => 'Titre *:'))
-            
-                        ->add('contenu', 'textarea', array(
-                            'label' => 'Contenu',
-                            'attr'=> array('class' => 'ckeditor')))
-
-                        ->add('auteur', 'text', array(
-                            'label' => 'Auteur :'))
-
-                        ->add('photo', new PhotoType(), array(
-                            'required' => false))
-
-                        ->add('publier', 'checkbox', array(
-                            'label' => 'Publier ? ',
-                            'required' => false))
-                        
-                        ->getForm();
-                     ;
-        }
-
-        if ($categorie->getNom() == 'Service')
-        {
-            //return new Response('yesss');
-           $form = $this->get('form.factory')->createBuilder('form', $contenu)
-                        ->add('titre','text', array('label' => 'Prestation *:'))
-            
-                        ->add('description', 'textarea', array(
-                            'label' => 'Contenu',
-                            'attr'=> array('class' => 'ckeditor')))
-
-                        ->add('prix')
-
-                        ->add('photo', new PhotoType(), array(
-                            'required' => false))
-
-                        ->add('publier', 'checkbox', array(
-                            'label' => 'Publier ? ',
-                            'required' => false))
-
-                        ->getForm();
-                     ;
-        }
-
-        if ($categorie->getNom() == 'Evenement')
-        {
-           $form = $this->get('form.factory')->createBuilder('form', $contenu)
-                        ->add('titre','text', array('label' => 'Intitulé de l\'événement *:'))
-            
-                        ->add('contenu', 'textarea', array(
-                            'label' => 'Contenu',
-                            'attr'=> array('class' => 'ckeditor')))
-
-                        ->add('auteur', 'text', array(
-                            'label' => 'Auteur :'))
-
-                        ->add('dateDebut', 'date', array(
-                            'label' => 'Date de début :'))
-
-                        ->add('dateFin', 'date', array(
-                            'label' => 'Date de fin :'))
-
-                        ->add('photo', new PhotoType(), array(
-                            'required' => false))
-
-                        ->add('publier', 'checkbox', array(
-                            'label' => 'Publier ? ',
-                            'required' => false))
-
-                        ->getForm();
-                     ;
-        }
+        $article = new Article();
+        $form = $this->createForm(new ArticleType, $article);
 
         if($request->getMethod() == 'POST')
         {
             $form->bind($request);
             if ($form->isValid()) {
 
-                $contenu = $form->getData();
-                $contenu->setDateCreation(new \Datetime());
+                $article = $form->getData();
 
-                $em->persist($contenu);
-                $categorie->addContenus($contenu);
+                $em->persist($article);
 
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
-                    'idcontenu' => $contenu->getId(),
+                return $this->redirect($this->generateUrl('article_admin_voir_un_article',array(
+                    'idarticle' => $article->getId(),
                     )));
             }
         }
-        return $this->render('ArticleBundle:Admin:ajouter_un_contenu.html.twig',array(
+        return $this->render('ArticleBundle:Admin:ajouter_un_article.html.twig',array(
             'form' => $form->createView(),
-            'categorie' => $categorie,
             ));
 
     }
-    /*===========Fin ajouter_un_contenu ==========================*/
+    /*===========Fin ajouter_un_article==========================*/
 
-    /*===========modifier_un_contenu ==========================*/
-    public function modifier_un_contenuAction($idcontenu)
+
+    /*===========modifier_un_article ==========================*/
+    public function modifier_un_articleAction($idarticle)
     {
         $em = $this->getDoctrine()->getManager();
         
         $request = $this->getRequest();
         $idcategorie = $request->query->get('idcategorie');
 
-        $categorie = $em->getRepository('ArticleBundle:Categorie')->find($idcategorie);
+        $article = $em->getRepository('ArticleBundle:Article')->find($idarticle);
+        $form = $this->createForm(new articleType, $article);
 
-        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
-        $form = $this->createForm(new ContenuType, $contenu);
-
-        if ($categorie->getNom() == 'Actualite')
-        {
-           $form = $this->get('form.factory')->createBuilder('form', $contenu)
-                        ->add('titre','text', array('label' => 'Titre *:'))
-            
-                        ->add('contenu', 'textarea', array(
-                            'label' => 'Contenu',
-                            'attr'=> array('class' => 'ckeditor')))
-
-                        ->add('auteur', 'text', array(
-                            'label' => 'Auteur :'))
-
-                        ->add('photo', new PhotoType(), array(
-                            'required' => false))
-                        
-                        ->add('publier', 'checkbox', array(
-                            'label' => 'Publier ? ',
-                            'required' => false))
-
-                        ->getForm();
-                     ;
-        }
-
-        if ($categorie->getNom() == 'Service')
-        {
-           $form = $this->get('form.factory')->createBuilder('form', $contenu)
-                        ->add('titre','text', array('label' => 'Prestation *:'))
-            
-                        ->add('description', 'textarea', array(
-                            'label' => 'Contenu',
-                            'attr'=> array('class' => 'ckeditor')))
-
-                        ->add('prix')
-
-                        ->add('photo', new PhotoType(), array(
-                            'required' => false))
-
-                        ->add('publier', 'checkbox', array(
-                            'label' => 'Publier ? ',
-                            'required' => false))
-
-                        ->getForm();
-                     ;
-        }
-
-        if ($categorie->getNom() == 'Evenement')
-        {
-           $form = $this->get('form.factory')->createBuilder('form', $contenu)
-                        ->add('titre','text', array('label' => 'Intitulé de l\'événement *:'))
-            
-                        ->add('contenu', 'textarea', array(
-                            'label' => 'Contenu',
-                            'attr'=> array('class' => 'ckeditor')))
-
-                        ->add('auteur', 'text', array(
-                            'label' => 'Auteur :'))
-
-                        ->add('dateDebut', 'date', array(
-                            'label' => 'Date de début :'))
-
-                        ->add('dateFin', 'date', array(
-                            'label' => 'Date de fin :'))
-
-                        ->add('photo', new PhotoType(), array(
-                            'required' => false))
-
-                        ->add('publier', 'checkbox', array(
-                            'label' => 'Publier ? ',
-                            'required' => false))
-                        
-                        ->getForm();    
-                     ;
-        }
 
         if($request->getMethod() == 'POST')
         {
             $form->bind($request);
             if ($form->isValid()) {
 
-                $contenu = $form->getData();
-                $contenu->setDateCreation(new \Datetime());
+                $article = $form->getData();
+                $article->setDateCreation(new \Datetime());
 
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
-                    'idcontenu' => $contenu->getId(),
+                return $this->redirect($this->generateUrl('article_admin_voir_un_article',array(
+                    'idarticle' => $article->getId(),
                     )));
             }
         }
-        return $this->render('ArticleBundle:Admin:modifier_un_contenu.html.twig',array(
+        return $this->render('ArticleBundle:Admin:modifier_un_article.html.twig',array(
             'form' => $form->createView(),
-            'categorie' => $categorie,
             ));
 
     }
-    /*===========Fin modifier_un_contenu ==========================*/
+    /*===========Fin modifier_un_article ==========================*/
 
-    /*=========== supprimer_un_contenu ==========================*/
-    public function supprimer_un_contenuAction($idcontenu)
+    /*=========== supprimer_un_article ==========================*/
+    public function supprimer_un_articleAction($idarticle)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+        $article = $em->getRepository('ArticleBundle:Article')->find($idarticle);
 
-        if($contenu != null)
+        if($article != null)
         {
-            $em->remove($contenu);
+            $em->remove($article);
             $em->flush();
 
             return $this->redirect($this->generateUrl('article_admin_homepage'));
@@ -431,15 +290,15 @@ class AdminController extends Controller
         return $this->redirect($this->generateUrl('article_admin_homepage'));
     }
 
-    /*===========Fin  supprimer_un_contenu ==========================*/
+    /*===========Fin  supprimer_un_article ==========================*/
 
-     /*===================== ajouter_photo_contenu ==========================================*/
-    public function ajouter_photo_contenuAction($idcontenu)
+     /*===================== ajouter_photo_article ==========================================*/
+    public function ajouter_photo_articleAction($idarticle)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+        $article = $em->getRepository('ArticleBundle:Article')->find($idarticle);
         $photo = new Photo();
 
         $form = $this->createForm(new PhotoType, $photo);
@@ -451,34 +310,34 @@ class AdminController extends Controller
             {
                 $photo = $form->getData();
 
-                //numero 1 pour les photos du carousel
-                $photo->setNumero('1');
+                //numero 2 pour les photos de l'article
+                $photo->setNumero('2');
 
                 $em->persist($photo);
-                $contenu->addPhoto($photo);
+                $article->addPhoto($photo);
 
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
-                    'idcontenu' => $contenu->getId(),
+                return $this->redirect($this->generateUrl('article_admin_voir_un_article',array(
+                    'idarticle' => $article->getId(),
                     )));
             }
         }
-        return $this->render('ArticleBundle:Admin:ajouter_photo_contenu.html.twig', array(
+        return $this->render('ArticleBundle:Admin:ajouter_photo_article.html.twig', array(
             'form' => $form->createView(),
-            'contenu' => $contenu,
+            'article' => $article,
             ));
     }
-    /*===================== Fin ajouter_photo_contenu ==========================================*/
+    /*===================== Fin ajouter_photo_article ==========================================*/
 
-    /*===================== modifier_photo_contenu ==========================================*/
-    public function modifier_photo_contenuAction($idphoto)
+    /*===================== modifier_photo_article ==========================================*/
+    public function modifier_photo_articleAction($idphoto)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $idcontenu = $request->query->get('contenu');
-        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+        $idarticle = $request->query->get('article');
+        $article = $em->getRepository('ArticleBundle:Article')->find($idarticle);
 
         $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
 
@@ -493,26 +352,26 @@ class AdminController extends Controller
 
                 $em->flush();
 
-                return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
-                    'idcontenu' => $contenu->getId(),
+                return $this->redirect($this->generateUrl('article_admin_voir_un_article',array(
+                    'idarticle' => $article->getId(),
                     )));
             }
         }
-        return $this->render('ArticleBundle:Admin:modifier_photo_contenu.html.twig', array(
+        return $this->render('ArticleBundle:Admin:modifier_photo_article.html.twig', array(
             'form' => $form->createView(),
-            'contenu' => $contenu,
+            'article' => $article,
             ));
     }
-    /*===================== Fin modifier_photo_contenu ==========================================*/
+    /*===================== Fin modifier_photo_article ==========================================*/
 
-    /*===================== supprimer_photo_contenu ==========================================*/
-    public function supprimer_photo_contenuAction($idphoto)
+    /*===================== supprimer_photo_article ==========================================*/
+    public function supprimer_photo_articleAction($idphoto)
     {
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $idcontenu = $request->query->get('contenu');
-        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+        $idarticle = $request->query->get('article');
+        $article = $em->getRepository('ArticleBundle:Article')->find($idarticle);
 
         $photo = $em->getRepository('DomaineBundle:Photo')->find($idphoto);
 
@@ -522,16 +381,16 @@ class AdminController extends Controller
 
             $em->flush();
 
-            return $this->redirect($this->generateUrl('article_admin_voir_un_contenu',array(
-                    'idcontenu' => $contenu->getId(),
+            return $this->redirect($this->generateUrl('article_admin_voir_un_article',array(
+                    'idarticle' => $article->getId(),
                     )));
             
         }
-        return $this->render('ArticleBundle:Admin:modifier_photo_contenu.html.twig', array(
+        return $this->render('ArticleBundle:Admin:modifier_photo_article.html.twig', array(
             'form' => $form->createView(),
-            'contenu' => $contenu,
+            'article' => $article,
             ));
     }
-    /*===================== Fin supprimer_photo_contenu ==========================================*/
+    /*===================== Fin supprimer_photo_article ==========================================*/
 
 }

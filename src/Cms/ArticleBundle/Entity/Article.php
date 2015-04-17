@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Article
  *
- * @ORM\Table()
+ * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="Cms\ArticleBundle\Entity\ArticleRepository")
  */
 class Article
@@ -22,6 +22,20 @@ class Article
     private $id;
 
     /**
+    *
+    * @ORM\OneToOne(targetEntity="Cms\DomaineBundle\Entity\Photo", cascade={"persist", "remove"})
+    *
+    */
+    private $photo;
+
+    /**
+    *
+    * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\Photo", mappedBy="article", cascade={"persist", "remove"})
+    *
+    */
+    private $photos;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
@@ -31,10 +45,30 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="contenu", type="string", length=255)
+     * @ORM\Column(name="contenu", type="text", nullable=true)
      */
     private $contenu;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_creation", type="datetime", nullable=true)
+     */
+    private $dateCreation;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="auteur", type="string", length=255, nullable=true)
+     */
+    private $auteur;
+    
+    /**
+    *
+    * @var boolean
+    * @ORM\Column(name="publier", type="boolean", nullable=true)
+    */
+    private $publier;
 
     /**
      * Get id
@@ -90,5 +124,140 @@ class Article
     public function getContenu()
     {
         return $this->contenu;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dateCreation = new \DateTime();
+    }
+
+   
+
+    /**
+     * Set photo
+     *
+     * @param \Cms\DomaineBundle\Entity\Photo $photo
+     * @return Article
+     */
+    public function setPhoto(\Cms\DomaineBundle\Entity\Photo $photo = null)
+    {
+        $this->photo = $photo;
+    
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \Cms\DomaineBundle\Entity\Photo 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * Set dateCreation
+     *
+     * @param \DateTime $dateCreation
+     * @return Article
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateCreation
+     *
+     * @return \DateTime 
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * Set auteur
+     *
+     * @param string $auteur
+     * @return Article
+     */
+    public function setAuteur($auteur)
+    {
+        $this->auteur = $auteur;
+    
+        return $this;
+    }
+
+    /**
+     * Get auteur
+     *
+     * @return string 
+     */
+    public function getAuteur()
+    {
+        return $this->auteur;
+    }
+
+    /**
+     * Set publier
+     *
+     * @param boolean $publier
+     * @return Article
+     */
+    public function setPublier($publier)
+    {
+        $this->publier = $publier;
+    
+        return $this;
+    }
+
+    /**
+     * Get publier
+     *
+     * @return boolean 
+     */
+    public function getPublier()
+    {
+        return $this->publier;
+    }
+
+    /**
+     * Add photos
+     *
+     * @param \Cms\DomaineBundle\Entity\Photo $photos
+     * @return Article
+     */
+    public function addPhoto(\Cms\DomaineBundle\Entity\Photo $photos)
+    {
+        $this->photos[] = $photos;
+        $photos->setArticle($this);
+        
+        return $this;
+    }
+
+    /**
+     * Remove photos
+     *
+     * @param \Cms\DomaineBundle\Entity\Photo $photos
+     */
+    public function removePhoto(\Cms\DomaineBundle\Entity\Photo $photos)
+    {
+        $this->photos->removeElement($photos);
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
     }
 }

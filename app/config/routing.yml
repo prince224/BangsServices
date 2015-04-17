@@ -1,3 +1,11 @@
+contenu:
+    resource: "@ContenuBundle/Resources/config/routing.yml"
+    prefix:   /
+
+gestion_contenu:
+    resource: "@ContenuBundle/Resources/config/routing_admin.yml"
+    prefix:   /gestion
+
 article:
     resource: "@ArticleBundle/Resources/config/routing.yml"
     prefix:   /
