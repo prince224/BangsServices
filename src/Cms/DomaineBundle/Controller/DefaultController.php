@@ -22,7 +22,7 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        $$em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
         
         $page_index = $em->getRepository('PageBundle:Page')->findOneBy(array(
@@ -88,7 +88,8 @@ class DefaultController extends Controller
 
         return $this->render('DomaineBundle:trap_theme:inserer_menu_page.html.twig',array(
             'menus' => $menus,
-            ));
+            ))
+        ;
     }
     /* ==== fin inserer menu page =====*/
 

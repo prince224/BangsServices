@@ -39,7 +39,13 @@
     <div class="row-fluid">
       <div class="container">
         <div class="row-fluid" id="titre">
-          <h1>ADMINISTRATION BANGS-SERVICES CMS</h1>
+          <h1 class="col-lg-10">ADMINISTRATION BANGS-SERVICES CMS</h1>
+          {% if app.user is not empty %}
+          <div class="col-lg-2">
+            <strong>Connecté : </strong> {{ app.user.username }}
+            <a href="{{ path('fos_user_security_logout') }} " class="btn btn-danger">Logout</a>
+          </div>
+          {% endif %}
         </div>
       </div>
     </div>
