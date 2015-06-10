@@ -26,7 +26,7 @@ class DefaultController extends Controller
         $request = $this->getRequest();
         
         $page_index = $em->getRepository('PageBundle:Page')->findOneBy(array(
-            'nom' => 'Ball-trap'));
+            'nom' => 'Home'));
 
         $evenements = $em->getRepository('ContenuBundle:Evenement')->findAll();
 
@@ -38,7 +38,7 @@ class DefaultController extends Controller
 
         $date_jour = new \Datetime();
 
-        return $this->render('DomaineBundle:trap_theme:index.html.twig',array(
+        return $this->render('DomaineBundle:business_theme:index.html.twig',array(
             'page' => $page_index,
             'evenements' => $evenements,
             'sous_menu' => $sous_menu,
@@ -57,7 +57,7 @@ class DefaultController extends Controller
         $logo_site = $em->getRepository('DomaineBundle:Logos')->findOneBy(array(
             'nom' => 'logoSite'));
 
-        return $this->render('DomaineBundle:trap_theme:inserer_logo_site.html.twig',array(
+        return $this->render('DomaineBundle:business_theme:inserer_logo_site.html.twig',array(
             'logo_site' => $logo_site,
             ));
     }
@@ -86,7 +86,7 @@ class DefaultController extends Controller
 
         $menus = $em->getRepository('DomaineBundle:Menu')->findAll();
 
-        return $this->render('DomaineBundle:trap_theme:inserer_menu_page.html.twig',array(
+        return $this->render('DomaineBundle:business_theme:inserer_menu_page.html.twig',array(
             'menus' => $menus,
             ))
         ;
