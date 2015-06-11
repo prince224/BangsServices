@@ -16,7 +16,13 @@ class ServiceType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('contenu')
+            ->add('contenu', 'textarea', array(
+                            'label' => 'Contenu',
+                            'attr'=> array('class' => 'ckeditor'),
+                            'required' => false))
+            ->add('publier', 'checkbox', array(
+                            'label' => 'Publier ? ',
+                            'required' => false))
         ;
     }
     

@@ -31,7 +31,7 @@ class Service
     /**
      * @var string
      *
-     * @ORM\Column(name="contenu", type="text")
+     * @ORM\Column(name="contenu", type="text", nullable=true)
      */
     private $contenu;
 
@@ -96,5 +96,28 @@ class Service
     public function getContenu()
     {
         return $this->contenu;
+    }
+
+    /**
+     * Set publier
+     *
+     * @param boolean $publier
+     * @return Service
+     */
+    public function setPublier($publier)
+    {
+        $this->publier = $publier;
+    
+        return $this;
+    }
+
+    /**
+     * Get publier
+     *
+     * @return boolean 
+     */
+    public function getPublier()
+    {
+        return $this->publier;
     }
 }
