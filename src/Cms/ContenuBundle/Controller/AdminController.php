@@ -15,6 +15,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Cms\ContenuBundle\Entity\Evenement;
 use Cms\ContenuBundle\Form\EvenementType;
 
+use Cms\ContenuBundle\Entity\Service;
+use Cms\ContenuBundle\Form\ServiceType;
+
+
 use Cms\DomaineBundle\Entity\Photo;
 use Cms\DomaineBundle\Form\PhotoType;
 
@@ -245,4 +249,123 @@ class AdminController extends Controller
     }
     /*===================== Fin supprimer_photo_Evenement ==========================================*/
 
-}
+    /*===========service homepage ==========================*/
+    public function service_homepageAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $services = $em->getRepository('ContenuBundle:Service')->findAll();
+
+        return $this->render('ContenuBundle:Admin:service_homepage.html.twig',array(
+            'services' => $services,
+            ));
+    }
+
+    /*===========Fin service homepage ==========================*/
+
+    /*=========== voir_un_service ==========================*/
+    public function voir_un_serviceAction($idservice)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $service = $em->getRepository('ContenuBundle:Service')->find($idservice);
+
+        if($service != null)
+        {
+            return $this->render('ContenuBundle:Admin:voir_un_service.html.twig',array(
+            'service' => $service,
+            ));
+        }
+        return $this->redirect($this->generateUrl('service_admin_homepage'));
+    }
+
+    /*===========Fin  voir_un_service ==========================*/
+
+    /*===================== Ajouter_un_service =============================== */
+    public function ajouter_un_serviceAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $request = $this->getRequest();
+
+        $service = new Service();
+        $form = $this->createForm(new ServiceType, $service);
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if ($form->isValid()) {
+
+                $service = $form->getData();
+
+                $em->persist($service);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('service_admin_voir_un_service',array(
+                    'idservice' => $service->getId(),
+                    )));
+            }
+        }
+        return $this->render('ContenuBundle:Admin:ajouter_un_service.html.twig',array(
+            'form' => $form->createView(),
+            ));
+    }
+
+    /*===================== Fin Ajouter_un_service =============================== */
+
+    /*===========modifier_un_service ==========================*/
+    public function modifier_un_serviceAction($idservice)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        
+        $service = $em->getRepository('ContenuBundle:Service')->find($idservice);
+        $form = $this->createForm(new ServiceType, $service);
+
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if ($form->isValid()) {
+
+                $service = $form->getData();
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('service_admin_voir_un_service',array(
+                    'idservice' => $service->getId(),
+                    )));
+            }
+        }
+        return $this->render('ContenuBundle:Admin:modifier_un_service.html.twig',array(
+            'form' => $form->createView(),
+            ));
+
+    }
+    /*===========Fin modifier_un_service ==========================*/
+
+    /*=========== supprimer_un_service ==========================*/
+    public function supprimer_un_serviceAction($idservice)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $service = $em->getRepository('ContenuBundle:Service')->find($idservice);
+
+        if($service != null)
+        {
+            $em->remove($service);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('service_admin_homepage'));
+        }
+
+        return $this->redirect($this->generateUrl('service_admin_homepage'));
+    }
+
+    /*===========Fin  supprimer_un_Evenement ==========================*/
+
+}   
