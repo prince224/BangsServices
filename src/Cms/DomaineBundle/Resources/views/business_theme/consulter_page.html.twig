@@ -1,0 +1,92 @@
+{% extends "::layout_business.html.twig" %}
+
+{% block menu %}
+{% for menu in menus %}
+    {% if menu.pages is defined %}
+      {% if menu.pages is not empty %}
+        {% for page in menu.pages %}
+          
+            {% if page.sousmenus is not empty %}
+              {% if page.nom == page_courant.nom %}
+                <li class="active dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ page.nom|upper }} <i class="fa fa-angle-down"></i></a>
+                  <ul class="dropdown-menu">
+                    {% for sousmenu in page.sousmenus %}
+                      <li> <a href="{{path('domaine_voir_sous_menu', {'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% else %}
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ page.nom|upper }} <i class="fa fa-angle-down"></i></a>
+                  <ul class="dropdown-menu">
+                    {% for sousmenu in page.sousmenus %}
+                      <li> <a href="{{path('domaine_voir_sous_menu', {'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endif %}
+            {% else %}
+              <li>
+                <a href="{{ path('domaine_voir_page', {'idpage' : page.id }) }} " >  
+                  {{ page.nom|upper }} 
+                </a>
+              </li>
+            {% endif %}
+                      
+        {% endfor %}
+      {% endif %}
+    {% endif %}
+{% endfor %}
+{% endblock %}    
+
+{% block carousel %}
+    <section id="main-slider" class="no-margin">
+    	{% if page_courant.photos is not empty %}
+        <div class="carousel slide">
+            <ol class="carousel-indicators">
+                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+                <li data-target="#main-slider" data-slide-to="1"></li>
+                <li data-target="#main-slider" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+            	{% for photo in page_courant.photos %}
+            	{% if photo.numero == 0 %}
+                <div class="item" style="background-image: url({{asset(photo.webPath)}})">
+                    <div class="col-lg-12">
+                                <div class="carousel-content">
+                                    <h1 class="animation animated-item-1">Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
+                                    <h2 class="animation animated-item-2">Accusantium doloremque laudantium totam rem aperiam, eaque ipsa...</h2>
+                                </div>
+                            </div>
+                    
+                </div><!--/.item-->
+                {% endif %}
+                {% endfor %}
+            </div><!--/.carousel-inner-->
+        </div><!--/.carousel-->
+        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+        <a class="next hidden-xs" href="#main-slider" data-slide="next">
+            <i class="fa fa-chevron-right"></i>
+        </a>
+        {% endif %}
+    </section><!--/#main-slider-->
+{% endblock %}
+
+{% block contenu %}
+  <div class="container">
+    <h1 style="color : black">{{ page_courant.nom }} </h1>
+    {{ page_courant.contenu|raw }}
+  </div>
+{% endblock %} 
+
+
+{% block script %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".carousel-inner div:nth-child(1)").addClass('active');
+		});
+	</script>
+{% endblock %}

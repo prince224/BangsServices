@@ -3,29 +3,29 @@
       {% if menu.pages is not empty %}
       	{% for page in menu.pages %}
           {% if page.nom == 'Home' %}
-      		<li class="active"> 
-            <a href="{{ page.url }}" target="_blank" >  
+      		  <li class="active"> 
+              <a href="{{ page.url }}" target="_blank" >  
                 {{ page.nom|upper }} 
-            </a>
+              </a>
             </li>
           {% else %}
             {% if page.sousmenus is not empty %}
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ page.nom|upper }} <i class="fa fa-angle-down"></i></a>
-              <ul class="dropdown-menu">
-                {% for sousmenu in page.sousmenus %}
-                  <li> <a href="">{{ sousmenu.nom }} </a></li>
-                {% endfor %}
-              </ul>
-            </li>
-        			{% else %}
-              <li>
-              <a href="{{ page.url }}" target="_blank" > 	
-                {{ page.nom|upper }} 
-              </a>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ page.nom|upper }} <i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                  {% for sousmenu in page.sousmenus %}
+                    <li> <a href="{{path('domaine_voir_sous_menu', {'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
+                  {% endfor %}
+                </ul>
               </li>
-              {% endif %}
+        		{% else %}
+              <li>
+                <a href="{{ path('domaine_voir_page',{'idpage' : page.id }) }}"> 	
+                  {{ page.nom|upper }} 
+                </a>
+              </li>
             {% endif %}
+          {% endif %}
             
       	{% endfor %}
       {% endif %}

@@ -5,7 +5,7 @@
     @Function Engineer
     @Young entrepreneur
     @Date==>2015
-    @V 0.1
+    @V 0.1.1
 */
 namespace Cms\DomaineBundle\Entity;
 
@@ -36,7 +36,7 @@ class SousMenu
     private $page;
 
     /**
-    * @ORM\OneToMany(targetEntity="Cms\PageBundle\Entity\Section", mappedBy="sousmenu", cascade={"persist"})
+    * @ORM\OneToMany(targetEntity="Cms\PageBundle\Entity\Section", mappedBy="sousmenu", cascade={"persist", "remove"})
     *
     */
     private $sections;
@@ -136,6 +136,7 @@ class SousMenu
     public function addPhoto(\Cms\DomaineBundle\Entity\Photo $photos)
     {
         $this->photos[] = $photos;
+        $photos->setSousmenu($this);
 
         return $this;
     }
@@ -181,5 +182,38 @@ class SousMenu
     public function getContenu()
     {
         return $this->contenu;
+    }
+
+    /**
+     * Add sections
+     *
+     * @param \Cms\PageBundle\Entity\Section $sections
+     * @return SousMenu
+     */
+    public function addSection(\Cms\PageBundle\Entity\Section $sections)
+    {
+        $this->sections[] = $sections;
+        $sections->setSousmenu($this);
+        return $this;
+    }
+
+    /**
+     * Remove sections
+     *
+     * @param \Cms\PageBundle\Entity\Section $sections
+     */
+    public function removeSection(\Cms\PageBundle\Entity\Section $sections)
+    {
+        $this->sections->removeElement($sections);
+    }
+
+    /**
+     * Get sections
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSections()
+    {
+        return $this->sections;
     }
 }

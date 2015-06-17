@@ -36,7 +36,7 @@ class SousMenu
     private $page;
 
     /**
-    * @ORM\OneToMany(targetEntity="Cms\PageBundle\Entity\Section", mappedBy="sousmenu", cascade={"persist"})
+    * @ORM\OneToMany(targetEntity="Cms\PageBundle\Entity\Section", mappedBy="sousmenu", cascade={"persist", "remove"})
     *
     */
     private $sections;

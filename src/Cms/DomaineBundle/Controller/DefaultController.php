@@ -15,7 +15,7 @@ use Cms\DomaineBundle\Entity\Menu;
 
 use Cms\DomaineBundle\Entity\Photo;
 use Cms\PageBundle\Entity\Page;
-use Cms\ArticleBundle\Entity\Contenu;
+use Cms\ContenuBundle\Entity\Contenu;
 use Cms\DomaineBundle\Entity\Logos;
 
 class DefaultController extends Controller
@@ -34,16 +34,22 @@ class DefaultController extends Controller
 
         $sections = $page_index->getSections();
 
-        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+        $services = $em->getRepository('ContenuBundle:Service')->findAll();
+
+        $partenaires = $em->getRepository('ContenuBundle:Contenu')->findAll();
+
+        $team = $em->getRepository('ContenuBundle:Equipe')->findAll();
 
         $date_jour = new \Datetime();
 
         return $this->render('DomaineBundle:business_theme:index.html.twig',array(
             'page' => $page_index,
+            'services'=> $services,
             'evenements' => $evenements,
             'sous_menu' => $sous_menu,
             'sections' => $sections,
             'partenaires' => $partenaires,
+            'team' => $team,
             'date_jour' => $date_jour,
             ));
     }
@@ -138,12 +144,14 @@ class DefaultController extends Controller
 
         if($page != null)
         {
+            if ($page->getNom() == 'Home') {
+               return $this->redirect($this->generateUrl('domaine_homepage'));
+            }
             $sections = $page->getSections();
 
             //$articles = $em->getRepository('ArticleBundle:Article')->getArticlesPublies();
 
-            return $this->render('DomaineBundle:trap_theme:consulter_page.html.twig',array(
-            'page' => $page,
+            return $this->render('DomaineBundle:business_theme:consulter_page.html.twig',array(
             'page_courant' => $page,
             'menus' => $menus,
             'sections' => $sections,
@@ -175,10 +183,13 @@ class DefaultController extends Controller
         $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
         $date_jour = new \Datetime();
 
+        $menus = $em->getRepository('DomaineBundle:Menu')->findAll();
+
         if($sous_menu_a_voir != null)
         {
-           return $this->render('DomaineBundle:trap_theme:consulter_sous_menu.html.twig',array(
+           return $this->render('DomaineBundle:business_theme:consulter_sous_menu.html.twig',array(
             'sous_menu_a_voir' => $sous_menu_a_voir,
+            'menus' => $menus,
             'page' => $page,
             'evenements' => $evenements,
             'sous_menu' => $sous_menu,

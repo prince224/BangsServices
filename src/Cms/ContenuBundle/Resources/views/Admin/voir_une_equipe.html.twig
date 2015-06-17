@@ -1,0 +1,67 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+    <h1>Gestion des équipes </h1>
+   
+    <hr>
+    
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-6">
+                <a href="{{path('equipe_admin_homepage')}} "><span class="glyphicon glyphicon-arrow-left"> RETOUR</span></a>
+            </div>
+
+            <hr>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-3">
+                {% if equipe.photo is not empty %}
+                    <img class="col-lg-10 col-xs-5" src="{{ asset(equipe.photo.webPath)}} " title="{{ equipe.photo.url }} " alt="{{asset(equipe.photo.alt)}} ">
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                {% if equipe.nom is not empty %}
+                    <p><strong>Nom : </strong>{{ equipe.nom }} </p>
+                {% endif %}
+                {% if equipe.prenom is not empty %}
+                    <p><strong>Prénom : </strong>{{ equipe.prenom }} </p>
+                {% endif %}
+
+                {% if equipe.fonction is not empty %}
+                    <p><strong>Fonction: </strong>{{ equipe.fonction }} </p>
+                {% endif %}
+
+
+                <p><strong>Description :</strong> <br>
+                   
+                    {% if equipe.description is not empty %}
+                        {{ equipe.description|raw }}
+                    {% endif %}
+                </p>
+            </div>        
+        </div>
+       
+        <div class="col-md-12">
+             <hr>
+            <p>
+                <a href="{{path('equipe_admin_modifier_une_equipe', {'idequipe' : equipe.id})}} " class="btn btn-success">Modifier</a>
+            </p>
+        </div>
+
+    </div>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
+{% endblock %}

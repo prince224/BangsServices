@@ -1,0 +1,99 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% block section %}
+<h1>Gestion des membres de l'équipe :</h1>
+<hr>
+<div class="col-md-12">
+    <div class="col-md-12">
+        <a href="{{path('equipe_admin_ajouter_une_equipe')}} "><span class="glyphicon glyphicon-plus"></span> Ajouter</a>
+    </div>
+  	
+  	<hr>
+    <div class="col-lg-12 alert alert-success" >
+        {% if equipes is defined %}
+        {% if equipes is not empty %}
+            <div class="col-lg-12">
+                <div class="col-md-2">Nom</div>
+                <div class="col-md-3">Prenom</div>
+                <div class="col-md-3">Fonction</div>
+                <div class="col-md-1">Détails</div>
+                <div class="col-md-1">Modifier</div>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                <div class="col-md-1">Supprimer</div>
+                {% endif %}
+            </div>
+            
+          {% for equipe in equipes %}
+                {% if equipe is not empty %}
+                <div class="col-lg-12">
+                    <hr>
+                {% if equipe is defined  %}
+     
+                        <div class="col-md-2">{{ equipe.nom }}</div>
+                        <div class="col-md-3">{{ equipe.prenom }}</div>
+                        <div class="col-md-3">{{ equipe.fonction }}</div>
+
+                        <div class="col-md-1">
+                            <a href="{{path('equipe_admin_voir_une_equipe', {'idequipe' : equipe.id })}} ">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                        </div>
+
+                        <div class="col-md-1">
+                            <a href="{{path('equipe_admin_modifier_une_equipe', {'idequipe' : equipe.id })}} ">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                        </div>
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
+                        <div class="col-md-1">
+                            <a href="#" data-toggle="modal" data-target="#suppressionModal{{ equipe.id }}">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        </div>
+                        {% endif %}
+                 
+                    {% endif %}
+                </div>
+
+                <!-- Modal pour la suppression d'un equipe -->
+                <div class="modal fade" id="suppressionModal{{ equipe.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h3 class="modal-title" id="myModalLabel" style="text-align:center">Suppression du equipe</h3>
+                      </div>
+                      <div class="modal-body">
+                            <p>Voulez-vous supprimer ce membre ? {{ equipe.nom }} {{ equipe.prenom }} </p>
+                            
+                            <a href="{{path('equipe_admin_supprimer_une_equipe', {'idequipe' : equipe.id })}} " style="color : white" class="btn btn-danger">OUI</a>
+                            
+                            
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Annuler</button>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}    
+            {% endfor %}
+        {% endif %}
+        {% endif %}
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="{{asset('bootstrap/js/bootstrap.min.js')}} "></script>
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+
+        $('#accueil').addClass('en_cour');
+        $('#paintball').removeClass('active');
+        $('#espaceloisirs').removeClass('active');
+        $('#paddockotels').removeClass('active');
+       
+      });
+    </script>
+{% endblock %}

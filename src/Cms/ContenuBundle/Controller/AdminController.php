@@ -18,6 +18,8 @@ use Cms\ContenuBundle\Form\EvenementType;
 use Cms\ContenuBundle\Entity\Service;
 use Cms\ContenuBundle\Form\ServiceType;
 
+use Cms\ContenuBundle\Entity\Equipe;
+use Cms\ContenuBundle\Form\EquipeType;
 
 use Cms\DomaineBundle\Entity\Photo;
 use Cms\DomaineBundle\Form\PhotoType;
@@ -368,4 +370,122 @@ class AdminController extends Controller
 
     /*===========Fin  supprimer_un_Evenement ==========================*/
 
+     /*===========equipe homepage ==========================*/
+    public function equipe_homepageAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $equipes = $em->getRepository('ContenuBundle:Equipe')->findAll();
+
+        return $this->render('ContenuBundle:Admin:equipe_homepage.html.twig',array(
+            'equipes' => $equipes,
+            ));
+    }
+
+    /*===========Fin equipe homepage ==========================*/
+
+    /*=========== voir_une_equipe ==========================*/
+    public function voir_une_equipeAction($idequipe)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $equipe = $em->getRepository('ContenuBundle:Equipe')->find($idequipe);
+
+        if($equipe != null)
+        {
+            return $this->render('ContenuBundle:Admin:voir_une_equipe.html.twig',array(
+            'equipe' => $equipe,
+            ));
+        }
+        return $this->redirect($this->generateUrl('equipe_admin_homepage'));
+    }
+
+    /*===========Fin  voir_une_equipe ==========================*/
+
+    /*===================== Ajouter_une_equipe =============================== */
+    public function ajouter_une_equipeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        
+        $request = $this->getRequest();
+
+        $equipe = new Equipe();
+        $form = $this->createForm(new EquipeType, $equipe);
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if ($form->isValid()) {
+
+                $equipe = $form->getData();
+
+                $em->persist($equipe);
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('equipe_admin_voir_une_equipe',array(
+                    'idequipe' => $equipe->getId(),
+                    )));
+            }
+        }
+        return $this->render('ContenuBundle:Admin:ajouter_une_equipe.html.twig',array(
+            'form' => $form->createView(),
+            ));
+    }
+
+    /*===================== Fin Ajouter_une_equipe =============================== */
+
+    /*===========modifier_une_equipe ==========================*/
+    public function modifier_une_equipeAction($idequipe)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+        
+        $equipe = $em->getRepository('ContenuBundle:Equipe')->find($idequipe);
+        $form = $this->createForm(new EquipeType, $equipe);
+
+
+        if($request->getMethod() == 'POST')
+        {
+            $form->bind($request);
+            if ($form->isValid()) {
+
+                $equipe = $form->getData();
+
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('equipe_admin_voir_une_equipe',array(
+                    'idequipe' => $equipe->getId(),
+                    )));
+            }
+        }
+        return $this->render('ContenuBundle:Admin:modifier_une_equipe.html.twig',array(
+            'form' => $form->createView(),
+            ));
+
+    }
+    /*===========Fin modifier_une_equipe ==========================*/
+
+    /*=========== supprimer_une_equipe ==========================*/
+    public function supprimer_une_equipeAction($idequipe)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $equipe = $em->getRepository('ContenuBundle:Equipe')->find($idequipe);
+
+        if($equipe != null)
+        {
+            $em->remove($equipe);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('equipe_admin_homepage'));
+        }
+
+        return $this->redirect($this->generateUrl('equipe_admin_homepage'));
+    }
+
+    /*===========Fin  supprimer_une_equipe ==========================*/
 }   

@@ -21,8 +21,8 @@ use Cms\DomaineBundle\Form\MenuType;
 use Cms\DomaineBundle\Entity\SousMenu;
 use Cms\DomaineBundle\Form\SousMenuType;
 
-use Cms\ArticleBundle\Entity\Contenu;
-use Cms\ArticleBundle\Form\ContenuType;
+use Cms\ContenuBundle\Entity\Contenu;
+use Cms\ContenuBundle\Form\ContenuType;
 
 use Cms\DomaineBundle\Entity\Logos;
 use Cms\DomaineBundle\Form\LogosType;
@@ -153,14 +153,14 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
+        $contenus = $em->getRepository('ContenuBundle:Contenu')->findAll();
         $logos = $em->getRepository('DomaineBundle:Logos')->findAll();
 
         $logo_site = $em->getRepository('DomaineBundle:Logos')->findOneBy(array(
             'nom' => 'logoSite'
             ));
 
-        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+        $partenaires = $em->getRepository('ContenuBundle:Contenu')->findAll();
 
 
         return $this->render('DomaineBundle:Admin:gestion_parametres.html.twig',array(
@@ -252,7 +252,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+        $contenu = $em->getRepository('ContenuBundle:Contenu')->find($idcontenu);
 
         $form = $this->get('form.factory')->createBuilder('form', $contenu)
                                   
@@ -285,7 +285,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $contenu = $em->getRepository('ArticleBundle:Contenu')->find($idcontenu);
+        $contenu = $em->getRepository('ContenuBundle:Contenu')->find($idcontenu);
 
         if($contenu != null)
         {
@@ -428,7 +428,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $partenaire = $em->getRepository('ArticleBundle:Contenu')->find($idpartenaire);
+        $partenaire = $em->getRepository('ContenuBundle:Contenu')->find($idpartenaire);
 
         $form = $this->get('form.factory')->createBuilder('form', $partenaire)
 
@@ -464,7 +464,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $partenaire = $em->getRepository('ArticleBundle:Contenu')->find($idpartenaire);
+        $partenaire = $em->getRepository('ContenuBundle:Contenu')->find($idpartenaire);
 
         $form = $this->get('form.factory')->createBuilder('form', $partenaire)
 
@@ -499,7 +499,7 @@ class AdminController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $partenaire = $em->getRepository('ArticleBundle:Contenu')->find($idpartenaire);
+        $partenaire = $em->getRepository('ContenuBundle:Contenu')->find($idpartenaire);
 
         if($partenaire != null)
         {

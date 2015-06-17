@@ -24,6 +24,13 @@ class Service
     /**
      * @var string
      *
+     * @ORM\Column(name="introduction", type="text", nullable=true)
+     */
+    private $introduction;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;

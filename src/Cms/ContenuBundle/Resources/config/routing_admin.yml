@@ -56,4 +56,28 @@ service_admin_supprimer_un_service:
     defaults: { _controller: ContenuBundle:Admin:supprimer_un_service }
 
 
+equipe_admin_homepage:
+    pattern:  /equipe_homepage
+    defaults: { _controller: ContenuBundle:Admin:equipe_homepage }
+
+
+equipe_admin_voir_une_equipe:
+    pattern:  /voir_une_equipe/{idequipe}
+    defaults: { _controller: ContenuBundle:Admin:voir_une_equipe }
+
+equipe_admin_ajouter_une_equipe:
+    pattern:  /ajouter_une_equipe
+    defaults: { _controller: ContenuBundle:Admin:ajouter_une_equipe }
+
+equipe_admin_modifier_une_equipe:
+    pattern:  /modifier_une_equipe/{idequipe}
+    defaults: { _controller: ContenuBundle:Admin:modifier_une_equipe }
+
+equipe_admin_supprimer_une_equipe:
+    pattern:  /supprimer_une_equipe/{idequipe}
+    defaults: { _controller: ContenuBundle:Admin:supprimer_une_equipe }
+
+
+
+
 

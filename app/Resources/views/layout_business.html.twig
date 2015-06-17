@@ -10,7 +10,7 @@
 	<!-- core CSS -->
     
     <link rel="stylesheet" type="text/css" href="{{asset('bundles/domaine/css/business_theme/bootstrap.min.css')}} ">
-    <link rel="stylesheet" type="text/css" href="{{asset('bundles/domaine/css/business_theme/font-awesome.min.css')}} ">
+    <link rel="stylesheet" type="text/css" href="{{asset('bundles/domaine/css/business_theme/font-awesome.css')}} ">
     <link rel="stylesheet" type="text/css" href="{{asset('bundles/domaine/css/business_theme/animate.min.css')}} ">
     <link rel="stylesheet" type="text/css" href="{{asset('bundles/domaine/css/business_theme/prettyPhoto.css')}} ">
     <link rel="stylesheet" type="text/css" href="{{asset('bundles/domaine/css/business_theme/main.css')}} ">
@@ -45,7 +45,7 @@
                     <div class="col-sm-6 col-xs-8">
                        <div class="social">
                             <ul class="social-share">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="https://www.facebook.com/pages/KFinvest-Consulting/274059272760914?fref=ts"><i class="fa fa-facebook"></i></a></li>
                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li> 
                                 <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
@@ -77,7 +77,9 @@
 				
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
-                        {{ render(controller('DomaineBundle:Default:inserer_menu_page'))}}                   
+                        {% block menu %}
+
+                        {% endblock %}               
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -89,11 +91,19 @@
     
     {% endblock %}
 
+    {% block contenu %}
+
+    {% endblock %}
+    
     {% block services %}
     
     {% endblock %}
 
     {% block compétences %}
+    
+    {% endblock %}
+
+    {% block team %}
     
     {% endblock %}
 
