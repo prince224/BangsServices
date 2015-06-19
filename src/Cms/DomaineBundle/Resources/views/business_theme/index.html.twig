@@ -17,10 +17,11 @@
             	{% for photo in page.photos %}
             	{% if photo.numero == 0 %}
                 <div class="item" style="background-image: url({{asset(photo.webPath)}})">
-                    <div class="col-lg-12">
+                    <div class="col-lg-8">
                                 <div class="carousel-content">
-                                    <h1 class="animation animated-item-1">Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-                                    <h2 class="animation animated-item-2">Accusantium doloremque laudantium totam rem aperiam, eaque ipsa...</h2>
+                                    {% if photo.description is not empty %}
+                                    <h2 class="animation animated-item-2">{{ photo.description|raw }} </h2>
+                                    {% endif %}
                                 </div>
                             </div>
                     
@@ -53,8 +54,14 @@
                     {% if services[0] is not empty %}
                     <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="feature-wrap">
-                            <i class="fa fa-bullhorn"></i>
-                            <h2>{{ services[0].nom }}</h2>
+                            <a href="{{path('domaine_voir_service', {'idservice' : services[0].id })}} ">
+                                <i class="fa fa-bullhorn"></i>
+                            </a>
+                            <h2>
+                                <a href="{{path('domaine_voir_service', {'idservice' : services[0].id })}} ">
+                                    {{ services[0].nom }}
+                                </a>
+                            </h2>
                         </div>
                     </div><!--/.col-md-4-->
                     {% endif %}
@@ -62,8 +69,14 @@
                     {% if services[1] is not empty %}
                     <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="feature-wrap">
-                            <i class="fa fa-comments"></i>
-                            <h2>{{ services[1].nom }}</h2>
+                            <a href="{{path('domaine_voir_service', {'idservice' : services[1].id })}} ">
+                                <i class="fa fa-comments"></i>
+                            </a>
+                            <h2>
+                                <a href="{{path('domaine_voir_service', {'idservice' : services[1].id })}} ">
+                                    {{ services[1].nom }}
+                                </a>
+                            </h2>
                         </div>
                     </div><!--/.col-md-4-->
                     {% endif %}
@@ -71,8 +84,14 @@
                     {% if services[2] is not empty %}
                     <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="feature-wrap">
-                            <i class="fa fa-cloud-download"></i>
-                            <h2>{{ services[2].nom }}</h2>
+                            <a href="{{path('domaine_voir_service', {'idservice' : services[2].id })}} ">
+                                <i class="fa fa-cogs"></i>
+                            </a>
+                            <h2>
+                                <a href="{{path('domaine_voir_service', {'idservice' : services[2].id })}} ">
+                                    {{ services[2].nom }}
+                                </a>
+                            </h2>
                         </div>
                     </div><!--/.col-md-4-->
                     {% endif %}
@@ -80,8 +99,14 @@
                     {% if services[3] is not empty %}
                     <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="feature-wrap">
-                            <i class="fa fa-leaf"></i>
-                            <h2>{{ services[3].nom }}</h2>
+                            <a href="{{path('domaine_voir_service', {'idservice' : services[3].id })}} ">
+                                <i class="fa fa-leaf"></i>
+                            </a>
+                            <h2>
+                                <a href="{{path('domaine_voir_service', {'idservice' : services[3].id })}} ">
+                                    {{ services[3].nom }}
+                                </a>
+                            </h2>
                         </div>
                     </div><!--/.col-md-4-->
                     {% endif %}
@@ -89,8 +114,14 @@
                     {% if services[4] is not empty %}
                     <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="feature-wrap">
-                            <i class="fa fa-cogs"></i>
-                            <h2>{{ services[4].nom }}</h2>
+                            <a href="{{path('domaine_voir_service', {'idservice' : services[4].id })}} ">
+                                <i class="fa fa-cogs"></i>
+                            </a>
+                            <h2>
+                                <a href="{{path('domaine_voir_service', {'idservice' : services[4].id })}} ">
+                                    {{ services[4].nom }}
+                                </a>
+                            </h2>
                         </div>
                     </div><!--/.col-md-4-->
                     {% endif %}
@@ -98,8 +129,14 @@
                     {% if services[5] is not empty %}
                     <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="feature-wrap">
-                            <i class="fa fa-cogs"></i>
-                            <h2>{{ services[5].nom }}</h2>
+                            <a href="{{path('domaine_voir_service', {'idservice' : services[5].id })}} ">
+                                 <i class="fa fa-cloud-download"></i>
+                            </a>
+                            <h2>
+                                <a href="{{path('domaine_voir_service', {'idservice' : services[5].id })}} ">
+                                    {{ services[5].nom }}
+                                </a>
+                            </h2>
                         </div>
                     </div><!--/.col-md-4-->
                     {% endif %}
@@ -116,7 +153,7 @@
             <div class="skill-wrap clearfix">
             
                 <div class="center wow fadeInDown">
-                    <h2>Our Skill</h2>
+                    <h2>Nos Compétences</h2>
                     <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
                 </div>
                 
@@ -168,7 +205,7 @@
     {% if team is not empty %}
             <div class="team">
                 <div class="center wow fadeInDown">
-                    <h2>Team of Corlate</h2>
+                    <h2>Notre Equipe</h2>
                     <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
                 </div>
 

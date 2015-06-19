@@ -38,3 +38,7 @@ domaine_voir_evenement:
 domaine_voir_article:
     pattern: /consulter-article/{idarticle}
     defaults: { _controller: DomaineBundle:Default:consulter_article}
+
+domaine_voir_service:
+    pattern: /consulter-service/{idservice}
+    defaults: { _controller: DomaineBundle:Default:consulter_service}

@@ -53,10 +53,11 @@
             	{% for photo in page_courant.photos %}
             	{% if photo.numero == 0 %}
                 <div class="item" style="background-image: url({{asset(photo.webPath)}})">
-                    <div class="col-lg-12">
+                    <div class="col-lg-8">
                                 <div class="carousel-content">
-                                    <h1 class="animation animated-item-1">Lorem ipsum dolor sit amet consectetur adipisicing elit</h1>
-                                    <h2 class="animation animated-item-2">Accusantium doloremque laudantium totam rem aperiam, eaque ipsa...</h2>
+                                    {% if photo.description is not empty %}
+                                    <h2 class="animation animated-item-2">{{ photo.description|raw }} </h2>
+                                    {% endif %}
                                 </div>
                             </div>
                     

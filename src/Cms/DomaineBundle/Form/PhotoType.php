@@ -23,6 +23,10 @@ class PhotoType extends AbstractType
     {
         $builder
             ->add('file', 'file')
+            ->add('description', 'textarea', array(
+                            'label' => 'Contenu',
+                            'attr'=> array('class' => 'ckeditor'),
+                            'required' => false))
         ;
     }
     

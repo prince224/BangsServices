@@ -85,6 +85,13 @@ class Photo
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
@@ -408,5 +415,28 @@ class Photo
     public function getEvenement()
     {
         return $this->evenement;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Photo
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

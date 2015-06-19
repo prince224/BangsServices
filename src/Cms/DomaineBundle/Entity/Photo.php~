@@ -85,6 +85,13 @@ class Photo
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="title", type="string", length=255, nullable=true)
      */
     private $title;
@@ -385,5 +392,28 @@ class Photo
     public function getArticle()
     {
         return $this->article;
+    }
+
+    /**
+     * Set evenement
+     *
+     * @param \Cms\ContenuBundle\Entity\Evenement $evenement
+     * @return Photo
+     */
+    public function setEvenement(\Cms\ContenuBundle\Entity\Evenement $evenement = null)
+    {
+        $this->evenement = $evenement;
+    
+        return $this;
+    }
+
+    /**
+     * Get evenement
+     *
+     * @return \Cms\ContenuBundle\Entity\Evenement 
+     */
+    public function getEvenement()
+    {
+        return $this->evenement;
     }
 }

@@ -106,7 +106,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $request = $this->getRequest();
 
-        $contenus = $em->getRepository('ArticleBundle:Contenu')->findAll();
+        $contenus = $em->getRepository('ContenuBundle:Contenu')->findAll();
 
         return $this->render('DomaineBundle:trap_theme:inserer_contact.html.twig',array(
             'contenus' => $contenus,
@@ -138,7 +138,7 @@ class DefaultController extends Controller
 
         $page = $em->getRepository('PageBundle:Page')->find($idpage);
         
-        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+        $partenaires = $em->getRepository('ContenuBundle:Contenu')->findAll();
 
         $sous_menu = $page->getSousmenus();
 
@@ -164,7 +164,7 @@ class DefaultController extends Controller
         
         return $this->redirect($this->generateUrl('domaine_homepage'));
     }
-
+    /*===========================Fin consulter page ========================================*/
 
     /*============================consulter_sous_menu=======================================*/
     public function consulter_sous_menuAction($idsousmenu)
@@ -180,7 +180,7 @@ class DefaultController extends Controller
         $page = $sous_menu_a_voir->getPage();
         $sous_menu = $page->getSousmenus();
         
-        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+        $partenaires = $em->getRepository('ContenuBundle:Contenu')->findAll();
         $date_jour = new \Datetime();
 
         $menus = $em->getRepository('DomaineBundle:Menu')->findAll();
@@ -218,7 +218,7 @@ class DefaultController extends Controller
 
         $sections = $page_index->getSections();
 
-        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+        $partenaires = $em->getRepository('ContenuBundle:Contenu')->findAll();
 
         if($evenement != null)
         {
@@ -250,7 +250,7 @@ class DefaultController extends Controller
 
         $sections = $page_index->getSections();
 
-        $partenaires = $em->getRepository('ArticleBundle:Contenu')->findAll();
+        $partenaires = $em->getRepository('ContenuBundle:Contenu')->findAll();
 
         if($article != null)
         {
@@ -266,4 +266,25 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('domaine_homepage'));
     }
     /*================= Fin consulter_article ===========================================*/
+
+
+    /*============consulter service ===================*/
+    public function consulter_serviceAction($idservice)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $request = $this->getRequest();
+
+        $service = $em->getRepository('ContenuBundle:Service')->find($idservice);
+       
+        if($service != null)
+        {
+            return $this->render('DomaineBundle:business_theme:consulter_service.html.twig',array(
+            'service' => $service,
+            )); 
+        }
+        
+        return $this->redirect($this->generateUrl('domaine_homepage'));
+    }
+    /*===========================Fin consulter service ========================================*/
+
 }

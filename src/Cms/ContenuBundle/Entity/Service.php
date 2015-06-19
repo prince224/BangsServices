@@ -127,4 +127,27 @@ class Service
     {
         return $this->publier;
     }
+
+    /**
+     * Set introduction
+     *
+     * @param string $introduction
+     * @return Service
+     */
+    public function setIntroduction($introduction)
+    {
+        $this->introduction = $introduction;
+    
+        return $this;
+    }
+
+    /**
+     * Get introduction
+     *
+     * @return string 
+     */
+    public function getIntroduction()
+    {
+        return $this->introduction;
+    }
 }

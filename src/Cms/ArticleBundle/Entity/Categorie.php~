@@ -37,13 +37,6 @@ class Categorie
     private $articles;
 
     /**
-    *
-    * @ORM\OneToMany(targetEntity="Cms\ArticleBundle\Entity\Contenu", mappedBy="categorie", cascade={"persist", "remove"})
-    *
-    */
-    private $contenus;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255)

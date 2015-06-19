@@ -1,0 +1,12 @@
+{% extends "::layout_business.html.twig" %}
+
+{% block menu %}
+    {{ render(controller('DomaineBundle:Default:inserer_menu_page')) }}
+{% endblock %}    
+
+{% block contenu %}
+  <div class="container">
+    <h1 style="color : black">{{ service.nom }} </h1>
+    {{ service.contenu|raw }}
+  </div>
+{% endblock %} 
