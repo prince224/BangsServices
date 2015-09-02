@@ -37,6 +37,14 @@ class Page
 
     /**
     *
+    * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\Document", mappedBy="page", cascade={"persist", "remove"})
+    *
+    */
+    private $documents;
+
+
+    /**
+    *
     * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\SousMenu", mappedBy="page", cascade={"persist", "remove"})
     *
     */
@@ -287,5 +295,39 @@ class Page
     public function getEtat()
     {
         return $this->etat;
+    }
+
+    /**
+     * Add documents
+     *
+     * @param \Cms\DomaineBundle\Entity\Document $documents
+     * @return Page
+     */
+    public function addDocument(\Cms\DomaineBundle\Entity\Document $documents)
+    {
+        $this->documents[] = $documents;
+        $documents->setPage($this);
+    
+        return $this;
+    }
+
+    /**
+     * Remove documents
+     *
+     * @param \Cms\DomaineBundle\Entity\Document $documents
+     */
+    public function removeDocument(\Cms\DomaineBundle\Entity\Document $documents)
+    {
+        $this->documents->removeElement($documents);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
     }
 }

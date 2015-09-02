@@ -27,6 +27,15 @@ domaine_admin_parametre_ajouter_logos_site:
     pattern: /parametre_ajouter_logos_site/
     defaults: { _controller: DomaineBundle:Admin:parametre_ajouter_logos_site}
 
+domaine_admin_parametre_modifier_logos_site:
+    pattern: /parametre_modifier_logos_site/{idlogo}
+    defaults: { _controller: DomaineBundle:Admin:parametre_modifier_logos_site}
+
+domaine_admin_parametre_supprimer_logos_site:
+    pattern: /parametre_supprimer_logos_site/{idlogo}
+    defaults: { _controller: DomaineBundle:Admin:parametre_supprimer_logos_site}
+
+
 domaine_admin_parametre_ajouter_contact_contenu:
     pattern:  /parametre_ajouter_contact_contenu/
     defaults: { _controller: DomaineBundle:Admin:parametre_ajouter_contact_contenu }
@@ -72,6 +81,29 @@ domaine_admin_supprimer_partenaire:
     defaults: { _controller: DomaineBundle:Admin:supprimer_partenaire }
 
 
+domaine_admin_ajouter_document_page:
+    pattern: /ajouter_document_page/{idpage}
+    defaults: { _controller: DomaineBundle:Admin:ajouter_document}
+
+domaine_admin_ajouter_document_sous_menu:
+    pattern: /ajouter_document_sous_menu/{idsousmenu}
+    defaults: { _controller: DomaineBundle:Admin:ajouter_document_sousmenu}
+
+domaine_admin_voir_document_page:
+    pattern: /voir_document_page/{iddocument}
+    defaults: { _controller: DomaineBundle:Admin:voir_document}
+
+domaine_admin_supprimer_document_page:
+    pattern: /supprimer_document_page/{iddocument}
+    defaults: { _controller: DomaineBundle:Admin:supprimer_document}
+
+domaine_admin_modifier_document_page:
+    pattern: /modifier_document_page/{iddocument}
+    defaults: { _controller: DomaineBundle:Admin:modifier_document}
+
+domaine_admin_modifier_document_sous_menu:
+    pattern: /modifier_document_sous_menu/{iddocument}
+    defaults: { _controller: DomaineBundle:Admin:modifier_document_sousmenu}
 
 
 

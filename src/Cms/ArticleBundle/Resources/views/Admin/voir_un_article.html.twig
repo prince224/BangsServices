@@ -36,7 +36,9 @@
                     <p><strong>Date de création : </strong>{{ article.dateCreation|date('d/m/y') }}</p>
                 {% endif %}
 
-              
+                {% if article.type is not empty %}
+                    <p><strong>Type :</strong> {{ article.type }} </p>
+                {% endif %}
 
                 {% if article.publier == true %}
                     <p><strong>Publier ? :</strong> Oui </p>

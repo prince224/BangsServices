@@ -26,12 +26,19 @@ class ArticleType extends AbstractType
             ->add('auteur', 'text', array(
                             'label' => 'Auteur :',))
 
+            ->add('type', 'choice', array('label' => 'Type :',
+                    'choices' => array(
+                        'Article' => 'Article',
+                        'Publication' => 'Publication'
+                        )))
+
             ->add('publier', 'checkbox', array(
                             'label' => 'Publier ? ',
                             'required' => false))
 
             ->add('photo', new PhotoType(), array(
                             'required' => false))
+
         ;
     }
     

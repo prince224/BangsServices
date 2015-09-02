@@ -24,11 +24,11 @@ domaine_homepage_inserer_reseaux_sociaux:
     defaults: { _controller: DomaineBundle:Default:inserer_reseaux_sociaux}
 
 domaine_voir_page:
-    pattern: /consulter-page/{idpage}
+    pattern: /cabinet-consulting/{nom}/{idpage}
     defaults: { _controller: DomaineBundle:Default:consulter_page}
 
 domaine_voir_sous_menu:
-    pattern: /consulter-sous-menu/{idsousmenu}
+    pattern: /cabinet-consulting/{nom}-{idsousmenu}
     defaults: { _controller: DomaineBundle:Default:consulter_sous_menu}
 
 domaine_voir_evenement:
@@ -36,9 +36,25 @@ domaine_voir_evenement:
     defaults: { _controller: DomaineBundle:Default:consulter_evenement}
 
 domaine_voir_article:
-    pattern: /consulter-article/{idarticle}
+    pattern: /cabinet-consulting-voir/{titre}-{idarticle}
     defaults: { _controller: DomaineBundle:Default:consulter_article}
 
 domaine_voir_service:
-    pattern: /consulter-service/{idservice}
+    pattern: /cabinet-consulting/consulter-service/{serviceNom}-{idservice}
     defaults: { _controller: DomaineBundle:Default:consulter_service}
+
+domaine_voir_partenaires:
+    pattern: /nos-partenaires
+    defaults: { _controller: DomaineBundle:Default:consulter_partenaires}
+
+domaine_voir_equipe:
+    pattern: /notre-equipe-de-consultants-KFInvest-Consulting
+    defaults: { _controller: DomaineBundle:Default:consulter_equipe}
+
+domaine_formulaire_de_contact:
+    pattern: /formulaire-de-contact/{idpage}
+    defaults: { _controller: DomaineBundle:Default:formulaire_de_contact}
+
+domaine_depot_de_cv:
+    pattern: /carriere-depot-de-cv/{idpage}
+    defaults: { _controller: DomaineBundle:Default:depot_de_cv}

@@ -10,10 +10,10 @@
         {% endif %}
         {% if logo_site is not empty %}
             <img class="col-md-4" src="{{asset(logo_site.webPath)}} "> 
-            <a href="# "><span class="glyphicon glyphicon-pencil"></span></a>
+            <a href="{{path('domaine_admin_parametre_modifier_logos_site', {'idlogo' : logo_site.id })}} "><span class="glyphicon glyphicon-pencil"></span></a>
 
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_GESTIONNAIRE') %}
-            <a href="# "><span class="glyphicon glyphicon-remove"></span></a>
+            <a href="{{path('domaine_admin_parametre_supprimer_logos_site', {'idlogo' : logo_site.id })}} "><span class="glyphicon glyphicon-remove"></span></a>
             {% endif %}
         {% endif %}
     </div>

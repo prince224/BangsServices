@@ -5,294 +5,155 @@
 {% endblock %}    
 
 {% block carousel %}
-    <section id="main-slider" class="no-margin">
-    	{% if page.photos is not empty %}
-        <div class="carousel slide">
+<div class="row">
+    <section id="main-slider" class="col-lg-8 col-sm-8 col-xs-12 no-margin">
+        <div id="myCarousel{{ page.id }}" class="carousel slide" data-ride="carousel">    
+            <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
-                <li data-target="#main-slider" data-slide-to="1"></li>
-                <li data-target="#main-slider" data-slide-to="2"></li>
+              <li data-target="#myCarousel{{ page.id }}" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel{{ page.id }}" data-slide-to="1"></li>
+              <li data-target="#myCarousel{{ page.id }}" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner" role="listbox">
-            	{% for photo in page.photos %}
-            	{% if photo.numero == 0 %}
-                <div class="item" style="background-image: url({{asset(photo.webPath)}})">
-                    <div class="col-lg-8">
-                                <div class="carousel-content">
-                                    {% if photo.description is not empty %}
-                                    <h2 class="animation animated-item-2">{{ photo.description|raw }} </h2>
-                                    {% endif %}
-                                </div>
-                            </div>
-                    
-                </div><!--/.item-->
+     
+            <div class="row-fluid carousel-inner" role="listbox">
+             
+              {% if page.photos is not empty %}
+                {% for photo in page.photos %}
+                {% if photo.numero == 0 %}
+                <div class="item">
+                    <img class="col-lg-12 col-md-12 col-xs-12" src="{{asset(photo.webPath)}} " alt="coaching entreprise, accompagnement conseil" title="cabinet consulting">
+                  
+                    <div class="col-lg-8 col-xs-12 carousel-caption">
+                        {% if photo.description is not empty %}
+                            <p class="animation animated-item-2">
+                                {{ photo.description|raw }} 
+                            </p>
+                        {% endif %}
+                    </div>
+                  
+                </div>
+                          
                 {% endif %}
                 {% endfor %}
-            </div><!--/.carousel-inner-->
-        </div><!--/.carousel-->
-        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-        <a class="next hidden-xs" href="#main-slider" data-slide="next">
-            <i class="fa fa-chevron-right"></i>
-        </a>
-        {% endif %}
-    </section><!--/#main-slider-->
-{% endblock %}
-
-{% block services %}
-    {% if services is not empty %}
-    <section id="feature" >
-        <div class="container">
-           <div class="center wow fadeInDown">
-                <h2>Nos Services</h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
+              {% endif %}
             </div>
+            <a class="left carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>        
+        </div><!-- /.carousel -->
+    </section><!--/#main-slider-->
+    <section class="col-lg-4 col-sm-4 col-xs-12" id="metiers">
+        {% if metier_consulting is not empty %}
+        <div class="metier_consulting">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_consulting.nom, 'idpage' : metier_consulting.id })}} ">Consulting</a></h3>
+            </div>
+        </div>
+        {% endif %}
+        {% if metier_services is not empty %}
+        <div class="metier_service">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_services.nom, 'idpage' : metier_services.id })}} ">Services</a></h3>
+            </div>
+        </div>
+        {% endif %}
+        {% if metier_formations is not empty %}
+        <div class="metier_formation">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_formations.nom, 'idpage' : metier_formations.id })}} ">Formations</a></h3>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
 
+{% block contenu %}
+    <div class="row" id="contenu">
+        <div class="col-lg-2 col-sm-2 col-xs-7">
             <div class="row">
-                <div class="features">
-                    {% if services[0] is not empty %}
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <a href="{{path('domaine_voir_service', {'idservice' : services[0].id })}} ">
-                                <i class="fa fa-bullhorn"></i>
+                <ul class="nav">
+                    {% if page_formation is not empty %}
+                        <li> 
+                            <a href="{{path('domaine_voir_page', {'nom' : page_formation.nom, 'idpage' : page_formation.id })}} ">Séminaires
                             </a>
-                            <h2>
-                                <a href="{{path('domaine_voir_service', {'idservice' : services[0].id })}} ">
-                                    {{ services[0].nom }}
-                                </a>
-                            </h2>
-                        </div>
-                    </div><!--/.col-md-4-->
+                        </li>
                     {% endif %}
-
-                    {% if services[1] is not empty %}
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <a href="{{path('domaine_voir_service', {'idservice' : services[1].id })}} ">
-                                <i class="fa fa-comments"></i>
+                    <li> 
+                        <a href="{{path('domaine_voir_partenaires')}} ">Nos partenaires</a>
+                    </li>
+                    <!--
+                    <li> 
+                        <a href="{{path('domaine_voir_equipe')}} ">Notre Equipe</a>
+                    </li>
+                    -->
+                </ul>
+            </div>
+            <!--
+            <div class="row-fluid">
+                {% if services is not empty %}
+                    {% for service in services %}
+                        <p class="titre_service">
+                            <a href="{{path('domaine_voir_service', {'serviceNom' : service.nom, 'idservice' : service.id })}} ">
+                                <strong> {{ service.nom }} </strong>
                             </a>
-                            <h2>
-                                <a href="{{path('domaine_voir_service', {'idservice' : services[1].id })}} ">
-                                    {{ services[1].nom }}
-                                </a>
-                            </h2>
-                        </div>
-                    </div><!--/.col-md-4-->
-                    {% endif %}
-
-                    {% if services[2] is not empty %}
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <a href="{{path('domaine_voir_service', {'idservice' : services[2].id })}} ">
-                                <i class="fa fa-cogs"></i>
-                            </a>
-                            <h2>
-                                <a href="{{path('domaine_voir_service', {'idservice' : services[2].id })}} ">
-                                    {{ services[2].nom }}
-                                </a>
-                            </h2>
-                        </div>
-                    </div><!--/.col-md-4-->
-                    {% endif %}
-
-                    {% if services[3] is not empty %}
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <a href="{{path('domaine_voir_service', {'idservice' : services[3].id })}} ">
-                                <i class="fa fa-leaf"></i>
-                            </a>
-                            <h2>
-                                <a href="{{path('domaine_voir_service', {'idservice' : services[3].id })}} ">
-                                    {{ services[3].nom }}
-                                </a>
-                            </h2>
-                        </div>
-                    </div><!--/.col-md-4-->
-                    {% endif %}
-
-                    {% if services[4] is not empty %}
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <a href="{{path('domaine_voir_service', {'idservice' : services[4].id })}} ">
-                                <i class="fa fa-cogs"></i>
-                            </a>
-                            <h2>
-                                <a href="{{path('domaine_voir_service', {'idservice' : services[4].id })}} ">
-                                    {{ services[4].nom }}
-                                </a>
-                            </h2>
-                        </div>
-                    </div><!--/.col-md-4-->
-                    {% endif %}
-
-                    {% if services[5] is not empty %}
-                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <a href="{{path('domaine_voir_service', {'idservice' : services[5].id })}} ">
-                                 <i class="fa fa-cloud-download"></i>
-                            </a>
-                            <h2>
-                                <a href="{{path('domaine_voir_service', {'idservice' : services[5].id })}} ">
-                                    {{ services[5].nom }}
-                                </a>
-                            </h2>
-                        </div>
-                    </div><!--/.col-md-4-->
-                    {% endif %}
-
-                </div><!--/.services-->
-            </div><!--/.row-->    
-        </div><!--/.container-->
-    </section><!--/#feature-->
-    {% endif %}
-{% endblock %}
-
-{% block compétences %}
-    <!-- Our Skill -->
-            <div class="skill-wrap clearfix">
-            
-                <div class="center wow fadeInDown">
-                    <h2>Nos Compétences</h2>
-                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
-                </div>
-                
-                <div class="row">
-        
-                    <div class="col-sm-3">
-                        <div class="sinlge-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                            <div class="joomla-skill">                                   
-                                <p><em>85%</em></p>
-                                <p>Joomla</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                     <div class="col-sm-3">
-                        <div class="sinlge-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                            <div class="html-skill">                                  
-                                <p><em>95%</em></p>
-                                <p>HTML</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-3">
-                        <div class="sinlge-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
-                            <div class="css-skill">                                    
-                                <p><em>80%</em></p>
-                                <p>CSS</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                     <div class="col-sm-3">
-                        <div class="sinlge-skill wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="1200ms">
-                            <div class="wp-skill">
-                                <p><em>90%</em></p>
-                                <p>Wordpress</p>                                     
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-    
-            </div><!--/.our-skill-->
-{% endblock %}
-
-{% block team %}
-<!-- our-team -->
-    {% if team is not empty %}
-            <div class="team">
-                <div class="center wow fadeInDown">
-                    <h2>Notre Equipe</h2>
-                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
-                </div>
-
-                <div class="row">
-                    {% for member in team %}
-                    <div class="col-lg-6 col-sm-6"> 
-                        <div class="single-profile-top wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms"  style="text-align: justify">
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#">
-                                        {% if member.photo is not empty %}
-                                        <img class="col-lg-10 col-xs-10 media-object" src="{{asset(member.photo.webPath)}} " alt="">
-                                        {% endif %}
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <h4>{{ member.prenom }} {{ member.nom }} </h4>
-                                    <h5>{{ member.fonction }}</h5>
-                                    <!--
-                                    <ul class="tag clearfix">
-                                        <li class="btn"><a href="#">Web</a></li>
-                                        <li class="btn"><a href="#">Ui</a></li>
-                                        <li class="btn"><a href="#">Ux</a></li>
-                                        <li class="btn"><a href="#">Photoshop</a></li>
-                                    </ul>
-                                    
-                                    <ul class="social_icons">
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li> 
-                                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    </ul>
-                                    -->
-                                </div>
-                            </div><!--/.media -->
-                            <p>{{ member.description|raw}}</p>
-                        </div>
-                    </div><!--/.col-lg-4 -->
-                    {% endfor %}                    
-                </div> <!--/.row -->
-                <div class="row team-bar">
-                    <div class="first-one-arrow hidden-xs">
-                        <hr>
-                    </div>
-                    <div class="first-arrow hidden-xs">
-                        <hr> <i class="fa fa-angle-up"></i>
-                    </div>
-                    <div class="second-arrow hidden-xs">
-                        <hr> <i class="fa fa-angle-down"></i>
-                    </div>
-                    <div class="third-arrow hidden-xs">
-                        <hr> <i class="fa fa-angle-up"></i>
-                    </div>
-                    <div class="fourth-arrow hidden-xs">
-                        <hr> <i class="fa fa-angle-down"></i>
-                    </div>
-                </div> <!--skill_border-->       
-            </div><!--section-->
-    {% endif %}
-{% endblock %}
-
-{% block partenaires %}
-    {% if partenaires is not empty %}
-    <section id="partner">
-        <div class="container">
-            <div class="center wow fadeInDown">
-                <h2>Our Partners</h2>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut <br> et dolore magna aliqua. Ut enim ad minim veniam</p>
-            </div>    
-
-            <div class="partners">
-                <ul>
-                    {% for partenaire in partenaires %}
+                        </p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            -->
+            <div class="row-fluid">
+                <ul class="social-share">
                     <li>
-                        <a href="#">
-                        {% if partenaire.photo is not empty %}
-                           <img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" src="{{asset(partenaire.photo.webPath)}} ">
-                           {% endif %}
+                        <a href="https://www.facebook.com/pages/KFinvest-Consulting/274059272760914?fref=ts" target="_blank">
+                            <i class="fa fa-facebook"></i>
                         </a>
                     </li>
+                    <li><a href="https://twitter.com/KFinvest?lang=fr" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li> 
+                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                </ul>   
+            </div>
+            <hr>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+            {% if page.etat == true %}
+                {{ page.contenu|raw }}
+            {% endif %}
+        </div>
+        <div class="col-lg-4 col-sm-4 col-xs-12">
+            <div class="col-lg-12 publications">
+                <p><strong>Actualités</strong></p>
+                {% if articles is not empty %}
+                    {% for article in articles %}
+                    <div class="col-lg-12">
+                        <a href="{{path('domaine_voir_article', {'titre' : article.titre, 'idarticle' : article.id })}} ">{{ article.titre }} </a>
+                    </div>
                     {% endfor %}
+                {% endif %}
+            </div>
 
-                </ul>
-            </div>        
-        </div><!--/.container-->
-    </section><!--/#partner-->
-    {% endif %}
+            <div class="col-lg-12 publications" style="margin-top : 10px">
+                <p><strong>Publications</strong></p>
+                {% if publications is not empty %}
+                    {% for publication in publications %}
+                    <div class="col-lg-12">
+                        <a href="{{path('domaine_voir_article', {'titre' : publication.titre, 'idarticle' : publication.id })}} ">{{ publication.titre }} </a>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
 
 
 {% block script %}

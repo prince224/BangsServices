@@ -1,0 +1,22 @@
+{% extends "::layout_admin.html.twig" %}
+
+{% form_theme form 'DomaineBundle:Form:fields.html.twig' %}
+
+
+{% block section %}
+<div class="col-lg-4">
+	<h1>Modifier le logo du site :</h1>
+	<img class="col-md-5" src="{{asset(logo.webPath)}} " alt=" {{ logo.nom }} " title="{{ logo.nom }} ">
+</div>
+<div class="col-lg-6 well">
+  <form action="#" method="post" {{ form_enctype(form) }}>
+  	<table class="table responsive">
+  		<tbody>
+  			{{ form_widget(form) }}
+  		</tbody>
+  	</table>
+   
+    <input type="submit" class="btn btn-success" />
+  </form>
+</div>
+{% endblock %}

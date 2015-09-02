@@ -12,7 +12,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ page.nom|upper }} <i class="fa fa-angle-down"></i></a>
                   <ul class="dropdown-menu">
                     {% for sousmenu in page.sousmenus %}
-                      <li> <a href="{{path('domaine_voir_sous_menu', {'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
+                      <li> <a href="{{path('domaine_voir_sous_menu', {'nom' : sousmenu.nom, 'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
                     {% endfor %}
                   </ul>
                 </li>
@@ -21,17 +21,25 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ page.nom|upper }} <i class="fa fa-angle-down"></i></a>
                   <ul class="dropdown-menu">
                     {% for sousmenu in page.sousmenus %}
-                      <li> <a href="{{path('domaine_voir_sous_menu', {'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
+                      <li> <a href="{{path('domaine_voir_sous_menu', {'nom' : sousmenu.nom, 'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
                     {% endfor %}
                   </ul>
                 </li>
               {% endif %}
             {% else %}
-              <li>
-                <a href="{{ path('domaine_voir_page', {'idpage' : page.id }) }} " >  
-                  {{ page.nom|upper }} 
-                </a>
-              </li>
+              {% if page.nom == page_courant.nom %}
+                <li class="active">
+                  <a href="{{ path('domaine_voir_page', {'nom' : page.nom, 'idpage' : page.id }) }} " >  
+                    {{ page.nom|upper }} 
+                  </a>
+                </li>
+              {% else %}
+                <li>
+                  <a href="{{ path('domaine_voir_page', {'nom' : page.nom, 'idpage' : page.id }) }} " >  
+                    {{ page.nom|upper }} 
+                  </a>
+                </li>
+              {% endif %}
             {% endif %}
                       
         {% endfor %}
@@ -41,47 +49,276 @@
 {% endblock %}    
 
 {% block carousel %}
-    <section id="main-slider" class="no-margin">
-    	{% if page_courant.photos is not empty %}
-        <div class="carousel slide">
+<div class="row">
+  <section id="main-slider" class="col-lg-8 col-sm-8 col-xs-12 no-margin">      
+        <div id="myCarousel{{ page_courant.id }}" class="carousel slide" data-ride="carousel">    
+            <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
-                <li data-target="#main-slider" data-slide-to="1"></li>
-                <li data-target="#main-slider" data-slide-to="2"></li>
+              <li data-target="#myCarousel{{ page_courant.id }}" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel{{ page_courant.id }}" data-slide-to="1"></li>
+              <li data-target="#myCarousel{{ page_courant.id }}" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner" role="listbox">
-            	{% for photo in page_courant.photos %}
-            	{% if photo.numero == 0 %}
-                <div class="item" style="background-image: url({{asset(photo.webPath)}})">
-                    <div class="col-lg-8">
-                                <div class="carousel-content">
-                                    {% if photo.description is not empty %}
-                                    <h2 class="animation animated-item-2">{{ photo.description|raw }} </h2>
-                                    {% endif %}
-                                </div>
-                            </div>
-                    
-                </div><!--/.item-->
+     
+            <div class="row-fluid carousel-inner" role="listbox">
+             
+              {% if page_courant.photos is not empty %}
+                {% for photo in page_courant.photos %}
+                {% if photo.numero == 0 %}
+                <div class="item">
+                    <img class="col-lg-12" src="{{asset(photo.webPath)}} " alt="coaching entreprise, accompagnement conseil" title="cabinet consulting">
+                  
+                    <div class="col-lg-8 col-xs-12 carousel-caption">
+                        {% if photo.description is not empty %}
+                            <p class="animation animated-item-2">
+                                {{ photo.description|raw }} 
+                            </p>
+                        {% endif %}
+                    </div>
+                  
+                </div>
+                          
                 {% endif %}
                 {% endfor %}
-            </div><!--/.carousel-inner-->
-        </div><!--/.carousel-->
-        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-        <a class="next hidden-xs" href="#main-slider" data-slide="next">
-            <i class="fa fa-chevron-right"></i>
-        </a>
+              {% endif %}
+            </div>
+            <a class="left carousel-control" href="#myCarousel{{ page_courant.id }}" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel{{ page_courant.id }}" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>        
+        </div><!-- /.carousel -->
+  </section><!--/#main-slider-->
+  <section class="col-lg-4 col-sm-4 col-xs-12" id="metiers">
+        {% if metier_consulting is not empty %}
+        <div class="metier_consulting">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_consulting.nom, 'idpage' : metier_consulting.id })}} ">Consulting</a></h3>
+            </div>
+        </div>
         {% endif %}
-    </section><!--/#main-slider-->
+        {% if metier_services is not empty %}
+        <div class="metier_service">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_services.nom, 'idpage' : metier_services.id })}} ">Services</a></h3>
+            </div>
+        </div>
+        {% endif %}
+        {% if metier_formations is not empty %}
+        <div class="metier_formation">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_formations.nom, 'idpage' : metier_formations.id })}} ">Formations</a></h3>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+</div>
 {% endblock %}
 
 {% block contenu %}
-  <div class="container">
-    <h1 style="color : black">{{ page_courant.nom }} </h1>
-    {{ page_courant.contenu|raw }}
-  </div>
-{% endblock %} 
+  {% if page_courant.nom == 'Contact' %}
+    <div class="row" id="contenu">
+      <div class="col-lg-2 col-sm-2 col-xs-7">
+        <p style="font-size : 1.5em;text-align:center">Adresse</p>
+        <p>{{ page_courant.contenu|raw }}</p>
+      </div>
+      <div class="col-lg-6 col-sm-6 col-xs-12">
+        <p style="font-size : 1.5em;">CONTACT</p>
+        <p style="text-align : justify;">
+          Vous souhaitez prendre contact avec nous ? Veuillez remplir le formulaire ci-dessous. Un collaborateur prendra contact avec vous dans les plus brefs délais.
+        <hr>
+        </p>
+       
+        <form action="{{path('domaine_formulaire_de_contact',{'idpage' : page_courant.id })}} " method="post"  id="form_contact" class="col-lg-6 col-lg-offset-3">
+          <div class="form-group">
+            <label for="nom">Nom et Prénom</label>
+            <input style="background-color : black; color : white" type="text" class="form-control" name="nom" id="nom" placeholder="Nom & Prénom" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input style="background-color : black; color : white" type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+          </div>
+          <div class="form-group">
+            <label for="telephone">Téléphone</label>
+            <input style="background-color : black; color : white" type="number" class="form-control" name="telephone" id="telephone" placeholder="Téléphone">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea style="background-color : black; color : white" name="message" id="message" class="form-control" rows="3"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-default">Envoyer</button>
+        </form>
+      </div>
+      <div class="col-lg-4 col-sm-4 col-xs-12">
+            <div class="col-lg-12 publications">
+                <p><strong>Actualités</strong></p>
+                {% if articles is not empty %}
+                    {% for article in articles %}
+                    <div class="col-lg-12">
+                        <a href="{{path('domaine_voir_article', {'titre' : article.titre, 'idarticle' : article.id })}} ">{{ article.titre }} </a>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-lg-12 publications" style="margin-top : 10px">
+                <p><strong>Publications</strong></p>
+                {% if publications is not empty %}
+                    {% for publication in publications %}
+                    <div class="col-lg-12">
+                        <a href="{{path('domaine_voir_article', {'titre' : publication.titre, 'idarticle' : publication.id })}} ">{{ publication.titre }} </a>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+  {% elseif page_courant.nom == 'Carrière' %}
+    <div class="row" id="contenu">
+        <div class="col-lg-2 col-sm-2 col-xs-7">
+            <div class="row">
+                <ul class="nav">
+                    {% if page_formation is not empty %}
+                        <li> 
+                            <a href="{{path('domaine_voir_page', {'nom' : page_formation.nom, 'idpage' : page_formation.id })}} ">Séminaires
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li> <a href="{{path('domaine_voir_partenaires')}} ">Nos partenaires</a> </li>
+                    <li> 
+                        <a href="{{path('domaine_voir_equipe')}} ">Notre Equipe</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="row-fluid">
+                <ul class="social-share">
+                    <li>
+                        <a href="https://www.facebook.com/pages/KFinvest-Consulting/274059272760914?fref=ts" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li><a href="https://twitter.com/KFinvest?lang=fr" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li> 
+                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                </ul>   
+            </div>
+            <hr>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+          <p style="font-size : 1.5em;"><strong>{{ page_courant.nom }} </strong> </p>
+          {{ page_courant.contenu|raw }}
+        </div>
+        <div class="col-lg-4 col-sm-4 col-xs-12">
+            <div class="col-lg-12 col-sm-10 col-xs-12" id="publications">
+              <p><strong>Déposez une candidature</strong></p>
+            </div>
+            <form action="{{path('domaine_depot_de_cv',{'idpage' : page_courant.id })}} " method="post"  id="form_candidature" class="col-lg-12 col-sm-10 col-xs-12">
+              <div class="form-group">
+                <label for="candidat">Nom et Prénom</label>
+                <input type="text" class="form-control" nom="candidat" id="candidat" placeholder="Nom & prenom">
+              </div>
+              <div class="form-group">
+                <label for="fichier_cv">Télécharger CV</label>
+                <input type="file" name="fichier_cv" id="fichier_cv" required>
+              </div>
+              <div class="form-group">
+                <label for="lettre_motivation">Votre motivation</label>
+                <textarea name="lettre_motivation" id="lettre_motivation" class="form-control" rows="3" required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-default">Envoyer</button>
+            </form>
+        </div>
+    </div>
+  {% else %}
+    <div class="row" id="contenu">
+        <div class="col-lg-2 col-sm-2 col-xs-7">
+            <div class="row">
+                <ul class="nav">
+                    {% if page_formation is not empty %}
+                        <li> 
+                            <a href="{{path('domaine_voir_page', {'nom' : page_formation.nom, 'idpage' : page_formation.id })}} ">Séminaires
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                      <a href="{{path('domaine_voir_partenaires')}} ">Nos partenaires</a>
+                    </li>
+                    <!--
+                    <li> 
+                        <a href="{{path('domaine_voir_equipe')}} ">Notre Equipe</a>
+                    </li>
+                    -->
+                </ul>
+            </div>
+            <div class="row-fluid">
+                <ul class="social-share">
+                    <li>
+                        <a href="https://www.facebook.com/pages/KFinvest-Consulting/274059272760914?fref=ts">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li> 
+                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                </ul>   
+            </div>
+            <hr>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+          <p style="font-size : 1.5em;"><strong>{{ page_courant.nom }} </strong> </p>
+          {{ page_courant.contenu|raw }}
+
+          {% if page_courant.documents is not empty %}
+          <div class="row-fluid">
+            <p>Pièces jointes :</p>
+            <ul>
+              {% for document in page_courant.documents %}
+              <li>
+                <a href="{{path('domaine_admin_voir_document_page', {'iddocument' : document.id })}} " target="blank">
+                  {{ document.nom }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+          
+        </div>
+        <div class="col-lg-4 col-sm-4 col-xs-12">
+            <div class="col-lg-12 publications">
+                <p><strong>Actualités</strong></p>
+                {% if articles is not empty %}
+                    {% for article in articles %}
+                    <div class="col-lg-12">
+                        <a href="{{path('domaine_voir_article', {'titre' : article.titre, 'idarticle' : article.id })}} ">{{ article.titre }} </a>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-lg-12 publications" style="margin-top : 10px">
+                <p><strong>Publications</strong></p>
+                {% if publications is not empty %}
+                    {% for publication in publications %}
+                    <div class="col-lg-12">
+                        <a href="{{path('domaine_voir_article', {'titre' : publication.titre, 'idarticle' : publication.id })}} ">{{ publication.titre }} </a>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+  {% endif %}
+{% endblock %}
+ 
 
 
 {% block script %}

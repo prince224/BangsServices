@@ -30,6 +30,13 @@ class SousMenu
 
     /**
     *
+    * @ORM\OneToMany(targetEntity="Cms\DomaineBundle\Entity\Document", mappedBy="sousmenu", cascade={"persist", "remove"})
+    *
+    */
+    private $documents;
+
+    /**
+    *
     * @ORM\ManyToOne(targetEntity="Cms\PageBundle\Entity\Page", inversedBy="sousmenus")
     *
     */
@@ -215,5 +222,39 @@ class SousMenu
     public function getSections()
     {
         return $this->sections;
+    }
+
+    /**
+     * Add documents
+     *
+     * @param \Cms\DomaineBundle\Entity\Document $documents
+     * @return SousMenu
+     */
+    public function addDocument(\Cms\DomaineBundle\Entity\Document $documents)
+    {
+        $this->documents[] = $documents;
+        $documents->setSousmenu($this);
+    
+        return $this;
+    }
+
+    /**
+     * Remove documents
+     *
+     * @param \Cms\DomaineBundle\Entity\Document $documents
+     */
+    public function removeDocument(\Cms\DomaineBundle\Entity\Document $documents)
+    {
+        $this->documents->removeElement($documents);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
     }
 }

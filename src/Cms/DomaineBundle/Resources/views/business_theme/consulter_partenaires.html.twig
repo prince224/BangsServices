@@ -1,0 +1,165 @@
+{% extends "::layout_business.html.twig" %}
+
+{% block menu %}
+    {{ render(controller('DomaineBundle:Default:inserer_menu_page')) }}
+{% endblock %}    
+
+{% block carousel %}
+    <div class="row">
+    <section id="main-slider" class="col-lg-8 col-sm-8 col-xs-12 no-margin">
+        <div id="myCarousel{{ page.id }}" class="carousel slide" data-ride="carousel">    
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel{{ page.id }}" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel{{ page.id }}" data-slide-to="1"></li>
+              <li data-target="#myCarousel{{ page.id }}" data-slide-to="2"></li>
+            </ol>
+     
+            <div class="row-fluid carousel-inner" role="listbox">
+             
+              {% if page.photos is not empty %}
+                {% for photo in page.photos %}
+                {% if photo.numero == 0 %}
+                <div class="item">
+                    <img class="col-lg-12 col-md-12 col-xs-12" src="{{asset(photo.webPath)}} " alt="coaching entreprise, accompagnement conseil" title="cabinet consulting">
+                  
+                    <div class="col-lg-8 col-xs-12 carousel-caption">
+                        {% if photo.description is not empty %}
+                            <p class="animation animated-item-2">
+                                {{ photo.description|raw }} 
+                            </p>
+                        {% endif %}
+                    </div>
+                  
+                </div>
+                          
+                {% endif %}
+                {% endfor %}
+              {% endif %}
+            </div>
+            <a class="left carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel{{ page.id }}" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>        
+        </div><!-- /.carousel -->
+    </section><!--/#main-slider-->
+    <section class="col-lg-4 col-sm-4 col-xs-12" id="metiers">
+        {% if metier_consulting is not empty %}
+        <div class="metier_consulting">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_consulting.nom, 'idpage' : metier_consulting.id })}} ">Consulting</a></h3>
+            </div>
+        </div>
+        {% endif %}
+        {% if metier_services is not empty %}
+        <div class="metier_service">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_services.nom, 'idpage' : metier_services.id })}} ">Services</a></h3>
+            </div>
+        </div>
+        {% endif %}
+        {% if metier_formations is not empty %}
+        <div class="metier_formation">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_formations.nom, 'idpage' : metier_formations.id })}} ">Formations</a></h3>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
+
+{% block contenu %}
+    <div class="row" id="contenu">
+        <div class="col-lg-2 col-sm-2 col-xs-8">
+            <div class="row">
+                <ul class="nav">
+                    {% if page_formation is not empty %}
+                        <li> 
+                            <a href="{{path('domaine_voir_page', {'nom' : page_formation.nom, 'idpage' : page_formation.id })}} ">Séminaires
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li>
+                        <a href="{{path('domaine_voir_partenaires')}} ">Nos partenaires</a>
+                    </li>
+                    <!--
+                    <li> 
+                        <a href="{{path('domaine_voir_equipe')}} ">Notre Equipe</a>
+                    </li>
+                    -->
+                </ul>
+            </div>
+          
+            <div class="row-fluid">
+                <ul class="social-share">
+                    <li>
+                        <a href="https://www.facebook.com/pages/KFinvest-Consulting/274059272760914?fref=ts" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li><a href="https://twitter.com/KFinvest?lang=fr" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li> 
+                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                </ul>   
+            </div>
+            <hr>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+            <div></div>
+            {% for partenaire in partenaires %}
+                {% if partenaire is not empty and partenaire.nompartenaire is not empty %}
+                <div class="col-lg-4 col-sm-4 col-xs-5">
+                    <div class="row-fluid" style="text-align : center">
+                        {{ partenaire.nompartenaire }}
+                    </div>
+                    <div class="row-fluid">
+                        {% if partenaire.photo is not empty %}
+                            <img class="col-lg-12 col-sm-12 col-xs-12" src="{{asset(partenaire.photo.webPath)}} ">
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div class="col-lg-4 col-sm-4 col-xs-12">
+            <div class="col-lg-12 publications">
+                <p><strong>Actualités</strong></p>
+                {% if articles is not empty %}
+                    {% for article in articles %}
+                    <div class="col-lg-12">
+                        <a href="{{path('domaine_voir_article', {'titre' : article.titre, 'idarticle' : article.id })}} ">{{ article.titre }} </a>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-lg-12 publications" style="margin-top : 10px">
+                <p><strong>Publications</strong></p>
+                {% if publications is not empty %}
+                    {% for publication in publications %}
+                    <div class="col-lg-12">
+                        <a href="{{path('domaine_voir_article', {'titre' : publication.titre, 'idarticle' : publication.id })}} ">{{ publication.titre }} </a>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{% block script %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".carousel-inner div:nth-child(1)").addClass('active');
+		});
+	</script>
+{% endblock %}

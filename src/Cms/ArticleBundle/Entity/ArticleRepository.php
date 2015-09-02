@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleRepository extends EntityRepository
 {
+
 	public function getArticlesPublies()
 	{
 		$publier = 1;
@@ -19,11 +20,29 @@ class ArticleRepository extends EntityRepository
 		$qb = $this->createQueryBuilder('a')
 				   ->Where('a.publier = :publier')
 				   ->setParameter('publier', $publier)
-
+				   ->andWhere('a.type = :article')
+				   ->setParameter('article', 'Article')
 				   ;
 
 		return $qb->getQuery()
             	  ->getResult();
 
 	}
+
+	public function getPublicationsPublies()
+	{
+		$publier = 1;
+
+		$qb = $this->createQueryBuilder('a')
+				   ->Where('a.publier = :publier')
+				   ->setParameter('publier', $publier)
+				   ->andWhere('a.type = :publication')
+				   ->setParameter('publication', 'Publication')
+				   ;
+
+		return $qb->getQuery()
+            	  ->getResult();
+
+	}
+
 }

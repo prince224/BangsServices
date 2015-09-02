@@ -12,7 +12,7 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ page.nom|upper }} <i class="fa fa-angle-down"></i></a>
                   <ul class="dropdown-menu">
                     {% for sousmenu in page.sousmenus %}
-                      <li> <a href="{{path('domaine_voir_sous_menu', {'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
+                      <li> <a href="{{path('domaine_voir_sous_menu', {'nom' : sousmenu.nom, 'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
                     {% endfor %}
                   </ul>
                 </li>
@@ -21,14 +21,14 @@
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ page.nom|upper }} <i class="fa fa-angle-down"></i></a>
                   <ul class="dropdown-menu">
                     {% for sousmenu in page.sousmenus %}
-                      <li> <a href="{{path('domaine_voir_sous_menu', {'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
+                      <li> <a href="{{path('domaine_voir_sous_menu', {'nom' : sousmenu.nom, 'idsousmenu' : sousmenu.id })}} ">{{ sousmenu.nom }} </a></li>
                     {% endfor %}
                   </ul>
                 </li>
               {% endif %}
             {% else %}
               <li>
-                <a href="{{ path('domaine_voir_page', {'idpage' : page.id }) }} " >  
+                <a href="{{ path('domaine_voir_page', {'nom' : page.nom, 'idpage' : page.id }) }} " >  
                   {{ page.nom|upper }} 
                 </a>
               </li>
@@ -40,49 +40,156 @@
 {% endfor %}
 {% endblock %}    
 
-
 {% block carousel %}
-    <section id="main-slider" class="no-margin">
-      {% if sous_menu_a_voir.photos is not empty %}
-        <div class="carousel slide">
+<div class="row">
+    <section id="main-slider" class="col-lg-8 col-sm-8 col-xs-12 no-margin">
+        <div id="myCarousel{{ sous_menu_a_voir.id }}" class="carousel slide" data-ride="carousel">    
+            <!-- Indicators -->
             <ol class="carousel-indicators">
-                <li data-target="#main-slider" data-slide-to="0" class="active"></li>
-                <li data-target="#main-slider" data-slide-to="1"></li>
-                <li data-target="#main-slider" data-slide-to="2"></li>
+              <li data-target="#myCarousel{{ sous_menu_a_voir.id }}" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel{{ sous_menu_a_voir.id }}" data-slide-to="1"></li>
+              <li data-target="#myCarousel{{ sous_menu_a_voir.id }}" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner" role="listbox">
-              {% for photo in sous_menu_a_voir.photos %}
-              {% if photo.numero == 1 %}
-                <div class="item" style="background-image: url({{asset(photo.webPath)}})">
-                   <div class="col-lg-8">
-                      <div class="carousel-content">
-                                    {% if photo.description is not empty %}
-                                    <h2 class="animation animated-item-2">{{ photo.description|raw }} </h2>
-                                    {% endif %}
-                                </div>
-                  </div>
+     
+            <div class="row-fluid carousel-inner" role="listbox">
+             
+              {% if sous_menu_a_voir.photos is not empty %}
+                {% for photo in sous_menu_a_voir.photos %}
+                {% if photo.numero == 1 %}
+                <div class="item">
+                    <img class="col-lg-12" src="{{asset(photo.webPath)}} " alt="coaching entreprise, accompagnement conseil" title="cabinet consulting">
                   
-                </div><!--/.item-->
+                    <div class="col-lg-8 col-xs-12 carousel-caption">
+                        {% if photo.description is not empty %}
+                            <p class="animation animated-item-2">
+                                {{ photo.description|raw }} 
+                            </p>
+                        {% endif %}
+                    </div>
+                  
+                </div>
+                          
                 {% endif %}
                 {% endfor %}
-            </div><!--/.carousel-inner-->
-        </div><!--/.carousel-->
-        <a class="prev hidden-xs" href="#main-slider" data-slide="prev">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-        <a class="next hidden-xs" href="#main-slider" data-slide="next">
-            <i class="fa fa-chevron-right"></i>
-        </a>
-        {% endif %}
+              {% endif %}
+            </div>
+            <a class="left carousel-control" href="#myCarousel{{ sous_menu_a_voir.id }}" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel{{ sous_menu_a_voir.id }}" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>        
+        </div><!-- /.carousel -->
     </section><!--/#main-slider-->
+    <section class="col-lg-4 col-sm-4 col-xs-12" id="metiers">
+        {% if metier_consulting is not empty %}
+        <div class="metier_consulting">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_consulting.nom, 'idpage' : metier_consulting.id })}} ">Consulting</a></h3>
+            </div>
+        </div>
+        {% endif %}
+        {% if metier_services is not empty %}
+        <div class="metier_service">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_services.nom, 'idpage' : metier_services.id })}} ">Services</a></h3>
+            </div>
+        </div>
+        {% endif %}
+        {% if metier_formations is not empty %}
+        <div class="metier_formation">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <h3><a href="{{path('domaine_voir_page', {'nom' : metier_formations.nom, 'idpage' : metier_formations.id })}} ">Formations</a></h3>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+</div>
 {% endblock %}
 
 {% block contenu %}
-  <div class="container">
-    <h1 style="color : black">{{ sous_menu_a_voir.nom }} </h1>
-    {{ sous_menu_a_voir.contenu|raw }}
-  </div>
+    <div class="row" id="contenu">
+        <div class="col-lg-2 col-sm-2 col-xs-7">
+            <div class="row">
+                <ul class="nav">
+                    
+                    {% if page_formation is not empty %}
+                        <li> 
+                            <a href="{{path('domaine_voir_page', {'nom' : page_formation.nom, 'idpage' : page_formation.id })}} ">Séminaires
+                            </a>
+                        </li>
+                    {% endif %}
+                    <li> <a href="{{path('domaine_voir_partenaires')}} ">Nos partenaires</a> </li>
+                   <!--
+                    <li> 
+                        <a href="{{path('domaine_voir_equipe')}} ">Notre Equipe</a>
+                    </li>
+                    -->
+                </ul>
+            </div>
+            <div class="row-fluid">
+                <ul class="social-share">
+                    <li>
+                        <a href="https://www.facebook.com/pages/KFinvest-Consulting/274059272760914?fref=ts" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li><a href="https://twitter.com/KFinvest?lang=fr" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li> 
+                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                </ul>   
+            </div>
+            <hr>
+        </div>
+        <div class="col-lg-6 col-sm-6 col-xs-12">
+          <p style="font-size : 1.5em;"><strong>{{ sous_menu_a_voir.nom }}</strong></p>
+          <p>  {{ sous_menu_a_voir.contenu|raw }}</p>
+          {% if sous_menu_a_voir.documents is not empty %}
+            <strong>Pièces jointes : </strong>
+            <div class="col-lg-12">
+              {% for document in sous_menu_a_voir.documents %}
+                
+                    <li class="col-lg-6">
+                        <a href="{{path('domaine_admin_voir_document_page', {'iddocument' : document.id })}} " target="_blank">
+                            {{ document.nom }}
+                        </a>
+                    </li>
+                
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+        
+        <div class="col-lg-4 col-sm-4 col-xs-12">
+            <div class="col-lg-12 publications">
+                <p><strong>Actualités</strong></p>
+                {% if articles is not empty %}
+                    {% for article in articles %}
+                    <div class="col-lg-12">
+                        <a href="{{path('domaine_voir_article', {'titre' : article.titre, 'idarticle' : article.id })}} ">{{ article.titre }} </a>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <div class="col-lg-12 publications" style="margin-top : 10px">
+                <p><strong>Publications</strong></p>
+                {% if publications is not empty %}
+                    {% for publication in publications %}
+                    <div class="col-lg-12">
+                        <a href="{{path('domaine_voir_article', {'titre' : publication.titre, 'idarticle' : publication.id })}} ">{{ publication.titre }} </a>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
 
 
 {% block script %}

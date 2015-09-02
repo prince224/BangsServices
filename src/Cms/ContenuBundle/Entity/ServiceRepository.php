@@ -12,4 +12,19 @@ use Doctrine\ORM\EntityRepository;
  */
 class ServiceRepository extends EntityRepository
 {
+	public function findAll()
+	{
+		$publier = 1;
+		
+		$qb = $this->createQueryBuilder('s')
+				   ->Where('s.publier = :publier')
+				   ->setParameter('publier', $publier)
+
+
+				   ;
+
+		return $qb->getQuery()
+            	  ->getResult();
+
+	}
 }
